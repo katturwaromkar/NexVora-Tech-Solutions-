@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexVora Tech Solutions | Next-Gen Enterprise Software & AI Innovations</title>
+  <meta name="description" content="NexVora Tech Solutions is a premier technology startup specializing in Custom Software, Enterprise ERPs, SaaS Products, AI Automation, and Modern Web Engineering. Founded by Omkar Katturwar.">
+  <meta name="keywords" content="NexVora, Tech Solutions, Software Company, AI Products, School ERP, Hospital MIS, Custom Web Development, Omkar Katturwar">
+  
+  <!-- Security HTTP Header Policy Meta Tags -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src 'self' https://www.google.com; connect-src 'self' https://wa.me https://api.whatsapp.com;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="NexVora Tech Solutions | Next-Gen Software & AI Innovations">
+  <meta property="og:description" content="Empowering global enterprises with modern SaaS platforms, AI automation, and custom web development.">
+  <meta property="og:type" content="website">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Ambient Glow Orbs -->
+  <div class="bg-glow-orb orb-primary"></div>
+  <div class="bg-glow-orb orb-secondary"></div>
+  <div class="bg-glow-orb orb-accent"></div>
+
+  <!-- Header Navigation -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon-box">N</div>
+        <span>Nex<span class="text-gradient">Vora</span></span>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        
+        <!-- Services Dropdown -->
+        <div class="nav-item-dropdown">
+          <a href="services.html" class="nav-link dropdown-trigger">
+            Services
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+          <div class="dropdown-menu">
+            <a href="services.html" class="dropdown-item">Web Development</a>
+            <a href="services.html" class="dropdown-item">Mobile App Development</a>
+            <a href="services.html" class="dropdown-item">Enterprise ERP & CRM</a>
+            <a href="services.html" class="dropdown-item">AI Chatbot & Automation</a>
+            <a href="services.html" class="dropdown-item">Cloud & DevOps Solutions</a>
+            <a href="services.html" class="dropdown-item">UI/UX Product Design</a>
+          </div>
+        </div>
+
+        <a href="industries.html" class="nav-link">Industries</a>
+        <a href="templates.html" class="nav-link">Templates</a>
+        
+        <!-- Products Mega Menu -->
+        <div class="nav-item-dropdown">
+          <a href="products.html" class="nav-link dropdown-trigger">
+            Products
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+          <div class="mega-menu">
+            <div>
+              <div class="mega-col-title">Enterprise ERP</div>
+              <a href="products.html" class="dropdown-item">School ERP Suite</a>
+              <a href="products.html" class="dropdown-item">College MIS Platform</a>
+              <a href="products.html" class="dropdown-item">Hospital Management ERP</a>
+              <a href="products.html" class="dropdown-item">Manufacturing ERP</a>
+            </div>
+            <div>
+              <div class="mega-col-title">AI Products</div>
+              <a href="ai-products.html" class="dropdown-item">AI Voice Calling Agent</a>
+              <a href="ai-products.html" class="dropdown-item">AI Resume Screen Assistant</a>
+              <a href="ai-products.html" class="dropdown-item">AI Document OCR & Analytics</a>
+              <a href="ai-products.html" class="dropdown-item">AI Inventory Predictor</a>
+            </div>
+            <div>
+              <div class="mega-col-title">SaaS & Automation</div>
+              <a href="products.html" class="dropdown-item">Retail POS & Billing</a>
+              <a href="products.html" class="dropdown-item">Smart HRMS & Payroll</a>
+              <a href="products.html" class="dropdown-item">Lead & Sales CRM</a>
+              <a href="products.html" class="dropdown-item">Hotel & Restaurant POS</a>
+            </div>
+          </div>
+        </div>
+
+        <a href="portfolio.html" class="nav-link">Portfolio</a>
+        <a href="clients.html" class="nav-link">Clients</a>
+        <a href="team.html" class="nav-link">Team</a>
+        <a href="careers.html" class="nav-link">Careers</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-primary btn-sm" data-modal-target="demoModal" data-modal-title="Schedule a Live Enterprise Demo">
+          Book Demo
+        </button>
+        <div class="hamburger-btn" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-nav-overlay"></div>
+  <aside class="mobile-nav-drawer">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon-box">N</div>
+        <span>Nex<span class="text-gradient">Vora</span></span>
+      </a>
+      <div class="close-drawer-btn">&times;</div>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">Home</a>
+      <a href="about.html" class="mobile-nav-link">About Us</a>
+      <a href="services.html" class="mobile-nav-link">Services</a>
+      <a href="industries.html" class="mobile-nav-link">Industries</a>
+      <a href="templates.html" class="mobile-nav-link">Templates</a>
+      <a href="products.html" class="mobile-nav-link">SaaS Products</a>
+      <a href="ai-products.html" class="mobile-nav-link">AI Products</a>
+      <a href="portfolio.html" class="mobile-nav-link">Portfolio</a>
+      <a href="clients.html" class="mobile-nav-link">Clients</a>
+      <a href="team.html" class="mobile-nav-link">Team</a>
+      <a href="blog.html" class="mobile-nav-link">Blog</a>
+      <a href="careers.html" class="mobile-nav-link">Careers</a>
+      <a href="contact.html" class="mobile-nav-link">Contact</a>
+    </nav>
+    <div style="margin-top:auto; padding-top:2rem;">
+      <button class="btn btn-primary" style="width:100%;" data-modal-target="demoModal" data-modal-title="Book Enterprise Demo">
+        Book Free Consultation
+      </button>
+    </div>
+  </aside>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content reveal-left">
+          <div class="section-tag pulse-badge">
+            <span class="pulse-dot"></span>
+            Next-Gen Technology Startup
+          </div>
+          <h1>Architecting The Future of <span class="text-gradient">Enterprise Software & AI</span></h1>
+          <p class="hero-description">
+            NexVora Tech Solutions builds mission-critical SaaS products, high-performance web applications, customized ERP ecosystems, and AI automation engines for modern businesses worldwide.
+          </p>
+          <div class="hero-btn-group">
+            <a href="products.html" class="btn btn-primary btn-lg">
+              Explore SaaS Products
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <button class="btn btn-secondary btn-lg" data-modal-target="demoModal" data-modal-title="Request Custom Software Consultation">
+              Request Consultation
+            </button>
+          </div>
+          
+          <div class="hero-trust-badges">
+            <div class="trust-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>99.99% Cloud Uptime</span>
+            </div>
+            <div class="trust-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>ISO & SOC2 Ready</span>
+            </div>
+            <div class="trust-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>250+ Successful Deployments</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal-right">
+          <div class="hero-mockup-card card-shine">
+            <div class="mockup-header">
+              <span class="mockup-dot dot-red"></span>
+              <span class="mockup-dot dot-yellow"></span>
+              <span class="mockup-dot dot-green"></span>
+              <span style="font-size:0.8rem;color:var(--text-subtle);margin-left:0.5rem;">nexvora-ai-control-center.v2</span>
+            </div>
+            <div class="mockup-body">
+              <div class="mockup-stat-box">
+                <div style="font-size:0.8rem;color:var(--text-muted);">Active Cloud Nodes</div>
+                <div class="mockup-stat-val">1,248</div>
+                <div style="font-size:0.75rem;color:var(--accent);">+24% this week</div>
+              </div>
+              <div class="mockup-stat-box">
+                <div style="font-size:0.8rem;color:var(--text-muted);">AI Inferences / sec</div>
+                <div class="mockup-stat-val">42.8k</div>
+                <div style="font-size:0.75rem;color:var(--primary);">Real-time Neural API</div>
+              </div>
+              <div class="mockup-stat-box" style="grid-column: 1 / -1;">
+                <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.4rem;">Enterprise Workflow Automation</div>
+                <div style="height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;">
+                  <div class="progress-fill" data-progress="94%" style="height:100%;background:var(--gradient-primary);width:0%;transition:width 1.5s ease;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="floating-badge badge-top-right">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--accent);"></div>
+            <div>
+              <div style="font-weight:700;font-size:0.85rem;">AI Chatbot Live</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);">Responding in 12ms</div>
+            </div>
+          </div>
+
+          <div class="floating-badge badge-bottom-left">
+            <div style="color:var(--secondary);font-weight:bold;font-size:1.1rem;">★ 4.9/5</div>
+            <div>
+              <div style="font-weight:700;font-size:0.85rem;">Client Satisfaction</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);">Across 150+ Reviews</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistics Bar -->
+  <section class="stats-bar-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="glass-card reveal">
+          <div class="stat-number counter-val text-gradient" data-target="250" data-suffix="+">0</div>
+          <div class="stat-label">Projects Completed</div>
+        </div>
+        <div class="glass-card reveal delay-1">
+          <div class="stat-number counter-val text-gradient-pink" data-target="99" data-suffix=".9%">0</div>
+          <div class="stat-label">Cloud Systems Uptime</div>
+        </div>
+        <div class="glass-card reveal delay-2">
+          <div class="stat-number counter-val text-gradient" data-target="35" data-suffix="+">0</div>
+          <div class="stat-label">SaaS & AI Products</div>
+        </div>
+        <div class="glass-card reveal delay-3">
+          <div class="stat-number counter-val text-gradient-pink" data-target="18" data-suffix="+">0</div>
+          <div class="stat-label">Industries Served</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Highlights -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="section-title-wrap reveal">
+        <div class="section-tag">End-to-End Capabilities</div>
+        <h2 class="section-title">Engineered For Scale & Innovation</h2>
+        <p class="section-subtitle">We deliver full-stack enterprise solutions, customized software ecosystems, and breakthrough AI engines tailored to your growth goals.</p>
+      </div>
+
+      <div class="services-grid">
+        <!-- Service Card 1 -->
+        <div class="glass-card service-card reveal">
+          <div>
+            <div class="service-icon-wrap">💻</div>
+            <h3>Custom Web Development</h3>
+            <p>Ultra-fast, SEO-optimized, highly responsive web platforms built with modular clean code for maximum security and scalability.</p>
+          </div>
+          <a href="services.html" class="service-link">
+            Explore Details
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Service Card 2 -->
+        <div class="glass-card service-card reveal delay-1">
+          <div>
+            <div class="service-icon-wrap">🏢</div>
+            <h3>Enterprise ERP & CRM</h3>
+            <p>Comprehensive School ERP, Hospital MIS, Retail POS, HRMS, and Manufacturing ERP built to streamline operations and boost revenue.</p>
+          </div>
+          <a href="services.html" class="service-link">
+            Explore Details
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Service Card 3 -->
+        <div class="glass-card service-card reveal delay-2">
+          <div>
+            <div class="service-icon-wrap">🤖</div>
+            <h3>AI Solutions & Automation</h3>
+            <p>Next-gen AI Chatbots, Voice Calling Agents, Smart OCR Document Processing, Resume Screening, and Predictive Business Dashboards.</p>
+          </div>
+          <a href="services.html" class="service-link">
+            Explore Details
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured SaaS Products Spotlight -->
+  <section class="section-padding" style="background: rgba(15, 23, 42, 0.4);">
+    <div class="container">
+      <div class="section-title-wrap reveal">
+        <div class="section-tag">Flagship Products</div>
+        <h2 class="section-title">Production-Ready SaaS Suites</h2>
+        <p class="section-subtitle">Turnkey enterprise software engineered to automate complex organizational workflows out of the box.</p>
+      </div>
+
+      <div class="products-grid">
+        <!-- Product 1 -->
+        <div class="glass-card product-card reveal">
+          <span class="product-tag">Education ERP</span>
+          <h3>Smart School & College ERP</h3>
+          <p style="color:var(--text-muted);font-size:0.95rem;margin-top:0.5rem;">Complete campus administration platform with Student Admission, Fee Automation, Attendance, Exam Management, and Parent Portal.</p>
+          <div class="product-modules-list">
+            <span class="module-badge">Fees & Accounts</span>
+            <span class="module-badge">Biometric Attendance</span>
+            <span class="module-badge">Report Cards</span>
+            <span class="module-badge">Transport GPS</span>
+          </div>
+          <div style="display:flex;gap:1rem;margin-top:auto;padding-top:1rem;">
+            <a href="products.html" class="btn btn-primary btn-sm" style="flex:1;">View Product</a>
+            <button class="btn btn-secondary btn-sm" data-modal-target="demoModal" data-modal-title="Book Smart School ERP Demo">Book Demo</button>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="glass-card product-card reveal delay-1">
+          <span class="product-tag">Healthcare ERP</span>
+          <h3>Hospital & Clinic MIS Suite</h3>
+          <p style="color:var(--text-muted);font-size:0.95rem;margin-top:0.5rem;">Unified healthcare management system connecting OPD/IPD Registration, Doctor Scheduling, Electronic Health Records (EHR), and Pharmacy POS.</p>
+          <div class="product-modules-list">
+            <span class="module-badge">OPD / IPD Billing</span>
+            <span class="module-badge">Lab Information</span>
+            <span class="module-badge">Pharmacy Inventory</span>
+            <span class="module-badge">AI Health Analytics</span>
+          </div>
+          <div style="display:flex;gap:1rem;margin-top:auto;padding-top:1rem;">
+            <a href="products.html" class="btn btn-primary btn-sm" style="flex:1;">View Product</a>
+            <button class="btn btn-secondary btn-sm" data-modal-target="demoModal" data-modal-title="Book Hospital MIS Demo">Book Demo</button>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="glass-card product-card reveal delay-2">
+          <span class="product-tag">AI Innovation</span>
+          <h3>NexVora AI Voice & Calling Agent</h3>
+          <p style="color:var(--text-muted);font-size:0.95rem;margin-top:0.5rem;">Autonomous AI Voice Agent capable of conducting inbound customer support calls, lead qualification, and appointment scheduling in natural human speech.</p>
+          <div class="product-modules-list">
+            <span class="module-badge">Natural Speech Synthesis</span>
+            <span class="module-badge">Multi-lingual Support</span>
+            <span class="module-badge">CRM Integration</span>
+            <span class="module-badge">Sentiment Analytics</span>
+          </div>
+          <div style="display:flex;gap:1rem;margin-top:auto;padding-top:1rem;">
+            <a href="ai-products.html" class="btn btn-accent btn-sm" style="flex:1;">Explore AI Agent</a>
+            <button class="btn btn-secondary btn-sm" data-modal-target="demoModal" data-modal-title="Book AI Voice Agent Demo">Request Demo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Website Templates Preview -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="section-title-wrap reveal">
+        <div class="section-tag">Instant Deployment</div>
+        <h2 class="section-title">Industry-Tailored Website Templates</h2>
+        <p class="section-subtitle">Pre-designed, pixel-perfect, highly convertible website templates ready for immediate launch.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="glass-card reveal">
+          <div style="height:160px;background:linear-gradient(135deg, rgba(6,182,212,0.2), rgba(99,102,241,0.2));border-radius:var(--radius-sm);margin-bottom:1.25rem;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;color:var(--primary);">
+            Hospital & Clinic Portal
+          </div>
+          <h4>Healthcare Website Template</h4>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin:0.5rem 0 1.25rem 0;">Features online doctor appointment booking, service catalog, and patient inquiry portal.</p>
+          <div style="display:flex;gap:0.75rem;">
+            <a href="templates.html" class="btn btn-primary btn-sm" style="flex:1;">Preview Template</a>
+            <button class="btn btn-secondary btn-sm" data-modal-target="demoModal" data-modal-title="Customization Request - Healthcare Template">Customize</button>
+          </div>
+        </div>
+
+        <div class="glass-card reveal delay-1">
+          <div style="height:160px;background:linear-gradient(135deg, rgba(99,102,241,0.2), rgba(236,72,153,0.2));border-radius:var(--radius-sm);margin-bottom:1.25rem;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;color:var(--secondary);">
+            Smart School Portal
+          </div>
+          <h4>Education & Academy Template</h4>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin:0.5rem 0 1.25rem 0;">Built for schools and universities with course listings, fee payment portal, and admissions form.</p>
+          <div style="display:flex;gap:0.75rem;">
+            <a href="templates.html" class="btn btn-primary btn-sm" style="flex:1;">Preview Template</a>
+            <button class="btn btn-secondary btn-sm" data-modal-target="demoModal" data-modal-title="Customization Request - School Template">Customize</button>
+          </div>
+        </div>
+
+        <div class="glass-card reveal delay-2">
+          <div style="height:160px;background:linear-gradient(135deg, rgba(16,185,129,0.2), rgba(6,182,212,0.2));border-radius:var(--radius-sm);margin-bottom:1.25rem;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;color:var(--accent);">
+            Corporate & SaaS Startup
+          </div>
+          <h4>Tech Startup Portal Template</h4>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin:0.5rem 0 1.25rem 0;">Designed for technology startups with feature showcases, pricing tiers, and client reviews.</p>
+          <div style="display:flex;gap:0.75rem;">
+            <a href="templates.html" class="btn btn-primary btn-sm" style="flex:1;">Preview Template</a>
+            <button class="btn btn-secondary btn-sm" data-modal-target="demoModal" data-modal-title="Customization Request - Startup Template">Customize</button>
+          </div>
+        </div>
+      </div>
+      
+      <div style="text-align:center;margin-top:3rem;">
+        <a href="templates.html" class="btn btn-secondary btn-lg">Browse All 50+ Templates →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Workflow -->
+  <section class="section-padding" style="background: rgba(15, 23, 42, 0.5);">
+    <div class="container">
+      <div class="section-title-wrap reveal">
+        <div class="section-tag">How We Execute</div>
+        <h2 class="section-title">Our Engineered Development Process</h2>
+        <p class="section-subtitle">A transparent, agile workflow that ensures rapid deployment without sacrificing code quality or security.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="glass-card reveal">
+          <div style="font-size:2rem;font-weight:800;color:var(--primary);margin-bottom:0.75rem;">01</div>
+          <h3>Requirement Analysis</h3>
+          <p style="color:var(--text-muted);font-size:0.9rem;">We perform deep-dive discovery to map your business bottlenecks, technical specifications, and UX targets.</p>
+        </div>
+        <div class="glass-card reveal delay-1">
+          <div style="font-size:2rem;font-weight:800;color:var(--secondary);margin-bottom:0.75rem;">02</div>
+          <h3>UI/UX Architecture</h3>
+          <p style="color:var(--text-muted);font-size:0.9rem;">Designing glassmorphic wireframes, interactive user flows, and modern SaaS aesthetic design systems.</p>
+        </div>
+        <div class="glass-card reveal delay-2">
+          <div style="font-size:2rem;font-weight:800;color:var(--accent);margin-bottom:0.75rem;">03</div>
+          <h3>Modular Code Build</h3>
+          <p style="color:var(--text-muted);font-size:0.9rem;">Developing clean, high-performance HTML5/CSS3/Vanilla JS code and scalable cloud backend integration.</p>
+        </div>
+        <div class="glass-card reveal delay-3">
+          <div style="font-size:2rem;font-weight:800;color:#EC4899;margin-bottom:0.75rem;">04</div>
+          <h3>Testing & Deployment</h3>
+          <p style="color:var(--text-muted);font-size:0.9rem;">Rigorous automated testing, security audit, and zero-downtime deployment to GitHub Pages or Vercel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Slider -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="section-title-wrap reveal">
+        <div class="section-tag">Client Feedback</div>
+        <h2 class="section-title">Trusted By Visionary Leaders</h2>
+        <p class="section-subtitle">Hear how NexVora Tech Solutions empowered organizations with high-impact software systems.</p>
+      </div>
+
+      <div class="testimonial-slider-wrap glass-card reveal">
+        <div class="testimonial-track">
+          <div class="testimonial-slide">
+            <div class="quote-icon">“</div>
+            <p class="review-text">NexVora Tech Solutions revamped our entire campus administration with their Smart School ERP. Fee collection efficiency increased by 40% in just two months!</p>
+            <div class="client-info">
+              <div class="client-avatar">RS</div>
+              <div>
+                <h4 style="font-size:1.05rem;">Rajesh Sharma</h4>
+                <p style="font-size:0.85rem;color:var(--text-muted);">Director, Apex International Academy</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide">
+            <div class="quote-icon">“</div>
+            <p class="review-text">The AI Voice Calling Agent built by Omkar and the NexVora team automated our entire lead qualification pipeline. Incredible speed and remarkable accuracy.</p>
+            <div class="client-info">
+              <div class="client-avatar">AM</div>
+              <div>
+                <h4 style="font-size:1.05rem;">Ananya Mehta</h4>
+                <p style="font-size:0.85rem;color:var(--text-muted);">Head of Innovation, GrowthLabs Global</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slider-controls">
+          <button class="slider-arrow slider-prev-btn" aria-label="Previous Review">←</button>
+          <button class="slider-arrow slider-next-btn" aria-label="Next Review">→</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section class="section-padding" style="background: rgba(15, 23, 42, 0.4);">
+    <div class="container">
+      <div class="section-title-wrap reveal">
+        <div class="section-tag">Got Questions?</div>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Everything you need to know about working with NexVora Tech Solutions.</p>
+      </div>
+
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What tech stack does NexVora Tech Solutions specialize in?</span>
+            <span class="faq-icon">↓</span>
+          </button>
+          <div class="faq-answer">
+            We specialize in pure HTML5, modern CSS3, and Vanilla JavaScript for frontend performance, coupled with robust REST APIs, Node.js, Python, and cloud services (AWS / Vercel / GitHub Pages) for enterprise reliability.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can we request custom modifications to website templates or SaaS products?</span>
+            <span class="faq-icon">↓</span>
+          </button>
+          <div class="faq-answer">
+            Yes! All our SaaS suites and website templates are 100% customizable to fit your exact operational workflows, branding guidelines, and integration requirements.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How fast can a project be deployed?</span>
+            <span class="faq-icon">↓</span>
+          </button>
+          <div class="faq-answer">
+            Turnkey website templates and standard SaaS modules can be deployed within 48 to 72 hours. Bespoke custom software applications follow our 2 to 4-week sprint delivery schedule.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA Banner -->
+  <section class="section-padding" style="position:relative;overflow:hidden;">
+    <div class="container">
+      <div class="glass-card reveal" style="background:linear-gradient(135deg, rgba(6,182,212,0.15), rgba(99,102,241,0.15));border-color:var(--border-active);text-align:center;padding:4rem 2rem;">
+        <h2 style="font-size:clamp(2rem, 3.5vw, 3rem);margin-bottom:1rem;">Ready To Elevate Your Digital Infrastructure?</h2>
+        <p style="color:var(--text-muted);font-size:1.1rem;max-width:650px;margin:0 auto 2.25rem auto;">
+          Schedule a direct consultation with Founder & Director **Omkar Katturwar** to discuss custom software development, AI integration, or SaaS deployment.
+        </p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="contact.html" class="btn btn-primary btn-lg">Contact Us Today</a>
+          <a href="tel:7219290885" class="btn btn-secondary btn-lg">📞 Call: +91 7219290885</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Universal Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">
+            <div class="logo-icon-box">N</div>
+            <span>Nex<span class="text-gradient">Vora</span></span>
+          </a>
+          <p>NexVora Tech Solutions is a modern technology startup delivering enterprise software, ERP suites, AI automation, and custom web applications.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+            <a href="#" class="social-icon" aria-label="Twitter">tw</a>
+            <a href="#" class="social-icon" aria-label="GitHub">git</a>
+            <a href="#" class="social-icon" aria-label="Facebook">fb</a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="industries.html">Industries</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">SaaS Products</h4>
+          <ul class="footer-links-list">
+            <li><a href="products.html">School ERP</a></li>
+            <li><a href="products.html">Hospital MIS</a></li>
+            <li><a href="products.html">Retail POS</a></li>
+            <li><a href="products.html">Smart HRMS</a></li>
+            <li><a href="products.html">Lead CRM</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">AI Products</h4>
+          <ul class="footer-links-list">
+            <li><a href="ai-products.html">AI Calling Agent</a></li>
+            <li><a href="ai-products.html">AI Resume Screening</a></li>
+            <li><a href="ai-products.html">AI OCR Document</a></li>
+            <li><a href="ai-products.html">AI Chatbot</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Contact Director</h4>
+          <div style="font-size:0.9rem;color:var(--text-muted);display:flex;flex-direction:column;gap:0.6rem;">
+            <div><strong>Omkar Katturwar</strong></div>
+            <div>Phone: <a href="tel:7219290885" style="color:var(--primary);">+91 7219290885</a></div>
+            <div>Email: <a href="mailto:katturwaroma313@gmail.com" style="color:var(--primary);">katturwaroma313@gmail.com</a></div>
+            <div>Support: 24/7 Technical Support</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© <span class="current-year">2026</span> NexVora Tech Solutions. All Rights Reserved. Designed & Developed by Omkar Katturwar.</div>
+        <div style="display:flex;gap:1.5rem;">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Universal Modal for Demo / Inquiry -->
+  <div class="modal-overlay" id="demoModal">
+    <div class="modal-content">
+      <div class="modal-close-btn">&times;</div>
+      <h3 class="modal-dynamic-title" style="margin-bottom:0.5rem;font-size:1.4rem;">Schedule Enterprise Demo</h3>
+      <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;">Fill in your contact details and our director Omkar Katturwar will reach out within 2 hours.</p>
+      
+      <form id="inquiryForm">
+        <!-- Anti-Bot Honeypot Security Field -->
+        <input type="text" name="hp_b_fax" style="display:none !important;" tabindex="-1" autocomplete="off">
+
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" class="form-control" placeholder="e.g. Omkar Katturwar" maxlength="100" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <input type="email" class="form-control" placeholder="name@company.com" maxlength="120" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number *</label>
+          <input type="tel" class="form-control" placeholder="7219290885" maxlength="20" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Project / Demo Details</label>
+          <textarea class="form-control" placeholder="Briefly describe your ERP, AI, or Web requirement..." maxlength="1000"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-top:0.5rem;">Submit Request</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp CTA Button -->
+  <a href="https://wa.me/917219290885?text=Hello%20NexVora%20Tech%20Solutions!%20I%20want%20to%20discuss%20a%20project." class="floating-whatsapp" target="_blank" aria-label="Chat on WhatsApp">
+    💬
+  </a>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/slider.js"></script>
+  <script src="js/filter.js"></script>
+  <script src="js/counter.js"></script>
+  <script src="js/animation.js"></script>
+</body>
+</html>

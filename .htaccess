@@ -1,0 +1,23 @@
+# ==========================================================================
+# NexVora Tech Solutions - Enterprise Production Security Config (.htaccess)
+# ==========================================================================
+
+# Disable Directory Index Browsing
+Options -Indexes
+
+# Security Headers
+<IfModule mod_headers.c>
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src 'self' https://www.google.com; connect-src 'self' https://wa.me https://api.whatsapp.com;"
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
+
+# Protect Sensitive Configuration Files
+<FilesMatch "\.(htaccess|htpasswd|json|md|log)$">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>

@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initFAQAccordion();
   initCookieBanner();
   setCurrentYear();
+  if (typeof initNexVoraAIChatbot === 'function') {
+    initNexVoraAIChatbot();
+  }
 });
 
 /* --- Navbar Scroll Effect --- */

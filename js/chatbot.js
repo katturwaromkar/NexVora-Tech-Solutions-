@@ -41,17 +41,19 @@ function initNexVoraAIChatbot() {
 
     if (isOpen) {
       windowEl.classList.add('active');
+      document.body.classList.add('ai-chat-open');
       if (teaser) teaser.style.display = 'none';
       if (badge) badge.style.display = 'none';
-      inputEl.focus();
+      setTimeout(() => inputEl.focus(), 100);
     } else {
       windowEl.classList.remove('active');
+      document.body.classList.remove('ai-chat-open');
     }
   }
 
   trigger.addEventListener('click', toggleChat);
-  if (closeBtn) closeBtn.addEventListener('click', () => { isOpen = false; windowEl.classList.remove('active'); });
-  if (minimizeBtn) minimizeBtn.addEventListener('click', () => { isOpen = false; windowEl.classList.remove('active'); });
+  if (closeBtn) closeBtn.addEventListener('click', () => { isOpen = false; windowEl.classList.remove('active'); document.body.classList.remove('ai-chat-open'); });
+  if (minimizeBtn) minimizeBtn.addEventListener('click', () => { isOpen = false; windowEl.classList.remove('active'); document.body.classList.remove('ai-chat-open'); });
   
   if (teaser) {
     teaser.addEventListener('click', (e) => {

@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof initNexVoraAIChatbot === 'function') {
     initNexVoraAIChatbot();
   }
+  if (typeof initNexVoraSocialDock === 'function') {
+    initNexVoraSocialDock();
+  }
 });
 
 /* --- Navbar Scroll Effect --- */

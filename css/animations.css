@@ -183,3 +183,39 @@
   0% { transform: scale(1); opacity: 0.8; }
   100% { transform: scale(2.8); opacity: 0; }
 }
+
+/* --- Infinite Marquee Scroll (Right to Left) --- */
+@keyframes scrollRightToLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.client-marquee-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  padding: 1rem 0;
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+}
+
+.client-marquee-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: scrollRightToLeft 25s linear infinite;
+}
+
+.client-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.client-marquee-card {
+  width: 360px;
+  flex-shrink: 0;
+}
+

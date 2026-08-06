@@ -243,18 +243,32 @@ function initFormsAndToasts() {
           (message ? `📝 *Details:* ${encodeURIComponent(message)}%0A` : '') +
           `%0A_Sent via NexVora Verified Portal_`;
 
+        // Store lead inquiry locally in database store
+        try {
+          const leads = JSON.parse(localStorage.getItem('nexvora_leads') || '[]');
+          leads.push({
+            name: name || 'Customer',
+            email: email || 'N/A',
+            phone: phone || 'N/A',
+            service: service || 'General Inquiry',
+            message: message || 'N/A',
+            timestamp: new Date().toISOString()
+          });
+          localStorage.setItem('nexvora_leads', JSON.stringify(leads));
+        } catch (e) {
+          console.warn('Local lead storage error:', e);
+        }
+
         const whatsappUrl = `https://wa.me/917219290885?text=${formattedText}`;
 
-        showToast('Success! Securely dispatching your request details to Founder Omkar Katturwar on WhatsApp...', 'success');
-        
-        setTimeout(() => {
-          window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-        }, 1000);
+        showToast('Inquiry logged successfully! Our team will review your request shortly.', 'success');
 
-        form.reset();
-        
         const parentModal = form.closest('.modal-overlay');
         if (parentModal) closeModal(parentModal);
+
+        form.reset();
+
+        showSubmissionSuccessModal(name || 'Partner', whatsappUrl);
       } else if (!form.querySelector('.toast-error')) {
         showToast('Please complete all required fields correctly.', 'error');
       }
@@ -345,6 +359,47 @@ function initCookieBanner() {
   document.getElementById('accept-cookies-btn').addEventListener('click', () => {
     localStorage.setItem('nexvora_cookie_accepted', 'true');
     banner.remove();
+  });
+}
+
+/* --- Submission Success Modal Dialog --- */
+function showSubmissionSuccessModal(name, whatsappUrl) {
+  const existingModal = document.getElementById('submissionSuccessModal');
+  if (existingModal) existingModal.remove();
+
+  const modalOverlay = document.createElement('div');
+  modalOverlay.className = 'modal-overlay active';
+  modalOverlay.id = 'submissionSuccessModal';
+  modalOverlay.style.zIndex = '100005';
+  modalOverlay.innerHTML = `
+    <div class="modal-content glass-card card-shine" style="max-width:520px;text-align:center;padding:2.5rem 2rem;">
+      <div style="width:64px;height:64px;border-radius:50%;background:var(--gradient-primary);margin:0 auto 1.25rem auto;display:flex;align-items:center;justify-content:center;font-size:2rem;box-shadow:var(--shadow-glow);">
+        🎉
+      </div>
+      <h3 style="font-size:1.5rem;margin-bottom:0.5rem;color:var(--text-main);">Inquiry Successfully Logged!</h3>
+      <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.6;margin-bottom:1.5rem;">
+        Thank you, <strong>${escapeHTML(name)}</strong>. Your request has been recorded in the NexVora lead database. Director Omkar Katturwar and our software engineering team will review your specifications shortly.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;">
+        <a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-md" style="width:100%;justify-content:center;">
+          💬 Continue to Direct WhatsApp Chat ↗
+        </a>
+        <button class="btn btn-secondary btn-md" id="closeSuccessModalBtn" style="width:100%;">
+          Close Window
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modalOverlay);
+
+  const closeBtn = modalOverlay.querySelector('#closeSuccessModalBtn');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => modalOverlay.remove());
+  }
+
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) modalOverlay.remove();
   });
 }
 

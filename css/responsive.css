@@ -225,3 +225,53 @@ html, body {
   max-width: 100%;
   box-sizing: border-box;
 }
+
+/* --- Mobile Quick-Jump Anchor Bar --- */
+.mobile-quick-jump-bar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-quick-jump-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0.6rem 1rem;
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom: 1px solid var(--border-light);
+    position: sticky;
+    top: var(--header-height);
+    z-index: 999;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-quick-jump-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-quick-jump-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.85rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-full);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .mobile-quick-jump-pill:active,
+  .mobile-quick-jump-pill:hover {
+    background: var(--gradient-primary);
+    color: #ffffff;
+    border-color: transparent;
+  }
+}

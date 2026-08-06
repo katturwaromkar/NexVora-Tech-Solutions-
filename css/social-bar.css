@@ -182,7 +182,6 @@
 
 @media (max-width: 480px) {
   .social-floating-dock {
-    left: 0.5rem;
-    top: 45%;
+    display: none !important;
   }
 }

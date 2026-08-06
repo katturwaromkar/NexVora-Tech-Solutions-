@@ -242,11 +242,69 @@ function removeTypingIndicator() {
 function generateAIResponse(userText) {
   const input = userText.toLowerCase();
 
-  // 1. WhatsApp / Contact Direct Escalation
-  if (input.includes('whatsapp') || input.includes('phone') || input.includes('call') || input.includes('contact') || input.includes('omkar') || input.includes('number')) {
-    const waUrl = `https://wa.me/917219290885?text=${encodeURIComponent('Hello Omkar Katturwar! I am reaching out from NexVora AI Chatbot.')}`;
+  // 1. Specific Pharmacy Inquiry
+  if (input.includes('pharmacy') || input.includes('medicine') || input.includes('drug') || input.includes('expiry')) {
     return {
-      text: `You can connect directly with Founder & Director <strong>Omkar Katturwar</strong>:<br><br>
+      text: `💊 <strong>Pharmacy Store ERP & Website Suite</strong>:<br><br>
+        • <strong>Features:</strong> Batch & Expiry tracking, salt composition engine, GST billing & reorder alerts.<br>
+        • <strong>Template Pricing:</strong> Turnkey site starting at ₹4,999.<br>
+        • <strong>Full ERP Subscription:</strong> Custom monthly/annual license.<br><br>
+        Would you like to schedule a live demo or request immediate deployment?`,
+      chips: ['Book Pharmacy ERP Demo', 'Preview Pharmacy Template', 'Get Custom Quote', 'Chat on WhatsApp']
+    };
+  }
+
+  // 2. Specific Restaurant / POS Inquiry
+  if (input.includes('restaurant') || input.includes('restro') || input.includes('menu') || input.includes('kot') || input.includes('pos')) {
+    return {
+      text: `🍽️ <strong>Restaurant ERP & Digital POS Suite</strong>:<br><br>
+        • <strong>Live Demo Available:</strong> <a href="https://demo-restro-mangement-system.vercel.app/" target="_blank" style="color:var(--primary);font-weight:bold;">Launch Restaurant Demo ↗</a><br>
+        • <strong>Key Features:</strong> Kitchen Display System (KOT), Table ordering, QR Digital Menu, Stock & recipe management.<br><br>
+        Ready to digitize your restaurant or cafe?`,
+      chips: ['Restaurant Live Demo ↗', 'Book Demo', 'Get Pricing Quote', 'Chat on WhatsApp']
+    };
+  }
+
+  // 3. Specific Hospital / OPD Inquiry
+  if (input.includes('hospital') || input.includes('opd') || input.includes('doctor') || input.includes('patient') || input.includes('clinic')) {
+    return {
+      text: `🏥 <strong>Hospital MIS & OPD Management Portal</strong>:<br><br>
+        • <strong>Features:</strong> OPD appointment booking, doctor scheduling, bed management, electronic health records (EHR) & billing.<br>
+        • <strong>Deployment Time:</strong> 3 to 5 business days.<br><br>
+        Would you like to review technical specs or talk to our health-tech lead?`,
+      chips: ['Book Hospital MIS Demo', 'Get Custom Quote', 'Chat on WhatsApp']
+    };
+  }
+
+  // 4. Specific School / College ERP Inquiry
+  if (input.includes('school') || input.includes('college') || input.includes('student') || input.includes('fee') || input.includes('attendance')) {
+    return {
+      text: `🎓 <strong>Smart School & College ERP Suite</strong>:<br><br>
+        • <strong>Modules:</strong> Student attendance, automated fee collection, online report cards, exam manager & parent portal.<br>
+        • <strong>Cloud Security:</strong> Bank-grade encryption & 99.9% uptime.<br><br>
+        We can set up a sandbox demonstration for your institute.`,
+      chips: ['Book School ERP Demo', 'Get Custom Quote', 'Chat on WhatsApp']
+    };
+  }
+
+  // 5. Careers & Internships
+  if (input.includes('intern') || input.includes('career') || input.includes('job') || input.includes('hiring') || input.includes('apply')) {
+    return {
+      text: `🎓 <strong>NexVora Technology Internships</strong>:<br><br>
+        We offer hands-on internships in:<br>
+        • 💻 Full-Stack Web Engineering<br>
+        • 🤖 AI & Machine Learning Research<br>
+        • 🎨 UI/UX Design & Product Architecture<br><br>
+        Applications are reviewed directly by Founder Omkar Katturwar!`,
+      chips: ['View Careers Page', 'Apply on WhatsApp', 'Book Consultation']
+    };
+  }
+
+  // 6. Contact & Direct WhatsApp
+  if (input.includes('whatsapp') || input.includes('phone') || input.includes('call') || input.includes('contact') || input.includes('omkar') || input.includes('number') || input.includes('email')) {
+    const waUrl = `https://wa.me/917219290885?text=${encodeURIComponent('Hello Omkar Katturwar! I am reaching out from NexVora AI Assistant.')}`;
+    return {
+      text: `You can connect directly with Director <strong>Omkar Katturwar</strong>:<br><br>
         📞 <strong>Phone:</strong> <a href="tel:7219290885" style="color:var(--primary);">+91 7219290885</a><br>
         ✉️ <strong>Email:</strong> <a href="mailto:katturwaroma313@gmail.com" style="color:var(--primary);">katturwaroma313@gmail.com</a><br>
         💬 <strong>WhatsApp:</strong> <a href="${waUrl}" target="_blank" style="color:#25D366;font-weight:bold;">Launch WhatsApp Chat ↗</a>`,
@@ -254,33 +312,21 @@ function generateAIResponse(userText) {
     };
   }
 
-  // 2. Turnkey Templates
+  // 7. Turnkey Templates
   if (input.includes('template') || input.includes('turnkey') || input.includes('design') || input.includes('website')) {
     return {
       text: `🎨 <strong>Turnkey Website Templates</strong>:<br>
         We offer pixel-perfect, ready-to-deploy templates tailored for:<br>
-        • 💊 <strong>Pharmacy & Medical Stores</strong><br>
+        • 💊 <strong>Pharmacy Stores</strong><br>
         • ⌚ <strong>Watch & Gift Accessories</strong><br>
         • 🏥 <strong>Hospital & OPD Portals</strong><br>
-        • 🎓 <strong>School & College ERP Websites</strong><br><br>
-        Deployment takes just <strong>48 to 72 hours</strong>!`,
+        • 🎓 <strong>School & College ERP Portals</strong><br><br>
+        Deployment takes just <strong>48 to 72 hours</strong> starting at <strong>₹4,999</strong>!`,
       chips: ['Preview Pharmacy Template', 'Preview Watch Template', 'Custom Template Request', 'Chat on WhatsApp']
     };
   }
 
-  // 3. SaaS Products & ERPs
-  if (input.includes('product') || input.includes('saas') || input.includes('erp') || input.includes('pharmacy') || input.includes('restaurant') || input.includes('school') || input.includes('hospital')) {
-    return {
-      text: `🚀 <strong>NexVora SaaS & Enterprise ERP Suites</strong>:<br><br>
-        1. <strong>Pharmacy Store ERP:</strong> Batch & expiry tracking, salt engine & GST billing.<br>
-        2. <strong>Restaurant ERP:</strong> KOT display, table management, digital menu.<br>
-        3. <strong>Hospital MIS:</strong> OPD scheduling, bed allocation & billing.<br>
-        4. <strong>School & College ERP:</strong> Student attendance, fee collection & exam report cards.`,
-      chips: ['Book Pharmacy ERP Demo', 'Restaurant Live Demo ↗', 'Join Upcoming Beta', 'Get Pricing Quote']
-    };
-  }
-
-  // 4. AI Products & Innovation
+  // 8. AI Innovations
   if (input.includes('ai') || input.includes('voice') || input.includes('bot') || input.includes('resume') || input.includes('ocr')) {
     return {
       text: `🤖 <strong>NexVora AI Innovations (Upcoming Suite)</strong>:<br><br>
@@ -291,7 +337,19 @@ function generateAIResponse(userText) {
     };
   }
 
-  // 5. Book Demo / Schedule
+  // 9. Pricing & Custom Quote Calculator
+  if (input.includes('price') || input.includes('cost') || input.includes('quote') || input.includes('rate') || input.includes('fee')) {
+    return {
+      text: `💰 <strong>Transparent Enterprise Pricing</strong>:<br><br>
+        • <strong>Turnkey Website Templates:</strong> Starting from ₹4,999 (Instant 48h launch).<br>
+        • <strong>SaaS ERP Solutions:</strong> Flexible monthly / annual subscription plans.<br>
+        • <strong>Custom Software Development:</strong> Sprint-based milestones tailored to project scope.<br><br>
+        Submit a request for an official customized quotation!`,
+      chips: ['Get Custom Quote', 'Chat on WhatsApp', 'Book Live Demo']
+    };
+  }
+
+  // 10. Book Demo / Schedule
   if (input.includes('demo') || input.includes('book') || input.includes('schedule') || input.includes('consultation')) {
     return {
       text: `📅 <strong>Schedule an Enterprise Demo</strong>:<br><br>
@@ -300,22 +358,10 @@ function generateAIResponse(userText) {
     };
   }
 
-  // 6. Pricing & Quotes
-  if (input.includes('price') || input.includes('cost') || input.includes('quote') || input.includes('rate')) {
-    return {
-      text: `💰 <strong>Transparent Enterprise Pricing</strong>:<br><br>
-        • <strong>Turnkey Website Templates:</strong> Starting from ₹4,999 (Instant 48h launch).<br>
-        • <strong>SaaS ERP Solutions:</strong> Flexible monthly / annual subscription plans.<br>
-        • <strong>Custom Software Development:</strong> Sprint-based milestones tailored to project scope.<br><br>
-        Request a custom price estimate below!`,
-      chips: ['Get Custom Quote', 'Chat on WhatsApp', 'Book Live Demo']
-    };
-  }
-
-  // Default Greeting / Fallback AI Reply
+  // Default Fallback
   return {
-    text: `Thanks for asking! At <strong>NexVora Tech Solutions</strong>, we specialize in Custom Web & App Development, Enterprise ERPs, SaaS Products, Turnkey Website Templates, and AI Automation.<br><br>
-      How can Director Omkar Katturwar & our engineering team help you today?`,
+    text: `Thanks for asking! At <strong>NexVora Tech Solutions</strong>, we specialize in Custom Web & Mobile Apps, Enterprise ERPs, SaaS Products, Turnkey Website Templates, and AI Automation.<br><br>
+      How can Founder Omkar Katturwar & our engineering team help your business today?`,
     chips: ['Explore SaaS Products', 'Turnkey Templates', 'AI Innovations', 'Chat on WhatsApp']
   };
 }

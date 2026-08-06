@@ -144,6 +144,15 @@
     </div>
   </aside>
 
+  <!-- Mobile Quick-Jump Anchor Bar -->
+  <div class="mobile-quick-jump-bar">
+    <a href="#services" class="mobile-quick-jump-pill">⚡ Services</a>
+    <a href="#products" class="mobile-quick-jump-pill">🚀 SaaS Suites</a>
+    <a href="#templates" class="mobile-quick-jump-pill">🎨 Templates</a>
+    <a href="#ai-products" class="mobile-quick-jump-pill">🤖 AI Tools</a>
+    <a href="#process" class="mobile-quick-jump-pill">🛠️ Process</a>
+  </div>
+
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="container">
@@ -256,7 +265,7 @@
   </section>
 
   <!-- Services Highlights -->
-  <section class="section-padding">
+  <section class="section-padding" id="services">
     <div class="container">
       <div class="section-title-wrap reveal">
         <div class="section-tag">End-to-End Capabilities</div>
@@ -308,7 +317,7 @@
   </section>
 
   <!-- Featured SaaS Products Spotlight -->
-  <section class="section-padding" style="background: rgba(15, 23, 42, 0.4);">
+  <section class="section-padding" id="products" style="background: rgba(15, 23, 42, 0.4);">
     <div class="container">
       <div class="section-title-wrap reveal">
         <div class="section-tag">Flagship Products</div>
@@ -372,7 +381,7 @@
   </section>
 
   <!-- Interactive Website Templates Preview -->
-  <section class="section-padding">
+  <section class="section-padding" id="templates">
     <div class="container">
       <div class="section-title-wrap reveal">
         <div class="section-tag">Instant Deployment</div>
@@ -563,7 +572,7 @@
   </section>
 
   <!-- Process Workflow -->
-  <section class="section-padding" style="background: rgba(15, 23, 42, 0.5);">
+  <section class="section-padding" id="process" style="background: rgba(15, 23, 42, 0.5);">
     <div class="container">
       <div class="section-title-wrap reveal">
         <div class="section-tag">How We Execute</div>
@@ -795,7 +804,13 @@
     <div class="modal-content">
       <div class="modal-close-btn">&times;</div>
       <h3 class="modal-dynamic-title" style="margin-bottom:0.5rem;font-size:1.4rem;">Schedule Enterprise Demo</h3>
-      <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;">Fill in your contact details and our director Omkar Katturwar will reach out within 2 hours.</p>
+      <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1rem;">Fill in your contact details and Director Omkar Katturwar & engineering team will reach out within 2 hours.</p>
+
+      <!-- Instant Live Demo Banner -->
+      <div style="background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.25);border-radius:var(--radius-sm);padding:0.75rem 1rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
+        <span style="font-size:0.85rem;color:var(--text-main);">⚡ Instant Live Software Demo:</span>
+        <a href="https://demo-restro-mangement-system.vercel.app/" target="_blank" class="btn btn-primary btn-sm" style="font-size:0.78rem;padding:0.3rem 0.75rem;white-space:nowrap;">Launch POS Demo ↗</a>
+      </div>
       
       <form id="inquiryForm">
         <!-- Anti-Bot Honeypot Security Field -->

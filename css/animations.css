@@ -95,6 +95,7 @@
   z-index: 0;
   animation: pulseGlow 8s ease-in-out infinite;
   max-width: 100vw;
+  overflow: hidden;
 }
 
 .orb-primary {
@@ -121,6 +122,20 @@
   top: 40%;
   left: 30%;
   animation-delay: 5s;
+}
+
+@media (max-width: 768px) {
+  .reveal-left, .reveal-right {
+    transform: translateY(15px) !important;
+  }
+  
+  .reveal-left.active, .reveal-right.active {
+    transform: translateY(0) !important;
+  }
+
+  .bg-glow-orb {
+    display: none !important;
+  }
 }
 
 /* --- Interactive Card Shine Effect --- */

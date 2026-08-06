@@ -191,3 +191,37 @@
     font-size: 2.25rem;
   }
 }
+
+/* Extra Micro Screens & Ultra-Small Devices (360px and below) */
+@media (max-width: 360px) {
+  .section-title {
+    font-size: 1.5rem;
+  }
+  .btn-lg {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Universal Mobile Safeguards */
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden !important;
+}
+
+.glass-card, .product-card, .service-card {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.product-modules-list, .filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.badge-upcoming {
+  max-width: 100%;
+  box-sizing: border-box;
+}

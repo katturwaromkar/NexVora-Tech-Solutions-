@@ -355,6 +355,30 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--primary);
 }
 
+/* Upcoming Badge */
+.badge-upcoming {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.15);
+  vertical-align: middle;
+  margin-left: 0.35rem;
+  white-space: nowrap;
+}
+.badge-upcoming::before {
+  content: '⏳';
+  font-size: 0.7rem;
+}
+
 /* Mega Menu */
 .mega-menu {
   position: absolute;

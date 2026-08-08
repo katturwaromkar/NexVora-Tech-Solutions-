@@ -113,9 +113,30 @@
     justify-content: center;
   }
 
-  .services-grid, .products-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .services-grid, .products-grid, .templates-grid, .portal-kpi-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .glass-card, .product-card, .service-card, .feature-card {
+    height: auto !important;
+    min-height: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    word-break: break-word !alignment;
+  }
+
+  .product-tag, .badge-upcoming {
+    display: inline-flex !important;
+    align-items: center !important;
+    max-width: 100% !important;
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    margin-bottom: 0.5rem !important;
   }
 
   .footer-grid {
@@ -165,13 +186,14 @@
     grid-template-columns: 1fr;
   }
 
-  .hero-btn-group {
-    flex-direction: column;
-    width: 100%;
+  .hero-btn-group, .product-card div[style*="display:flex"] {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.75rem !important;
   }
 
-  .hero-btn-group .btn {
-    width: 100%;
+  .hero-btn-group .btn, .product-card .btn {
+    width: 100% !important;
   }
 
   .mobile-nav-drawer {
@@ -220,13 +242,14 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Ensure no child container causes horizontal scroll wobble */
+/* Ensure no child container causes horizontal scroll wobble or content overlap */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 img, video, iframe, svg, canvas {
   max-width: 100%;
+  height: auto;
 }
 
 .glass-card, .product-card, .service-card, .hero-section, .section-padding {
@@ -239,6 +262,7 @@ img, video, iframe, svg, canvas {
   display: flex;
   flex-wrap: wrap;
   max-width: 100%;
+  gap: 0.5rem;
 }
 
 .badge-upcoming {

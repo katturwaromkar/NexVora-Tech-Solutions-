@@ -1,0 +1,536 @@
+/* ==========================================================================
+   NexVora Tech Solutions - Sales & Transaction Portal Stylesheet
+   ========================================================================== */
+
+/* --- Portal Page Layout --- */
+.sales-portal-hero {
+  padding-top: calc(var(--header-height) + 2rem);
+  padding-bottom: 2rem;
+  background: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.12) 0%, transparent 70%);
+}
+
+.portal-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.portal-user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1rem;
+  background: rgba(17, 24, 39, 0.8);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.portal-user-badge.admin {
+  border-color: rgba(236, 72, 153, 0.4);
+  box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
+}
+
+.portal-user-badge.sales {
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+}
+
+/* --- KPI Summary Grid --- */
+.portal-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.kpi-card {
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  transition: var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.kpi-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-active);
+  box-shadow: var(--shadow-glow);
+}
+
+.kpi-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.kpi-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.kpi-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-light);
+}
+
+.kpi-value {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.1;
+}
+
+.kpi-sub {
+  font-size: 0.8rem;
+  color: var(--text-subtle);
+  margin-top: 0.35rem;
+}
+
+/* --- Action & Search Toolbar --- */
+.portal-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  background: var(--bg-card);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+}
+
+.portal-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  min-width: 280px;
+}
+
+.portal-search-box {
+  position: relative;
+  flex: 1;
+}
+
+.portal-search-input {
+  width: 100%;
+  padding: 0.65rem 1rem 0.65rem 2.5rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.portal-search-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);
+}
+
+.portal-search-icon {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-subtle);
+}
+
+.portal-filter-select {
+  padding: 0.65rem 1rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  outline: none;
+  cursor: pointer;
+}
+
+/* --- Transaction Ledger Table --- */
+.ledger-table-wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 3rem;
+}
+
+.ledger-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 900px;
+}
+
+.ledger-table th {
+  background: rgba(15, 23, 42, 0.9);
+  padding: 1rem 1.25rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-light);
+  white-space: nowrap;
+}
+
+.ledger-table td {
+  padding: 1.1rem 1.25rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  vertical-align: middle;
+}
+
+.ledger-table tbody tr {
+  transition: var(--transition-fast);
+}
+
+.ledger-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.client-name-cell {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.client-phone-cell {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* Status Badges */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.status-pill.token-received {
+  background: rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: #38BDF8;
+}
+
+.status-pill.fully-paid {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34D399;
+}
+
+.status-pill.pending {
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #FBBF24;
+}
+
+.status-pill.partial {
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: #A5B4FC;
+}
+
+/* Action Buttons inside Table */
+.table-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-icon-table {
+  padding: 0.4rem 0.65rem;
+  font-size: 0.8rem;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  transition: var(--transition-fast);
+}
+
+.btn-icon-table:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--border-active);
+}
+
+.btn-whatsapp-action {
+  background: rgba(37, 211, 102, 0.15) !important;
+  border-color: rgba(37, 211, 102, 0.4) !important;
+  color: #25D366 !important;
+}
+
+.btn-whatsapp-action:hover {
+  background: #25D366 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+}
+
+/* --- Auth & Modal Screens --- */
+.portal-auth-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 13, 22, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), var(--shadow-glow);
+  text-align: center;
+}
+
+.auth-tabs {
+  display: flex;
+  background: rgba(15, 23, 42, 0.8);
+  padding: 0.35rem;
+  border-radius: var(--radius-sm);
+  margin: 1.75rem 0;
+  border: 1px solid var(--border-light);
+}
+
+.auth-tab-btn {
+  flex: 1;
+  padding: 0.65rem;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: calc(var(--radius-sm) - 2px);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.auth-tab-btn.active {
+  background: var(--gradient-primary);
+  color: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+.quick-credentials-box {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed var(--border-light);
+  border-radius: var(--radius-sm);
+  text-align: left;
+  font-size: 0.82rem;
+}
+
+.quick-cred-badge {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  background: rgba(6, 182, 212, 0.15);
+  color: var(--primary);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 0.35rem;
+}
+
+/* --- Receipt Preview Card --- */
+.receipt-paper {
+  background: #ffffff;
+  color: #0f172a;
+  padding: 2.5rem 2rem;
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  font-family: 'Inter', sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.receipt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.receipt-brand h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #090D16;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.receipt-brand p {
+  color: #64748b;
+  font-size: 0.85rem;
+  margin: 0.25rem 0 0 0;
+}
+
+.receipt-badge-paid {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: #dcfce7;
+  color: #15803d;
+  border: 1.5px solid #86efac;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.receipt-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.receipt-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.receipt-table th {
+  background: #f8fafc;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  color: #475569;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  border-bottom: 1.5px solid #cbd5e1;
+}
+
+.receipt-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+}
+
+.receipt-total-box {
+  background: #f1f5f9;
+  padding: 1.25rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+}
+
+.receipt-total-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.35rem 0;
+  font-size: 0.92rem;
+}
+
+.receipt-total-row.grand-total {
+  border-top: 2px dashed #cbd5e1;
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.upi-qr-box {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 992px) {
+  .portal-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .portal-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portal-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .portal-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .portal-toolbar-left {
+    flex-direction: column;
+    min-width: 100%;
+  }
+
+  .receipt-paper {
+    padding: 1.5rem 1rem;
+  }
+
+  .receipt-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Printable PDF / Hard Copy Styles */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #receiptPrintArea, #receiptPrintArea * {
+    visibility: visible;
+  }
+  #receiptPrintArea {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}

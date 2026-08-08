@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#090d16"/>
+    </linearGradient>
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="50%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Base Dark Glass Container -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)"/>
+  <rect width="504" height="504" x="4" y="4" rx="124" fill="none" stroke="url(#brandGrad)" stroke-width="8" stroke-opacity="0.4"/>
+
+  <!-- Futuristic Outer Glow Hexagon Ring -->
+  <circle cx="256" cy="256" r="210" fill="none" stroke="url(#brandGrad)" stroke-width="6" stroke-dasharray="16 12" opacity="0.35"/>
+
+  <!-- NexVora Stylized "N" Monogram -->
+  <g filter="url(#glow)">
+    <!-- Left Vertical Bar -->
+    <path d="M128 128 C128 114.7 138.7 104 152 104 L176 104 C189.3 104 200 114.7 200 128 L200 384 C200 397.3 189.3 408 176 408 L152 408 C138.7 408 128 397.3 128 384 Z" fill="url(#brandGrad)"/>
+
+    <!-- Diagonal Connecting Blade -->
+    <path d="M184 120 L328 360 C336 373 352 376 364 366 C370 361 374 353 374 345 L374 128 C374 114.7 363.3 104 350 104 L336 104 C322.7 104 312 114.7 312 128 L312 288 L184 120 Z" fill="url(#brandGrad)"/>
+
+    <!-- Right Vertical Pillar -->
+    <path d="M312 128 C312 114.7 322.7 104 336 104 L360 104 C373.3 104 384 114.7 384 128 L384 384 C384 397.3 373.3 408 360 408 L336 408 C322.7 408 312 397.3 312 384 Z" fill="url(#brandGrad)"/>
+  </g>
+
+  <!-- AI Pulse Node Dot at Top Right -->
+  <circle cx="390" cy="110" r="24" fill="url(#accentGrad)" filter="url(#glow)"/>
+  <circle cx="390" cy="110" r="10" fill="#ffffff"/>
+</svg>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales & Transaction Portal | NexVora Tech Solutions</title>
+  <meta name="description" content="Official Sales & Transaction Portal for NexVora Tech Solutions. Record client leads, requirements, generate PhonePe UPI QR payments, and dispatch WhatsApp receipts.">
+
+  <!-- Core Google Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/sales-portal.css">
+</head>
+<body class="bg-dark text-main">
+
+  <!-- Site Navigation Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon-box">N</div>
+        <span>Nex<span class="text-gradient">Vora</span></span>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="sales-portal.html" class="nav-link active">Sales Portal</a>
+      </nav>
+
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="portal-user-badge sales" id="userBadge">
+          <span id="userNameText">💼 Sales Portal</span>
+        </div>
+        <button class="btn btn-secondary btn-sm" id="logoutBtn" style="padding:0.4rem 0.85rem;">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Role-Based Authentication Overlay Gatekeeper -->
+  <div class="portal-auth-overlay" id="authOverlay" style="display:none;">
+    <div class="auth-card">
+      <div style="font-family:var(--font-heading);font-size:1.6rem;font-weight:800;color:var(--text-main);margin-bottom:0.25rem;">
+        Nex<span class="text-gradient">Vora</span> Portal Access
+      </div>
+      <p style="color:var(--text-muted);font-size:0.88rem;">Select your role to access Sales Management & Receipts</p>
+
+      <form id="authForm" style="margin-top:1.5rem;text-align:left;">
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label style="display:block;font-size:0.82rem;font-weight:600;color:var(--text-muted);margin-bottom:0.4rem;">Select Account Role</label>
+          <select id="authUserSelect" class="form-control" style="background:rgba(15,23,42,0.9);border:1px solid var(--border-light);color:#fff;padding:0.75rem;border-radius:var(--radius-sm);width:100%;font-size:0.92rem;">
+            <option value="sales">💼 Sales Person (Enter Leads & Send Receipts)</option>
+            <option value="admin">👑 Admin (Full Financial Control & Ledger)</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="margin-bottom:1.5rem;">
+          <label style="display:block;font-size:0.82rem;font-weight:600;color:var(--text-muted);margin-bottom:0.4rem;">Password / PIN</label>
+          <input type="password" id="authPasswordInput" class="form-control" placeholder="Enter password or PIN..." required style="background:rgba(15,23,42,0.9);border:1px solid var(--border-light);color:#fff;padding:0.75rem;border-radius:var(--radius-sm);width:100%;font-size:0.92rem;">
+        </div>
+
+        <div id="authErrorMsg" style="color:#EF4444;font-size:0.82rem;margin-bottom:1rem;font-weight:600;"></div>
+
+        <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Unlock Portal →</button>
+      </form>
+
+      <!-- Quick Demo Credentials Box -->
+      <div class="quick-credentials-box">
+        <strong style="color:var(--primary);">💡 Quick Testing Login Credentials:</strong>
+        <div style="margin-top:0.4rem;color:var(--text-muted);">
+          • <strong>Admin Login:</strong> admin@nexvora.com | Pass: <code>admin123</code> (PIN: 9999)<br>
+          • <strong>Sales Login:</strong> sales@nexvora.com | Pass: <code>sales123</code> (PIN: 1234)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Portal Section -->
+  <main class="sales-portal-hero">
+    <div class="container">
+
+      <!-- Header & Title -->
+      <div class="portal-header-bar">
+        <div>
+          <div class="section-tag" style="margin-bottom:0.35rem;">Sales & Financial Operations</div>
+          <h1 class="section-title" style="font-size:2.2rem;margin-bottom:0.25rem;">Client Leads & <span class="text-gradient">Payment Ledger</span></h1>
+          <p style="color:var(--text-muted);font-size:0.95rem;">Enter new client requirements, generate PhonePe UPI QRs, and dispatch instant WhatsApp receipts.</p>
+        </div>
+
+        <div>
+          <button class="btn btn-primary btn-lg" data-modal-open="newLeadModal">
+            + New Lead & Payment Request
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="portal-kpi-grid">
+        <!-- KPI 1: Total Collected -->
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Total Revenue Collected</span>
+            <div class="kpi-icon" style="color:#34D399;background:rgba(16,185,129,0.12);">💰</div>
+          </div>
+          <div class="kpi-value" id="kpiTotalRevenue">₹0</div>
+          <div class="kpi-sub">Total Token & Upfront Advance Received</div>
+        </div>
+
+        <!-- KPI 2: Active Leads -->
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Total Active Leads</span>
+            <div class="kpi-icon" style="color:#38BDF8;background:rgba(6,182,212,0.12);">👥</div>
+          </div>
+          <div class="kpi-value" id="kpiActiveLeads">0</div>
+          <div class="kpi-sub">Clients & Enterprise Projects</div>
+        </div>
+
+        <!-- KPI 3: Pending Balance -->
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Total Pending Balance</span>
+            <div class="kpi-icon" style="color:#FBBF24;background:rgba(245,158,11,0.12);">⏳</div>
+          </div>
+          <div class="kpi-value" id="kpiPendingAmount" style="color:#FBBF24;">₹0</div>
+          <div class="kpi-sub">Remaining Balance Due from Clients</div>
+        </div>
+
+        <!-- KPI 4: Completed Projects -->
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Fully Paid Transactions</span>
+            <div class="kpi-icon" style="color:#A5B4FC;background:rgba(99,102,241,0.12);">✅</div>
+          </div>
+          <div class="kpi-value" id="kpiCompletedTxns">0</div>
+          <div class="kpi-sub">Cleared & Delivered Invoices</div>
+        </div>
+      </div>
+
+      <!-- Action & Search Toolbar -->
+      <div class="portal-toolbar">
+        <div class="portal-toolbar-left">
+          <div class="portal-search-box">
+            <span class="portal-search-icon">🔍</span>
+            <input type="text" id="portalSearchInput" class="portal-search-input" placeholder="Search by Client Name, Phone, Requirement, or Receipt ID...">
+          </div>
+
+          <select id="portalFilterSelect" class="portal-filter-select">
+            <option value="all">Filter: All Statuses</option>
+            <option value="token-received">⚡ Token Received</option>
+            <option value="fully-paid">✅ Fully Paid</option>
+            <option value="pending">⏳ Pending</option>
+            <option value="partial">💜 Partial Payment</option>
+          </select>
+        </div>
+
+        <div>
+          <button class="btn btn-secondary btn-sm" id="exportCsvBtn">
+            📥 Export CSV Ledger
+          </button>
+        </div>
+      </div>
+
+      <!-- Transaction Ledger Table -->
+      <div class="ledger-table-wrap">
+        <table class="ledger-table">
+          <thead>
+            <tr>
+              <th>Receipt ID</th>
+              <th>Client Info</th>
+              <th>Requirement & Scope</th>
+              <th>Total Project Cost</th>
+              <th>Token Paid</th>
+              <th>Pending Balance</th>
+              <th>Status</th>
+              <th>PhonePe QR</th>
+              <th>Quick Actions</th>
+            </tr>
+          </thead>
+          <tbody id="ledgerTableBody">
+            <!-- Dynamically Rendered by sales-portal.js -->
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- MODAL 1: New Lead & Payment Request Form -->
+  <div class="portal-auth-overlay" id="newLeadModal" style="display:none;">
+    <div class="auth-card" style="max-width:680px;text-align:left;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;">
+        <h3 style="font-family:var(--font-heading);font-size:1.35rem;font-weight:700;color:var(--text-main);margin:0;">
+          + Create New Lead & Payment Request
+        </h3>
+        <button data-modal-close style="background:transparent;border:none;color:var(--text-muted);font-size:1.5rem;cursor:pointer;">&times;</button>
+      </div>
+
+      <form id="newLeadForm">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="form-group">
+            <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">Client Full Name *</label>
+            <input type="text" id="clientNameInput" required placeholder="e.g. Ramesh Kumar" style="width:100%;padding:0.65rem;background:rgba(15,23,42,0.9);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:#fff;">
+          </div>
+
+          <div class="form-group">
+            <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">WhatsApp Phone Number *</label>
+            <input type="tel" id="clientPhoneInput" required placeholder="e.g. 9876543210" style="width:100%;padding:0.65rem;background:rgba(15,23,42,0.9);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:#fff;">
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:0.85rem;">
+          <div class="form-group">
+            <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">Company / Store Name</label>
+            <input type="text" id="clientCompanyInput" placeholder="e.g. Govindraj Watch Center" style="width:100%;padding:0.65rem;background:rgba(15,23,42,0.9);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:#fff;">
+          </div>
+
+          <div class="form-group">
+            <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">Requirement Category *</label>
+            <select id="requirementCategoryInput" required style="width:100%;padding:0.65rem;background:rgba(15,23,42,0.9);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:#fff;">
+              <option value="Pharmacy Store ERP">Pharmacy Store ERP</option>
+              <option value="Restaurant ERP & KOT">Restaurant ERP & KOT</option>
+              <option value="E-Commerce Website">E-Commerce Website</option>
+              <option value="AI Voice & Chat Bot">AI Voice & Chat Bot</option>
+              <option value="Custom Web / App">Custom Web / Mobile App</option>
+              <option value="School & HRMS ERP">School & HRMS ERP</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:0.85rem;">
+          <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">Detailed Project Requirements / Scope *</label>
+          <textarea id="requirementDetailsInput" rows="2" required placeholder="Describe project scope, modules included, delivery timeframe, etc..." style="width:100%;padding:0.65rem;background:rgba(15,23,42,0.9);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:#fff;resize:vertical;"></textarea>
+        </div>
+
+        <!-- Financial Breakdown Fields -->
+        <div style="background:rgba(255,255,255,0.03);padding:1rem;border-radius:var(--radius-sm);border:1px solid var(--border-light);margin-top:1rem;">
+          <div style="font-size:0.85rem;font-weight:700;color:var(--primary);margin-bottom:0.75rem;">💰 Financial Breakdown & Token Amount:</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;">
+            <div>
+              <label style="display:block;font-size:0.78rem;color:var(--text-muted);margin-bottom:0.25rem;">Total Project Amount (₹) *</label>
+              <input type="number" id="totalAmountInput" min="0" required placeholder="25000" style="width:100%;padding:0.6rem;background:rgba(15,23,42,0.9);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:#fff;font-weight:700;">
+            </div>
+
+            <div>
+              <label style="display:block;font-size:0.78rem;color:#34D399;margin-bottom:0.25rem;">Token Paid Amount (₹) *</label>
+              <input type="number" id="tokenPaidInput" min="0" required placeholder="10000" style="width:100%;padding:0.6rem;background:rgba(15,23,42,0.9);border:1px solid rgba(16,185,129,0.4);border-radius:var(--radius-sm);color:#34D399;font-weight:700;">
+            </div>
+
+            <div>
+              <label style="display:block;font-size:0.78rem;color:#FBBF24;margin-bottom:0.25rem;">Pending Balance (₹)</label>
+              <input type="number" id="pendingAmountInput" readonly placeholder="15000" style="width:100%;padding:0.6rem;background:rgba(30,41,59,0.8);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:#FBBF24;font-weight:700;">
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;margin-top:0.85rem;">
+          <div>
+            <label style="display:block;font-size:0.78rem;color:var(--text-muted);margin-bottom:0.25rem;">Payment Method</label>
+            <select id="paymentMethodInput" style="width:100%;padding:0.6rem;background:rgba(15,23,42,0.9);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:#fff;">
+              <option value="PhonePe QR">PhonePe UPI QR (8484080732@ybl)</option>
+              <option value="GPay / Paytm UPI">GPay / Paytm UPI</option>
+              <option value="Bank NEFT/RTGS">Bank Transfer</option>
+              <option value="Cash">Cash</option>
+            </select>
+          </div>
+
+          <div>
+            <label style="display:block;font-size:0.78rem;color:var(--text-muted);margin-bottom:0.25rem;">Txn Reference ID</label>
+            <input type="text" id="txnRefInput" placeholder="e.g. TXN-98472019" style="width:100%;padding:0.6rem;background:rgba(15,23,42,0.9);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:#fff;">
+          </div>
+
+          <div>
+            <label style="display:block;font-size:0.78rem;color:var(--text-muted);margin-bottom:0.25rem;">Balance Due Date</label>
+            <input type="date" id="dueDateInput" style="width:100%;padding:0.6rem;background:rgba(15,23,42,0.9);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:#fff;">
+          </div>
+        </div>
+
+        <div style="margin-top:1.5rem;display:flex;justify-content:flex-end;gap:0.75rem;">
+          <button type="button" class="btn btn-secondary btn-sm" data-modal-close>Cancel</button>
+          <button type="submit" class="btn btn-primary btn-md">Save Lead & Create Receipt →</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: Printable & Digital Receipt Preview Modal -->
+  <div class="portal-auth-overlay" id="receiptModal" style="display:none;">
+    <div style="width:100%;max-width:680px;background:var(--bg-surface);border:1px solid var(--border-active);border-radius:var(--radius-lg);padding:1.5rem;box-shadow:0 20px 60px rgba(0,0,0,0.8);position:relative;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;border-bottom:1px solid var(--border-light);padding-bottom:0.75rem;">
+        <h4 style="color:#fff;margin:0;font-family:var(--font-heading);">Official Payment Receipt</h4>
+        <button data-modal-close style="background:transparent;border:none;color:#fff;font-size:1.5rem;cursor:pointer;">&times;</button>
+      </div>
+
+      <!-- Receipt Print Container -->
+      <div id="receiptContainer" style="max-height:70vh;overflow-y:auto;padding-right:0.5rem;">
+        <!-- Rendered by sales-portal.js -->
+      </div>
+
+      <div style="margin-top:1.25rem;display:flex;justify-content:space-between;align-items:center;gap:0.75rem;border-top:1px solid var(--border-light);padding-top:1rem;">
+        <button class="btn btn-secondary btn-sm" id="printReceiptBtn">🖨️ Print / Save PDF</button>
+        <button class="btn btn-primary btn-md" id="sendWhatsappReceiptBtn" style="background:#25D366;border-color:transparent;">
+          💬 Send Receipt on WhatsApp →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: PhonePe UPI QR Code Modal -->
+  <div class="portal-auth-overlay" id="paymentQrModal" style="display:none;">
+    <div style="width:100%;max-width:440px;background:var(--bg-surface);border:1px solid var(--border-active);border-radius:var(--radius-lg);padding:1.75rem;box-shadow:0 20px 60px rgba(0,0,0,0.8);position:relative;text-align:center;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;">
+        <h4 style="color:#fff;margin:0;font-family:var(--font-heading);">PhonePe UPI Payment QR</h4>
+        <button data-modal-close style="background:transparent;border:none;color:#fff;font-size:1.5rem;cursor:pointer;">&times;</button>
+      </div>
+
+      <div id="paymentQrContainer">
+        <!-- Rendered by sales-portal.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Component -->
+  <footer class="site-footer" style="padding:2rem 0;background:rgba(15,23,42,0.9);border-top:1px solid var(--border-light);margin-top:3rem;">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:0.85rem;color:var(--text-muted);">
+      <div>© 2026 NexVora Tech Solutions. All rights reserved.</div>
+      <div>Official Payee: <strong>GOVINDRAJ HANMANT AMBATWAR</strong> (UPI: <code>8484080732@ybl</code>)</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/sales-portal.js"></script>
+</body>
+</html>

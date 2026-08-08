@@ -341,9 +341,16 @@
       closeModal(newLeadModal);
       newLeadForm.reset();
 
-      // Ask to send WhatsApp receipt immediately
-      if (confirm(`Lead ${newTxn.id} created successfully! Would you like to send the payment receipt to ${newTxn.clientName} on WhatsApp now?`)) {
-        window.sendWhatsappReceipt(newTxn.id);
+      // Show PhonePe QR Code Modal immediately if QR payment method is selected
+      if (newTxn.paymentMethod.includes('QR') || newTxn.paymentMethod.includes('PhonePe')) {
+        setTimeout(() => {
+          window.showPaymentQr(newTxn.id);
+        }, 200);
+      } else {
+        if (confirm(`Lead ${newTxn.id} created successfully! Would you like to send the payment receipt to ${newTxn.clientName} on WhatsApp now?`)) {
+          window.downloadPdfReceipt(newTxn.id);
+          window.sendWhatsappReceipt(newTxn.id);
+        }
       }
     });
   }
@@ -387,6 +394,16 @@
     }
   };
 
+  // --- URL Role Parameter Auto-Selection ---
+  const urlParams = new URLSearchParams(window.location.search);
+  const paramRole = urlParams.get('role');
+  if (paramRole === 'sales' || paramRole === 'admin') {
+    if (authUserSelect) authUserSelect.value = paramRole;
+    setTimeout(() => {
+      if (authPasswordInput) authPasswordInput.focus();
+    }, 200);
+  }
+
   // --- PhonePe & UPI QR Code Generator Modal ---
   window.showPaymentQr = function (txnId) {
     const txn = transactions.find(t => t.id === txnId);
@@ -405,18 +422,18 @@
 
     if (paymentQrContainer) {
       paymentQrContainer.innerHTML = `
-        <div style="background:#ffffff;border-radius:18px;padding:2rem 1.5rem;color:#0f172a;max-width:380px;margin:0 auto;box-shadow:0 10px 40px rgba(0,0,0,0.5);text-align:center;">
+        <div style="background:#ffffff;border-radius:18px;padding:2rem 1.5rem;color:#0f172a;max-width:400px;margin:0 auto;box-shadow:0 10px 40px rgba(0,0,0,0.5);text-align:center;">
           <!-- PhonePe Header -->
           <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-bottom:0.75rem;">
             <div style="width:36px;height:36px;background:#5f259f;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:1.2rem;">पे</div>
             <span style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:800;color:#5f259f;">PhonePe</span>
           </div>
           <div style="font-size:0.85rem;font-weight:800;letter-spacing:1px;color:#5f259f;text-transform:uppercase;margin-bottom:0.25rem;">ACCEPTED HERE</div>
-          <div style="font-size:0.8rem;color:#64748b;margin-bottom:1.25rem;">Scan & Pay Using PhonePe, GPay, Paytm or Any UPI App</div>
+          <div style="font-size:0.8rem;color:#64748b;margin-bottom:1rem;">Scan & Pay Using PhonePe, GPay, Paytm or Any UPI App</div>
 
           <!-- Dynamic QR Image -->
-          <div style="padding:10px;background:#fff;border:2px solid #e2e8f0;border-radius:12px;display:inline-block;margin-bottom:1.25rem;">
-            <img src="${qrImageUrl}" alt="PhonePe UPI Payment QR Code" style="width:220px;height:220px;display:block;" onerror="this.onerror=null;this.src='https://chart.googleapis.com/chart?chs=220x220&cht=qr&chl=${encodeURIComponent(upiUrl)}';">
+          <div style="padding:10px;background:#fff;border:2px solid #e2e8f0;border-radius:12px;display:inline-block;margin-bottom:1rem;">
+            <img src="${qrImageUrl}" alt="PhonePe UPI Payment QR Code" style="width:210px;height:210px;display:block;" onerror="this.onerror=null;this.src='https://chart.googleapis.com/chart?chs=220x220&cht=qr&chl=${encodeURIComponent(upiUrl)}';">
           </div>
 
           <!-- Payee Info -->
@@ -426,7 +443,7 @@
           </div>
 
           <!-- Transaction Summary inside QR -->
-          <div style="background:#f8fafc;padding:0.85rem;border-radius:10px;text-align:left;font-size:0.85rem;border:1px solid #e2e8f0;">
+          <div style="background:#f8fafc;padding:0.85rem;border-radius:10px;text-align:left;font-size:0.85rem;border:1px solid #e2e8f0;margin-bottom:1.25rem;">
             <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
               <span style="color:#64748b;">Client Name:</span>
               <strong style="color:#0f172a;">${escapeHtml(txn.clientName)}</strong>
@@ -440,10 +457,36 @@
               <strong style="color:#16a34a;font-size:1.1rem;">₹${amountToRequest.toLocaleString('en-IN')}</strong>
             </div>
           </div>
+
+          <!-- Confirm Payment & Send WhatsApp PDF Receipt Button -->
+          <button class="btn btn-primary btn-md" onclick="window.confirmPaymentFromQr('${txn.id}')" style="width:100%;background:#16a34a;border-color:transparent;font-weight:700;padding:0.75rem;">
+            ✅ Confirm Payment Received & Send PDF Receipt →
+          </button>
         </div>`;
     }
 
     openModal(paymentQrModal);
+  };
+
+  // --- Confirm Payment & Trigger PDF + WhatsApp Receipt ---
+  window.confirmPaymentFromQr = function (txnId) {
+    const txn = transactions.find(t => t.id === txnId);
+    if (!txn) return;
+
+    if (txn.status === 'pending') {
+      txn.status = 'token-received';
+    } else if (txn.status === 'token-received') {
+      txn.status = 'fully-paid';
+      txn.tokenPaid = txn.totalAmount;
+      txn.pendingAmount = 0;
+    }
+
+    updateDashboard();
+    closeModal(paymentQrModal);
+
+    // Trigger PDF Generation and WhatsApp Receipt
+    window.downloadPdfReceipt(txn.id);
+    window.sendWhatsappReceipt(txn.id);
   };
 
   // --- WhatsApp Digital Receipt Dispatcher ---
@@ -584,6 +627,42 @@ Need help? Contact support or visit https://nexvora.com`;
 
     openModal(receiptModal);
   };
+
+  // --- PDF Download Function ---
+  window.downloadPdfReceipt = function (txnId) {
+    const txn = transactions.find(t => t.id === (txnId || activeReceiptTransaction?.id));
+    if (!txn) return;
+
+    window.viewReceiptModal(txn.id);
+
+    setTimeout(() => {
+      const element = document.getElementById('receiptPrintArea');
+      if (!element) return;
+
+      const opt = {
+        margin:       0.3,
+        filename:     `NexVora_Receipt_${txn.id}.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+
+      if (window.html2pdf) {
+        window.html2pdf().set(opt).from(element).save();
+      } else {
+        window.print();
+      }
+    }, 250);
+  };
+
+  const downloadPdfReceiptBtn = document.getElementById('downloadPdfReceiptBtn');
+  if (downloadPdfReceiptBtn) {
+    downloadPdfReceiptBtn.addEventListener('click', () => {
+      if (activeReceiptTransaction) {
+        window.downloadPdfReceipt(activeReceiptTransaction.id);
+      }
+    });
+  }
 
   // --- Print Receipt Action ---
   if (printReceiptBtn) {

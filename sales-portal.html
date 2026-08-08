@@ -303,8 +303,11 @@
         <!-- Rendered by sales-portal.js -->
       </div>
 
-      <div style="margin-top:1.25rem;display:flex;justify-content:space-between;align-items:center;gap:0.75rem;border-top:1px solid var(--border-light);padding-top:1rem;">
-        <button class="btn btn-secondary btn-sm" id="printReceiptBtn">🖨️ Print / Save PDF</button>
+      <div style="margin-top:1.25rem;display:flex;justify-content:space-between;align-items:center;gap:0.75rem;border-top:1px solid var(--border-light);padding-top:1rem;flex-wrap:wrap;">
+        <div style="display:flex;gap:0.5rem;">
+          <button class="btn btn-secondary btn-sm" id="downloadPdfReceiptBtn" style="border-color:var(--primary);color:var(--primary);">📥 Download PDF Receipt</button>
+          <button class="btn btn-secondary btn-sm" id="printReceiptBtn">🖨️ Print</button>
+        </div>
         <button class="btn btn-primary btn-md" id="sendWhatsappReceiptBtn" style="background:#25D366;border-color:transparent;">
           💬 Send Receipt on WhatsApp →
         </button>
@@ -334,7 +337,8 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Scripts & Client PDF Generator -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="js/sales-portal.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NexVora Tech Solutions - Slider & Carousel JavaScript
+   Yugvex Tech Solutions - Slider & Carousel JavaScript
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {

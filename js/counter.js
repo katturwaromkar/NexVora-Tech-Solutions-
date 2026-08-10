@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NexVora Tech Solutions - Stats Counter & Skill Bar Animation
+   Yugvex Tech Solutions - Stats Counter & Skill Bar Animation
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {

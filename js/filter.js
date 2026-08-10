@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NexVora Tech Solutions - Real-Time Search & Dynamic Filter Engine
+   Yugvex Tech Solutions - Real-Time Search & Dynamic Filter Engine
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {

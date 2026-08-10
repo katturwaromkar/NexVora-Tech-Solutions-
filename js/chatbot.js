@@ -1,12 +1,12 @@
 /* ==========================================================================
-   NexVora Tech Solutions - Advanced Next-Gen AI Conversational Engine
+   Yugvex Tech Solutions - Advanced Next-Gen AI Conversational Engine
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initNexVoraAIChatbot();
+  initYugvexAIChatbot();
 });
 
-function initNexVoraAIChatbot() {
+function initYugvexAIChatbot() {
   // Inject Chatbot HTML Markup dynamically if not already present
   if (!document.getElementById('aiChatWindow')) {
     injectChatbotDOM();
@@ -111,10 +111,10 @@ function initNexVoraAIChatbot() {
 
 function injectChatbotDOM() {
   const container = document.createElement('div');
-  container.id = 'nexvora-chatbot-wrapper';
+  container.id = 'yugvex-chatbot-wrapper';
   container.innerHTML = `
     <!-- Floating Trigger -->
-    <button class="ai-chat-trigger" id="aiChatTrigger" aria-label="Open NexVora AI Assistant">
+    <button class="ai-chat-trigger" id="aiChatTrigger" aria-label="Open Yugvex AI Assistant">
       <span>🤖</span>
       <span class="trigger-pulse-dot"></span>
       <span class="ai-chat-badge" id="aiChatBadge">1</span>
@@ -124,7 +124,7 @@ function injectChatbotDOM() {
     <div class="ai-chat-teaser" id="aiChatTeaser" style="display:none;">
       <div style="font-size:1.4rem;">👋</div>
       <div>
-        <strong style="font-size:0.88rem;color:var(--text-main);display:block;margin-bottom:0.15rem;">NexVora AI Assistant</strong>
+        <strong style="font-size:0.88rem;color:var(--text-main);display:block;margin-bottom:0.15rem;">Yugvex AI Assistant</strong>
         <p style="font-size:0.8rem;color:var(--text-muted);margin:0;">Looking for Custom ERP, Web Development, or AI solutions?</p>
       </div>
       <button class="teaser-close-btn" id="teaserClose">&times;</button>
@@ -139,7 +139,7 @@ function injectChatbotDOM() {
             <div class="chat-avatar-status"></div>
           </div>
           <div class="chat-title-box">
-            <h4>NexVora AI Assistant <span style="font-size:0.75rem;padding:0.1rem 0.4rem;border-radius:4px;background:rgba(6,182,212,0.2);color:var(--primary);">v2.4</span></h4>
+            <h4>Yugvex AI Assistant <span style="font-size:0.75rem;padding:0.1rem 0.4rem;border-radius:4px;background:rgba(6,182,212,0.2);color:var(--primary);">v2.4</span></h4>
             <div class="chat-status-sub">⚡ Online • Founder Omkar Katturwar</div>
           </div>
         </div>
@@ -154,7 +154,7 @@ function injectChatbotDOM() {
           <div class="chat-msg-avatar">🤖</div>
           <div>
             <div class="chat-msg-bubble">
-              Welcome to <strong>NexVora Tech Solutions</strong>! 🚀<br><br>
+              Welcome to <strong>Yugvex Tech Solutions</strong>! 🚀<br><br>
               I am your 24/7 AI Sales & Engineering Guide. How can I assist your business today?
             </div>
             <div class="chat-chips-wrap">
@@ -290,7 +290,7 @@ function generateAIResponse(userText) {
   // 5. Careers & Internships
   if (input.includes('intern') || input.includes('career') || input.includes('job') || input.includes('hiring') || input.includes('apply')) {
     return {
-      text: `🎓 <strong>NexVora Technology Internships</strong>:<br><br>
+      text: `🎓 <strong>Yugvex Technology Internships</strong>:<br><br>
         We offer hands-on internships in:<br>
         • 💻 Full-Stack Web Engineering<br>
         • 🤖 AI & Machine Learning Research<br>
@@ -302,7 +302,7 @@ function generateAIResponse(userText) {
 
   // 6. Contact & Direct WhatsApp
   if (input.includes('whatsapp') || input.includes('phone') || input.includes('call') || input.includes('contact') || input.includes('omkar') || input.includes('number') || input.includes('email')) {
-    const waUrl = `https://wa.me/917219290885?text=${encodeURIComponent('Hello Omkar Katturwar! I am reaching out from NexVora AI Assistant.')}`;
+    const waUrl = `https://wa.me/917219290885?text=${encodeURIComponent('Hello Omkar Katturwar! I am reaching out from Yugvex AI Assistant.')}`;
     return {
       text: `You can connect directly with Director <strong>Omkar Katturwar</strong>:<br><br>
         📞 <strong>Phone:</strong> <a href="tel:7219290885" style="color:var(--primary);">+91 7219290885</a><br>
@@ -329,7 +329,7 @@ function generateAIResponse(userText) {
   // 8. AI Innovations
   if (input.includes('ai') || input.includes('voice') || input.includes('bot') || input.includes('resume') || input.includes('ocr')) {
     return {
-      text: `🤖 <strong>NexVora AI Innovations (Upcoming Suite)</strong>:<br><br>
+      text: `🤖 <strong>Yugvex AI Innovations (Upcoming Suite)</strong>:<br><br>
         • 🎙️ <strong>AI Voice Calling Agent:</strong> Automated inbound/outbound phone calls for lead qualification.<br>
         • 📄 <strong>AI Resume Screen Assistant:</strong> Automatic parsing and candidate scoring.<br>
         • 🔍 <strong>AI Document OCR:</strong> Extract data from invoices & prescription documents instantly.`,
@@ -360,7 +360,7 @@ function generateAIResponse(userText) {
 
   // Default Fallback
   return {
-    text: `Thanks for asking! At <strong>NexVora Tech Solutions</strong>, we specialize in Custom Web & Mobile Apps, Enterprise ERPs, SaaS Products, Turnkey Website Templates, and AI Automation.<br><br>
+    text: `Thanks for asking! At <strong>Yugvex Tech Solutions</strong>, we specialize in Custom Web & Mobile Apps, Enterprise ERPs, SaaS Products, Turnkey Website Templates, and AI Automation.<br><br>
       How can Founder Omkar Katturwar & our engineering team help your business today?`,
     chips: ['Explore SaaS Products', 'Turnkey Templates', 'AI Innovations', 'Chat on WhatsApp']
   };

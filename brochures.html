@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brochures & Document Downloads | Yugvex Tech Solutions</title>
+  <meta name="description" content="Download official brochures, website development plan catalogs, enterprise ERP decks, and AI product documentation for Yugvex Tech Solutions.">
+  <meta name="keywords" content="Yugvex Tech Solutions, Brochures, Website Development Brochure, ERP Catalog, AI Products Deck, Downloads">
+
+  <!-- Core Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/chatbot.css">
+
+  <!-- jsPDF CDN for Browser PDF Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- Ambient Glow Orbs -->
+  <div class="bg-glow-orb orb-primary"></div>
+  <div class="bg-glow-orb orb-secondary"></div>
+
+  <!-- Header Navigation -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon-box">Y</div>
+        <span>Yug<span class="text-gradient">vex</span></span>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="industries.html" class="nav-link">Industries</a>
+        <a href="templates.html" class="nav-link">Templates</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="portfolio.html" class="nav-link">Portfolio</a>
+        <a href="clients.html" class="nav-link">Clients</a>
+        <a href="brochures.html" class="nav-link active">Brochures</a>
+        <a href="team.html" class="nav-link">Team</a>
+        <a href="careers.html" class="nav-link">Careers</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-primary btn-sm" data-modal-target="projectModal">
+          🚀 Request Project & Pay
+        </button>
+        <div class="hamburger-btn" aria-label="Toggle Menu">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-overlay"></div>
+  <aside class="mobile-nav-drawer">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon-box">Y</div>
+        <span>Yug<span class="text-gradient">vex</span></span>
+      </a>
+      <div class="close-drawer-btn">&times;</div>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">Home</a>
+      <a href="about.html" class="mobile-nav-link">About Us</a>
+      <a href="services.html" class="mobile-nav-link">Services</a>
+      <a href="industries.html" class="mobile-nav-link">Industries</a>
+      <a href="templates.html" class="mobile-nav-link">Templates</a>
+      <a href="products.html" class="mobile-nav-link">Products & ERPs</a>
+      <a href="brochures.html" class="mobile-nav-link active">Brochures & Downloads</a>
+      <a href="portfolio.html" class="mobile-nav-link">Portfolio</a>
+      <a href="clients.html" class="mobile-nav-link">Clients</a>
+      <a href="team.html" class="mobile-nav-link">Team</a>
+      <a href="careers.html" class="mobile-nav-link">Careers</a>
+      <a href="contact.html" class="mobile-nav-link">Contact</a>
+    </nav>
+  </aside>
+
+  <!-- Hero Section -->
+  <section class="section" style="padding-top:8rem;padding-bottom:3rem;text-align:center;">
+    <div class="container">
+      <span class="section-tag">Resource Center</span>
+      <h1 class="section-title" style="font-size:2.8rem;margin-bottom:1rem;">
+        Official Company <span class="text-gradient">Brochures & Catalogs</span>
+      </h1>
+      <p class="section-subtitle" style="max-width:700px;margin:0 auto 2.5rem;">
+        Access comprehensive feature guides, web development package brochures, enterprise ERP decks, and product specifications.
+      </p>
+
+      <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+        <button class="btn btn-primary" data-modal-target="projectModal">
+          🚀 Request Project & Pay Online
+        </button>
+        <a href="contact.html" class="btn btn-secondary">
+          📞 Request Custom Proposal
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brochure Grid Section -->
+  <section class="section bg-dark-lighter" style="padding:4rem 0;">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:2rem;">
+        
+        <!-- Brochure Item 1 -->
+        <div class="card glass-card" style="padding:2rem;display:flex;flex-direction:column;justify-content:space-between;">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+              <span class="badge" style="background:rgba(6,182,212,0.15);color:var(--primary);border:1px solid rgba(6,182,212,0.3);">Website Packages</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">PDF • 2026 Edition</span>
+            </div>
+            <h3 style="font-size:1.3rem;color:#fff;margin-bottom:0.75rem;">🌐 Website Development Plans & Pricing</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">
+              Full feature list for Starter, Business, E-Commerce, and Custom Enterprise web applications. Includes timelines, Tech Stack, and SEO inclusions.
+            </p>
+          </div>
+          <div style="display:flex;gap:0.75rem;">
+            <button class="btn btn-primary btn-sm" onclick="downloadSampleBrochure('website')" style="flex:1;">
+              📥 Download PDF
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="previewBrochure('Website Development Plans 2026', 'Comprehensive feature breakdown of Starter, Professional, and Enterprise Web Packages.')">
+              👁️ Preview
+            </button>
+          </div>
+        </div>
+
+        <!-- Brochure Item 2 -->
+        <div class="card glass-card" style="padding:2rem;display:flex;flex-direction:column;justify-content:space-between;">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+              <span class="badge" style="background:rgba(139,92,246,0.15);color:#A78BFA;border:1px solid rgba(139,92,246,0.3);">Enterprise ERP</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">PDF • Detailed Specs</span>
+            </div>
+            <h3 style="font-size:1.3rem;color:#fff;margin-bottom:0.75rem;">💊 Pharmacy Store ERP Software</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">
+              Medicine inventory control, batch expiry alerts, barcode billing, GST reporting, and wholesaler purchase order deck.
+            </p>
+          </div>
+          <div style="display:flex;gap:0.75rem;">
+            <button class="btn btn-primary btn-sm" onclick="downloadSampleBrochure('pharmacy')" style="flex:1;">
+              📥 Download PDF
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="previewBrochure('Pharmacy Store ERP Guide', 'Complete specifications for Pharmacy Inventory, Billing, and Expiry Alert Systems.')">
+              👁️ Preview
+            </button>
+          </div>
+        </div>
+
+        <!-- Brochure Item 3 -->
+        <div class="card glass-card" style="padding:2rem;display:flex;flex-direction:column;justify-content:space-between;">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+              <span class="badge" style="background:rgba(236,72,153,0.15);color:#F472B6;border:1px solid rgba(236,72,153,0.3);">Restaurant POS</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">PDF • Solution Deck</span>
+            </div>
+            <h3 style="font-size:1.3rem;color:#fff;margin-bottom:0.75rem;">🍽️ Restaurant Management & QR POS</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">
+              Table QR ordering, Kitchen Display Systems (KOT), inventory recipe management, and Swiggy/Zomato sync overview.
+            </p>
+          </div>
+          <div style="display:flex;gap:0.75rem;">
+            <button class="btn btn-primary btn-sm" onclick="downloadSampleBrochure('restaurant')" style="flex:1;">
+              📥 Download PDF
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="previewBrochure('Restaurant Management POS Brochure', 'Overview of Table QR Digital Menu, Kitchen Display System, and Billing ERP.')">
+              👁️ Preview
+            </button>
+          </div>
+        </div>
+
+        <!-- Brochure Item 4 -->
+        <div class="card glass-card" style="padding:2rem;display:flex;flex-direction:column;justify-content:space-between;">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+              <span class="badge" style="background:rgba(16,185,129,0.15);color:#34D399;border:1px solid rgba(16,185,129,0.3);">AI Innovations</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">PDF • Product Catalog</span>
+            </div>
+            <h3 style="font-size:1.3rem;color:#fff;margin-bottom:0.75rem;">🤖 AI Voice Bot & Automation Suite</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">
+              Autonomous AI Voice Tele-Calling, Intelligent Document OCR Extraction, and AI Resume Screening Assistant details.
+            </p>
+          </div>
+          <div style="display:flex;gap:0.75rem;">
+            <button class="btn btn-primary btn-sm" onclick="downloadSampleBrochure('ai')" style="flex:1;">
+              📥 Download PDF
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="previewBrochure('AI Automation Product Catalog', 'Architecture and capability specifications of Yugvex AI Voice Agents and Document OCR.')">
+              👁️ Preview
+            </button>
+          </div>
+        </div>
+
+        <!-- Brochure Item 5 -->
+        <div class="card glass-card" style="padding:2rem;display:flex;flex-direction:column;justify-content:space-between;">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+              <span class="badge" style="background:rgba(245,158,11,0.15);color:#FBBF24;border:1px solid rgba(245,158,11,0.3);">Corporate Profile</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">PDF • Company Overview</span>
+            </div>
+            <h3 style="font-size:1.3rem;color:#fff;margin-bottom:0.75rem;">🏢 Yugvex Tech Solutions Corporate Deck</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">
+              Company background, leadership team, technology stack, client testimonials, case studies, and engagement models.
+            </p>
+          </div>
+          <div style="display:flex;gap:0.75rem;">
+            <button class="btn btn-primary btn-sm" onclick="downloadSampleBrochure('corporate')" style="flex:1;">
+              📥 Download PDF
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="previewBrochure('Yugvex Corporate Deck', 'Company profile, capabilities, leadership team, and engagement methodology.')">
+              👁️ Preview
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Preview Modal -->
+  <div class="modal-overlay" id="brochurePreviewModal" style="display:none;">
+    <div class="modal-card" style="max-width:550px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="previewModalTitle">Brochure Preview</h3>
+        <button class="modal-close-btn" onclick="closeBrochurePreview()">&times;</button>
+      </div>
+      <div class="modal-body" style="padding:1.5rem 0;">
+        <div style="background:rgba(15,23,42,0.6);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:1.5rem;text-align:center;">
+          <div style="font-size:3rem;margin-bottom:0.5rem;">📄</div>
+          <h4 id="previewDocHeader" style="color:var(--primary);margin-bottom:0.5rem;">Yugvex Brochure Specifications</h4>
+          <p id="previewDocBody" style="color:var(--text-muted);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;"></p>
+          <div style="font-size:0.8rem;color:var(--text-muted);">Format: Standard Printable PDF • High Resolution</div>
+        </div>
+      </div>
+      <div class="modal-footer" style="display:flex;justify-content:flex-end;gap:1rem;">
+        <button class="btn btn-secondary" onclick="closeBrochurePreview()">Close</button>
+        <button class="btn btn-primary" onclick="downloadCurrentPreview()">📥 Download Printable PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Component -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo" style="margin-bottom:1rem;">
+            <div class="logo-icon-box">Y</div>
+            <span>Yug<span class="text-gradient">vex</span></span>
+          </a>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;line-height:1.7;">
+            Engineering high-speed web applications, enterprise ERP systems, and AI automation engines for forward-thinking organizations worldwide.
+          </p>
+          <div style="font-size:0.85rem;color:var(--primary);font-weight:600;margin-bottom:1rem;">Director: Omkar Katturwar</div>
+          <div>
+            <a href="sales-portal.html" class="btn btn-secondary btn-sm" style="border-color:rgba(99,102,241,0.6);color:#fff;display:inline-flex;align-items:center;gap:0.5rem;" title="Staff, Sales & Admin Portal Access">
+              🔐 Staff & Admin Login
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="color:#fff;margin-bottom:1.25rem;">Quick Links</h4>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:0.75rem;font-size:0.9rem;color:var(--text-muted);">
+            <li><a href="about.html">About Yugvex</a></li>
+            <li><a href="services.html">Our Services</a></li>
+            <li><a href="industries.html">Industry Suites</a></li>
+            <li><a href="templates.html">Turnkey Templates</a></li>
+            <li><a href="products.html">SaaS & Enterprise ERPs</a></li>
+            <li><a href="brochures.html" style="color:var(--primary);font-weight:600;">📥 Download Brochures</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color:#fff;margin-bottom:1.25rem;">Featured Products</h4>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:0.75rem;font-size:0.9rem;color:var(--text-muted);">
+            <li><a href="products.html">Pharmacy Store ERP</a></li>
+            <li><a href="https://demo-restro-mangement-system.vercel.app/" target="_self">Restaurant Management POS ↗</a></li>
+            <li><a href="ai-products.html">AI Voice Calling Agents</a></li>
+            <li><a href="clients.html">Client Partner Directory</a></li>
+            <li><a href="portfolio.html">Director Portfolio ↗</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color:#fff;margin-bottom:1.25rem;">Contact Us</h4>
+          <div style="display:flex;flex-direction:column;gap:0.85rem;font-size:0.9rem;color:var(--text-muted);">
+            <div>📞 <strong>Phone:</strong> <a href="tel:7219290885" style="color:var(--primary);">+91 7219290885</a></div>
+            <div>✉️ <strong>Email:</strong> <a href="mailto:katturwaroma313@gmail.com" style="color:var(--primary);">katturwaroma313@gmail.com</a></div>
+            <div>📍 <strong>HQ:</strong> Nanded, Maharashtra, India</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© <span class="current-year">2026</span> Yugvex Tech Solutions. All Rights Reserved. Director: Omkar Katturwar</div>
+        <div style="display:flex;gap:1.5rem;align-items:center;">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="sales-portal.html" style="color:var(--text-muted);font-size:0.85rem;">Staff Login</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script>
+    let activePreviewType = 'website';
+
+    function previewBrochure(title, desc) {
+      document.getElementById('previewModalTitle').innerText = title;
+      document.getElementById('previewDocHeader').innerText = title;
+      document.getElementById('previewDocBody').innerText = desc;
+      document.getElementById('brochurePreviewModal').style.display = 'flex';
+    }
+
+    function closeBrochurePreview() {
+      document.getElementById('brochurePreviewModal').style.display = 'none';
+    }
+
+    function downloadCurrentPreview() {
+      downloadSampleBrochure(activePreviewType);
+      closeBrochurePreview();
+    }
+
+    function downloadSampleBrochure(type) {
+      activePreviewType = type;
+      if (window.jspdf) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        doc.setFillColor(15, 23, 42);
+        doc.rect(0, 0, 210, 297, 'F');
+        
+        doc.setTextColor(6, 182, 212);
+        doc.setFontSize(22);
+        doc.text("YUGVEX TECH SOLUTIONS", 20, 25);
+        
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(14);
+        
+        let title = "OFFICIAL SOLUTION BROCHURE";
+        let items = [];
+
+        if (type === 'website') {
+          title = "WEBSITE DEVELOPMENT PLANS & PRICING";
+          items = [
+            "• Starter Plan (Rs. 9,999): 5-page Responsive Site, Mobile Fast, Contact Form",
+            "• Business Plan (Rs. 24,999): Custom UI/UX, Dynamic Content, CMS Dashboard, SEO",
+            "• E-Commerce / Enterprise (Rs. 49,999+): Payment Gateways, ERP Sync, Custom SaaS"
+          ];
+        } else if (type === 'pharmacy') {
+          title = "PHARMACY STORE ERP SPECIFICATION";
+          items = [
+            "• Medicine Stock Inventory with Batch & Expiry Date Alerts",
+            "• Barcode Scanner Billing & Instant Thermal Receipt Print",
+            "• Wholesale Supplier Purchases & GST Tax Filing Reports"
+          ];
+        } else if (type === 'restaurant') {
+          title = "RESTAURANT MANAGEMENT & QR POS";
+          items = [
+            "• Contactless Table QR Code Digital Ordering System",
+            "• Kitchen Display System (KOT) & Table Reservation",
+            "• Swiggy / Zomato Inventory & Revenue Analytics"
+          ];
+        } else if (type === 'ai') {
+          title = "AI VOICE BOT & AUTOMATION SUITE";
+          items = [
+            "• Autonomous AI Voice Tele-Calling & Customer Support Agent",
+            "• Intelligent Document OCR & Invoice Extraction Engine",
+            "• AI Resume Screening & Automated Lead Qualifying Bot"
+          ];
+        } else {
+          title = "YUGVEX TECH SOLUTIONS CORPORATE PROFILE";
+          items = [
+            "• Founder & Director: Omkar Katturwar",
+            "• Services: Web Apps, SaaS Products, AI Systems, Enterprise ERPs",
+            "• Contact: +91 7219290885 | katturwaroma313@gmail.com"
+          ];
+        }
+
+        doc.text(title, 20, 40);
+        doc.setFontSize(11);
+        doc.setTextColor(200, 200, 200);
+
+        let y = 60;
+        items.forEach(item => {
+          doc.text(item, 20, y);
+          y += 12;
+        });
+
+        doc.setLineWidth(0.5);
+        doc.setDrawColor(6, 182, 212);
+        doc.line(20, y + 10, 190, y + 10);
+
+        doc.setFontSize(10);
+        doc.setTextColor(150, 150, 150);
+        doc.text("Yugvex Tech Solutions - Nanded, Maharashtra | www.yugvex.com", 20, y + 25);
+
+        doc.save(`Yugvex_${type}_brochure.pdf`);
+      } else {
+        alert("Preparing brochure download...");
+      }
+    }
+  </script>
+</body>
+</html>

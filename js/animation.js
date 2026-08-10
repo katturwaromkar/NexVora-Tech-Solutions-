@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NexVora Tech Solutions - Scroll Reveal & Cursor Glow Parallax Engine
+   Yugvex Tech Solutions - Scroll Reveal & Cursor Glow Parallax Engine
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {

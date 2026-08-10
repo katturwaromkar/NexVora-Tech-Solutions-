@@ -1,82 +1,82 @@
 /**
- * NexVora Tech Solutions - Sales & Transaction Portal Engine
- * Features: Dual-Role Auth (Admin/Sales), Lead Requirement Entry, Financial Breakdown,
- * PhonePe/UPI Payment QR, WhatsApp Digital Receipt Dispatch, Local Storage Ledger.
+ * Yugvex Tech Solutions - Staff & Admin Financial Operations Engine
+ * Features: Dual-Role Auth (Admin/Sales), Client Request Verification, Financial Breakdown,
+ * PhonePe/UPI Payment QR, PDF Receipt Generation & WhatsApp Dispatch.
  */
 
 (function () {
-  'use me strict';
+  'use strict';
 
   // --- Default Payment Receiver Credentials ---
   const DEFAULT_PAYMENT_CONFIG = {
     upiId: '8484080732@ybl',
     payeeName: 'GOVINDRAJ HANMANT AMBATWAR',
     bankName: 'PhonePe / YBL UPI',
-    companyName: 'NexVora Tech Solutions'
+    companyName: 'Yugvex Tech Solutions'
   };
 
   // --- Initial Seed Data ---
   const SEED_TRANSACTIONS = [
     {
-      id: 'NV-2026-0801',
-      clientName: 'Rahul Sharma',
+      id: 'YUG-2026-0801',
+      clientName: 'Shri Hanuman Super Market',
       clientPhone: '919876543210',
-      companyName: 'Sharma Medicals',
-      requirementCategory: 'Pharmacy Store ERP',
-      requirementDetails: 'Complete Pharmacy Management ERP with GST billing, batch & expiry tracker, salt composition search, and inventory reorder alerts.',
+      companyName: 'www.shrihanumansupermarket.shop',
+      requirementCategory: 'Retail & E-Commerce Store',
+      requirementDetails: 'Retail e-commerce supermarket website with online grocery product catalog, WhatsApp direct checkout, and category browsing.',
       totalAmount: 25000,
       tokenPaid: 10000,
       pendingAmount: 15000,
-      paymentMethod: 'UPI (PhonePe)',
+      paymentMethod: 'UPI (PhonePe QR)',
       txnRef: 'TXN-98472019',
       status: 'token-received',
-      salesPerson: 'Rohan Gupta',
+      salesPerson: 'Admin User',
       createdAt: '2026-08-05T10:30:00Z',
       dueDate: '2026-08-20'
     },
     {
-      id: 'NV-2026-0802',
-      clientName: 'Priya Verma',
+      id: 'YUG-2026-0802',
+      clientName: 'V and B Enterprises',
       clientPhone: '919812345678',
-      companyName: 'Govindraj Watch & Gift',
-      requirementCategory: 'E-Commerce Website',
-      requirementDetails: 'Pixel-perfect e-commerce template for luxury watches & gifts with WhatsApp ordering, catalog filters, and payment gateway.',
+      companyName: 'https://v-b-beta.vercel.app/',
+      requirementCategory: 'Retail & E-Commerce Web App',
+      requirementDetails: 'High-speed retail e-commerce web application with interactive product catalog and cart.',
       totalAmount: 18000,
       tokenPaid: 18000,
       pendingAmount: 0,
       paymentMethod: 'PhonePe QR',
       txnRef: 'TXN-47201844',
       status: 'fully-paid',
-      salesPerson: 'Rohan Gupta',
+      salesPerson: 'Admin User',
       createdAt: '2026-08-06T14:15:00Z',
       dueDate: '2026-08-06'
     },
     {
-      id: 'NV-2026-0803',
-      clientName: 'Dr. Amit Deshmukh',
+      id: 'YUG-2026-0803',
+      clientName: 'Govindraj Watch & Gift',
       clientPhone: '919922334455',
-      companyName: 'Citycare Hospital',
-      requirementCategory: 'AI Voice Calling Agent',
-      requirementDetails: 'AI Assistant for automated patient appointment booking, reminder calls, and OPD queue inquiry bot.',
+      companyName: 'Govindraj Watch Center',
+      requirementCategory: 'E-Commerce Website & Catalog',
+      requirementDetails: 'Luxury watch & gift catalog with WhatsApp ordering.',
       totalAmount: 45000,
       tokenPaid: 15000,
       pendingAmount: 30000,
       paymentMethod: 'Bank Transfer',
       txnRef: 'TXN-11029384',
       status: 'partial',
-      salesPerson: 'Alex Vora',
+      salesPerson: 'Admin User',
       createdAt: '2026-08-07T11:00:00Z',
       dueDate: '2026-08-25'
     }
   ];
 
   // --- State Management ---
-  let currentUser = JSON.parse(sessionStorage.getItem('nexvora_portal_user')) || null;
-  let transactions = JSON.parse(localStorage.getItem('nexvora_transactions')) || null;
+  let currentUser = JSON.parse(sessionStorage.getItem('yugvex_portal_user')) || null;
+  let transactions = JSON.parse(localStorage.getItem('yugvex_transactions')) || null;
 
   if (!transactions || transactions.length === 0) {
     transactions = SEED_TRANSACTIONS;
-    localStorage.setItem('nexvora_transactions', JSON.stringify(transactions));
+    localStorage.setItem('yugvex_transactions', JSON.stringify(transactions));
   }
 
   // --- DOM Elements ---
@@ -121,6 +121,7 @@
     checkAuth();
     setupEventListeners();
     updateDashboard();
+    window.renderClientRequestsTable();
   }
 
   // --- Authentication Handlers ---
@@ -138,18 +139,19 @@
 
   function handleLogin(role, password) {
     if (role === 'admin' && (password === 'admin123' || password === '9999')) {
-      currentUser = { role: 'admin', name: 'Alex Vora (Admin)', email: 'admin@nexvora.com' };
+      currentUser = { role: 'admin', name: 'Admin (Omkar Katturwar)', email: 'admin@yugvex.com' };
     } else if (role === 'sales' && (password === 'sales123' || password === '1234')) {
-      currentUser = { role: 'sales', name: 'Rohan Gupta (Sales)', email: 'sales@nexvora.com' };
+      currentUser = { role: 'sales', name: 'Rohan Gupta (Sales)', email: 'sales@yugvex.com' };
     } else {
-      if (authErrorMsg) authErrorMsg.textContent = 'Invalid credentials! (Try Admin: admin123 or Sales: sales123)';
+      if (authErrorMsg) authErrorMsg.textContent = 'Invalid credentials! (Admin: admin123 / PIN 9999, Sales: sales123 / PIN 1234)';
       return false;
     }
 
-    sessionStorage.setItem('nexvora_portal_user', JSON.stringify(currentUser));
+    sessionStorage.setItem('yugvex_portal_user', JSON.stringify(currentUser));
     if (authErrorMsg) authErrorMsg.textContent = '';
     checkAuth();
     updateDashboard();
+    window.renderClientRequestsTable();
     return true;
   }
 
@@ -164,7 +166,7 @@
 
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
-      sessionStorage.removeItem('nexvora_portal_user');
+      sessionStorage.removeItem('yugvex_portal_user');
       currentUser = null;
       checkAuth();
     });
@@ -191,7 +193,7 @@
   }
 
   function saveTransactions() {
-    localStorage.setItem('nexvora_transactions', JSON.stringify(transactions));
+    localStorage.setItem('yugvex_transactions', JSON.stringify(transactions));
   }
 
   function calculateKpis() {
@@ -287,8 +289,8 @@
               <button class="btn-icon-table btn-whatsapp-action" onclick="window.sendWhatsappReceipt('${t.id}')" title="Send Receipt on WhatsApp">
                 💬 WhatsApp
               </button>
-              <button class="btn-icon-table" onclick="window.viewReceiptModal('${t.id}')" title="View & Print Receipt">
-                📄 Receipt
+              <button class="btn-icon-table" onclick="window.downloadPdfReceipt('${t.id}')" title="Download Official PDF Receipt">
+                📄 PDF Receipt
               </button>
               ${t.pendingAmount > 0 ? `
                 <button class="btn-icon-table" style="border-color:rgba(16,185,129,0.4);color:#34D399;" onclick="window.recordBalancePayment('${t.id}')" title="Record Remaining Balance">
@@ -303,6 +305,183 @@
         </tr>`;
     }).join('');
   }
+
+  // --- ONLINE CLIENT REQUESTS TABLE & VERIFICATION ---
+  window.renderClientRequestsTable = function () {
+    const tableBody = document.getElementById('clientRequestsTableBody');
+    const countEl = document.getElementById('kpiPendingRequestsCount');
+    if (!tableBody) return;
+
+    const requests = JSON.parse(localStorage.getItem('yugvex_project_requests') || '[]');
+
+    let pendingCount = 0;
+    requests.forEach(r => {
+      if (r.status === 'Pending Verification') pendingCount++;
+    });
+    if (countEl) countEl.textContent = pendingCount;
+
+    if (requests.length === 0) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="8" style="text-align:center;padding:2rem;color:var(--text-muted);">
+            No online client project requests submitted yet.
+          </td>
+        </tr>`;
+      return;
+    }
+
+    tableBody.innerHTML = requests.map(req => {
+      const isApproved = req.status === 'Payment Verified & Confirmed';
+      const statusColor = isApproved ? '#34D399' : '#FBBF24';
+      const statusBg = isApproved ? 'rgba(16,185,129,0.15)' : 'rgba(245,158,11,0.15)';
+
+      const totalAmt = parseFloat(req.totalAmount || req.amount || 0);
+      const tokenAmt = parseFloat(req.amount || 0);
+      const pendingAmt = parseFloat(req.pendingAmount || Math.max(0, totalAmt - tokenAmt));
+
+      return `
+        <tr>
+          <td>
+            <div style="font-weight:700;color:var(--primary);">${req.id}</div>
+            <div style="font-size:0.75rem;color:var(--text-subtle);">${new Date(req.submittedAt).toLocaleDateString()}</div>
+          </td>
+          <td>
+            <div style="font-weight:600;color:#fff;">${escapeHtml(req.name)}</div>
+            <div style="font-size:0.8rem;color:var(--primary);">+${req.phone} • ${escapeHtml(req.email)}</div>
+            ${req.business ? `<div style="font-size:0.75rem;color:var(--text-muted);">${escapeHtml(req.business)}</div>` : ''}
+          </td>
+          <td>
+            <div style="font-weight:600;color:#fff;">${escapeHtml(req.plan)}</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);">${escapeHtml(req.category)}</div>
+          </td>
+          <td>
+            <div style="font-weight:700;color:#34D399;">Token: ₹${tokenAmt.toLocaleString('en-IN')}</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);">Total: ₹${totalAmt.toLocaleString('en-IN')} | Pending: ₹${pendingAmt.toLocaleString('en-IN')}</div>
+          </td>
+          <td>
+            <div style="font-family:monospace;font-weight:700;color:#fff;">${escapeHtml(req.txnRef)}</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);">${req.payMethod}</div>
+          </td>
+          <td style="font-size:0.85rem;color:var(--text-muted);">${req.payDate}</td>
+          <td>
+            <span style="display:inline-block;padding:0.25rem 0.6rem;border-radius:12px;font-size:0.75rem;font-weight:700;background:${statusBg};color:${statusColor};">
+              ● ${req.status}
+            </span>
+          </td>
+          <td>
+            <div style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+              ${!isApproved ? `
+                <button class="btn-icon-table" style="border-color:rgba(16,185,129,0.4);color:#34D399;" onclick="window.approveClientRequest('${req.id}')" title="Verify UTR & Approve">
+                  ✅ Verify & Approve
+                </button>` : ''}
+              <button class="btn-icon-table" onclick="window.downloadClientRequestPDF('${req.id}')" title="Download PDF Receipt">
+                📄 PDF Receipt
+              </button>
+              <button class="btn-icon-table btn-whatsapp-action" onclick="window.shareClientRequestWhatsapp('${req.id}')" title="Send WhatsApp Receipt">
+                💬 WhatsApp
+              </button>
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+  };
+
+  window.approveClientRequest = function (reqId) {
+    const requests = JSON.parse(localStorage.getItem('yugvex_project_requests') || '[]');
+    const reqIndex = requests.findIndex(r => r.id === reqId);
+    if (reqIndex === -1) return;
+
+    requests[reqIndex].status = 'Payment Verified & Confirmed';
+    localStorage.setItem('yugvex_project_requests', JSON.stringify(requests));
+
+    const req = requests[reqIndex];
+    const totalAmt = parseFloat(req.totalAmount || req.amount || 24999);
+    const tokenAmt = parseFloat(req.amount || 5000);
+    const pendingAmt = parseFloat(req.pendingAmount || Math.max(0, totalAmt - tokenAmt));
+
+    const newTxn = {
+      id: req.id,
+      clientName: req.name,
+      clientPhone: req.phone.replace(/\D/g, ''),
+      companyName: req.business || 'Client Web Request',
+      requirementCategory: req.category + ' (' + req.plan + ')',
+      requirementDetails: req.details || req.plan,
+      totalAmount: totalAmt,
+      tokenPaid: tokenAmt,
+      pendingAmount: pendingAmt,
+      paymentMethod: req.payMethod + ' (UTR: ' + req.txnRef + ')',
+      txnRef: req.txnRef,
+      status: pendingAmt === 0 ? 'fully-paid' : 'token-received',
+      salesPerson: 'Admin Approval',
+      createdAt: new Date().toISOString(),
+      dueDate: req.payDate
+    };
+
+    const existingTxnIndex = transactions.findIndex(t => t.id === req.id);
+    if (existingTxnIndex === -1) {
+      transactions.unshift(newTxn);
+    } else {
+      transactions[existingTxnIndex] = newTxn;
+    }
+    saveTransactions();
+    calculateKpis();
+    renderLedgerTable();
+
+    window.renderClientRequestsTable();
+
+    // Auto download PDF receipt for Admin
+    window.downloadClientRequestPDF(req.id);
+
+    if (confirm(`Payment for Request ${req.id} (UTR: ${req.txnRef}) verified & approved!\n\nOfficial PDF receipt generated. Would you like to share the receipt with ${req.name} on WhatsApp now?`)) {
+      window.shareClientRequestWhatsapp(req.id);
+    }
+  };
+
+  window.shareClientRequestWhatsapp = function (reqId) {
+    let req = null;
+    const requests = JSON.parse(localStorage.getItem('yugvex_project_requests') || '[]');
+    req = requests.find(r => r.id === reqId);
+
+    if (!req) {
+      const txn = transactions.find(t => t.id === reqId);
+      if (txn) {
+        req = {
+          id: txn.id,
+          name: txn.clientName,
+          phone: txn.clientPhone,
+          plan: txn.requirementCategory,
+          totalAmount: txn.totalAmount,
+          amount: txn.tokenPaid,
+          pendingAmount: txn.pendingAmount,
+          txnRef: txn.txnRef
+        };
+      }
+    }
+
+    if (!req) return;
+
+    const phone = (req.phone || '').replace(/\D/g, '');
+    const targetPhone = phone.length === 10 ? '91' + phone : phone;
+    const totalValuation = parseFloat(req.totalAmount || req.amount || 0);
+    const tokenPaid = parseFloat(req.amount || 0);
+    const pendingBal = parseFloat(req.pendingAmount || Math.max(0, totalValuation - tokenPaid));
+
+    const msg = `*OFFICIAL PAYMENT RECEIPT - YUGVEX TECH SOLUTIONS*%0A%0A` +
+      `Dear *${encodeURIComponent(req.name)}*,%0A%0A` +
+      `Your payment has been *VERIFIED & CONFIRMED*!%0A%0A` +
+      `🔖 *Receipt / Request ID:* ${req.id}%0A` +
+      `📦 *Plan Selected:* ${encodeURIComponent(req.plan)}%0A` +
+      `💰 *Total Project Valuation:* Rs. ${totalValuation.toLocaleString('en-IN')}%0A` +
+      `⚡ *Token Amount Paid:* Rs. ${tokenPaid.toLocaleString('en-IN')}%0A` +
+      `⏳ *Pending Balance:* Rs. ${pendingBal.toLocaleString('en-IN')}%0A` +
+      `💳 *Transaction UTR:* ${encodeURIComponent(req.txnRef)}%0A` +
+      `👤 *Payee Account:* GOVINDRAJ HANMANT AMBATWAR%0A` +
+      `✅ *Status:* PAYMENT VERIFIED & CONFIRMED%0A%0A` +
+      `Director: Omkar Katturwar | Yugvex Tech Solutions%0A` +
+      `Website: www.yugvex.com`;
+
+    window.open(`https://wa.me/${targetPhone}?text=${msg}`, '_blank');
+  };
 
   // --- Add New Lead ---
   if (newLeadForm) {
@@ -319,7 +498,7 @@
       else if (token > 0 && token < total) status = 'token-received';
 
       const newTxn = {
-        id: `NV-2026-${Math.floor(1000 + Math.random() * 9000)}`,
+        id: `YUG-2026-${Math.floor(1000 + Math.random() * 9000)}`,
         clientName: document.getElementById('clientNameInput').value.trim(),
         clientPhone: phoneRaw.length === 10 ? '91' + phoneRaw : phoneRaw,
         companyName: document.getElementById('clientCompanyInput').value.trim(),
@@ -341,7 +520,6 @@
       closeModal(newLeadModal);
       newLeadForm.reset();
 
-      // Show PhonePe QR Code Modal immediately if QR payment method is selected
       if (newTxn.paymentMethod.includes('QR') || newTxn.paymentMethod.includes('PhonePe')) {
         setTimeout(() => {
           window.showPaymentQr(newTxn.id);
@@ -394,290 +572,123 @@
     }
   };
 
-  // --- URL Role Parameter Auto-Selection ---
-  const urlParams = new URLSearchParams(window.location.search);
-  const paramRole = urlParams.get('role');
-  if (paramRole === 'sales' || paramRole === 'admin') {
-    if (authUserSelect) authUserSelect.value = paramRole;
-    setTimeout(() => {
-      if (authPasswordInput) authPasswordInput.focus();
-    }, 200);
-  }
-
-  // --- PhonePe & UPI QR Code Generator Modal ---
+  // --- Show PhonePe UPI QR Code Modal ---
   window.showPaymentQr = function (txnId) {
     const txn = transactions.find(t => t.id === txnId);
-    if (!txn) return;
+    const amount = txn ? (txn.pendingAmount > 0 ? txn.pendingAmount : txn.tokenPaid) : 0;
+    const clientName = txn ? txn.clientName : 'Client';
 
-    const upiId = DEFAULT_PAYMENT_CONFIG.upiId;
-    const payeeName = DEFAULT_PAYMENT_CONFIG.payeeName;
-    const amountToRequest = txn.pendingAmount > 0 ? txn.pendingAmount : txn.totalAmount;
-    const note = `Payment for ${txn.id} - ${txn.requirementCategory}`;
-
-    // Standardized UPI Deep Link Format
-    const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(payeeName)}&am=${amountToRequest}&cu=INR&tn=${encodeURIComponent(note)}`;
-
-    // High quality QR Code image API URL
-    const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=10&data=${encodeURIComponent(upiUrl)}`;
-
-    if (paymentQrContainer) {
-      paymentQrContainer.innerHTML = `
-        <div style="background:#ffffff;border-radius:18px;padding:2rem 1.5rem;color:#0f172a;max-width:400px;margin:0 auto;box-shadow:0 10px 40px rgba(0,0,0,0.5);text-align:center;">
-          <!-- PhonePe Header -->
-          <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-bottom:0.75rem;">
-            <div style="width:36px;height:36px;background:#5f259f;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:1.2rem;">पे</div>
-            <span style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:800;color:#5f259f;">PhonePe</span>
-          </div>
-          <div style="font-size:0.85rem;font-weight:800;letter-spacing:1px;color:#5f259f;text-transform:uppercase;margin-bottom:0.25rem;">ACCEPTED HERE</div>
-          <div style="font-size:0.8rem;color:#64748b;margin-bottom:1rem;">Scan & Pay Using PhonePe, GPay, Paytm or Any UPI App</div>
-
-          <!-- Dynamic QR Image -->
-          <div style="padding:10px;background:#fff;border:2px solid #e2e8f0;border-radius:12px;display:inline-block;margin-bottom:1rem;">
-            <img src="${qrImageUrl}" alt="PhonePe UPI Payment QR Code" style="width:210px;height:210px;display:block;" onerror="this.onerror=null;this.src='https://chart.googleapis.com/chart?chs=220x220&cht=qr&chl=${encodeURIComponent(upiUrl)}';">
-          </div>
-
-          <!-- Payee Info -->
-          <div style="font-size:1.05rem;font-weight:800;color:#0f172a;margin-bottom:0.25rem;">${payeeName}</div>
-          <div style="font-size:0.88rem;font-weight:700;color:#5f259f;background:#f3e8ff;padding:0.35rem 0.85rem;border-radius:20px;display:inline-block;margin-bottom:1rem;">
-            UPI ID: ${upiId}
-          </div>
-
-          <!-- Transaction Summary inside QR -->
-          <div style="background:#f8fafc;padding:0.85rem;border-radius:10px;text-align:left;font-size:0.85rem;border:1px solid #e2e8f0;margin-bottom:1.25rem;">
-            <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
-              <span style="color:#64748b;">Client Name:</span>
-              <strong style="color:#0f172a;">${escapeHtml(txn.clientName)}</strong>
-            </div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
-              <span style="color:#64748b;">Receipt ID:</span>
-              <strong style="color:#5f259f;">${txn.id}</strong>
-            </div>
-            <div style="display:flex;justify-content:space-between;padding-top:0.4rem;border-top:1px dashed #cbd5e1;font-size:0.95rem;">
-              <span style="color:#0f172a;font-weight:700;">Amount to Pay:</span>
-              <strong style="color:#16a34a;font-size:1.1rem;">₹${amountToRequest.toLocaleString('en-IN')}</strong>
-            </div>
-          </div>
-
-          <!-- Confirm Payment & Send WhatsApp PDF Receipt Button -->
-          <button class="btn btn-primary btn-md" onclick="window.confirmPaymentFromQr('${txn.id}')" style="width:100%;background:#16a34a;border-color:transparent;font-weight:700;padding:0.75rem;">
-            ✅ Confirm Payment Received & Send PDF Receipt →
-          </button>
-        </div>`;
-    }
+    paymentQrContainer.innerHTML = `
+      <div style="background:#fff;padding:1rem;border-radius:var(--radius-md);margin-bottom:1rem;text-align:center;">
+        <img src="assets/images/payment-qr.jpg" alt="PhonePe QR" style="width:100%;max-width:220px;display:block;margin:0 auto;border-radius:4px;">
+        <div style="color:#000;font-weight:700;font-size:0.9rem;margin-top:0.5rem;">Payee: GOVINDRAJ HANMANT AMBATWAR</div>
+        <div style="color:#4b5563;font-size:0.8rem;">UPI: <code>${DEFAULT_PAYMENT_CONFIG.upiId}</code></div>
+      </div>
+      <div style="background:rgba(15,23,42,0.8);padding:1rem;border-radius:var(--radius-sm);text-align:left;font-size:0.85rem;">
+        <div>Client Name: <strong style="color:#fff;">${escapeHtml(clientName)}</strong></div>
+        <div>Amount Due/Paid: <strong style="color:#34D399;">₹${amount.toLocaleString('en-IN')}</strong></div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Scan using PhonePe, Google Pay, Paytm, or BHIM.</div>
+      </div>
+    `;
 
     openModal(paymentQrModal);
   };
 
-  // --- Confirm Payment & Trigger PDF + WhatsApp Receipt ---
-  window.confirmPaymentFromQr = function (txnId) {
-    const txn = transactions.find(t => t.id === txnId);
-    if (!txn) return;
-
-    if (txn.status === 'pending') {
-      txn.status = 'token-received';
-    } else if (txn.status === 'token-received') {
-      txn.status = 'fully-paid';
-      txn.tokenPaid = txn.totalAmount;
-      txn.pendingAmount = 0;
-    }
-
-    updateDashboard();
-    closeModal(paymentQrModal);
-
-    // Trigger PDF Generation and WhatsApp Receipt
-    window.downloadPdfReceipt(txn.id);
-    window.sendWhatsappReceipt(txn.id);
-  };
-
-  // --- WhatsApp Digital Receipt Dispatcher ---
-  window.sendWhatsappReceipt = function (txnId) {
-    const txn = transactions.find(t => t.id === txnId);
-    if (!txn) return;
-
-    const payeeName = DEFAULT_PAYMENT_CONFIG.payeeName;
-    const upiId = DEFAULT_PAYMENT_CONFIG.upiId;
-
-    const messageText = `*OFFICIAL PAYMENT RECEIPT & INVOICE*
-🏢 *NexVora Tech Solutions*
-----------------------------------------
-*Receipt ID:* ${txn.id}
-*Date:* ${new Date(txn.createdAt).toLocaleDateString('en-IN')}
-*Client Name:* ${txn.clientName}
-${txn.companyName ? '*Company:* ' + txn.companyName + '\n' : ''}
-*Requirement / Service:*
-${txn.requirementCategory} - ${txn.requirementDetails}
-
-----------------------------------------
-💰 *FINANCIAL BREAKDOWN:*
-• *Total Project Cost:* ₹${parseFloat(txn.totalAmount).toLocaleString('en-IN')}
-• *Token Amount Paid:* ₹${parseFloat(txn.tokenPaid).toLocaleString('en-IN')}
-⏳ *Remaining Pending Balance:* ₹${parseFloat(txn.pendingAmount).toLocaleString('en-IN')}
-
-*Payment Status:* ${txn.status === 'fully-paid' ? '✅ PAID IN FULL' : '⚡ TOKEN ADVANCE RECEIVED'}
-*Payment Mode:* ${txn.paymentMethod}
-*Txn Reference ID:* ${txn.txnRef}
-
-----------------------------------------
-💳 *OFFICIAL PAYMENT DETAILS FOR BALANCE CLEARANCE:*
-• *UPI ID:* ${upiId}
-• *Payee Name:* ${payeeName}
-• *Accepted Apps:* PhonePe, GPay, Paytm, BHIM
-
-Thank you for choosing NexVora Tech Solutions! 🚀
-Need help? Contact support or visit https://nexvora.com`;
-
-    const encodedText = encodeURIComponent(messageText);
-    const cleanPhone = txn.clientPhone.replace(/\D/g, '');
-
-    const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodedText}`;
-    window.open(whatsappUrl, '_blank');
-  };
-
-  // --- View Printable Digital Receipt Modal ---
+  // --- View & Print Receipt Modal ---
   window.viewReceiptModal = function (txnId) {
     const txn = transactions.find(t => t.id === txnId);
     if (!txn) return;
+
     activeReceiptTransaction = txn;
+    const dateStr = new Date(txn.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
 
-    const payeeName = DEFAULT_PAYMENT_CONFIG.payeeName;
-    const upiId = DEFAULT_PAYMENT_CONFIG.upiId;
-    const dateFormatted = new Date(txn.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' });
-
-    if (receiptContainer) {
-      receiptContainer.innerHTML = `
-        <div class="receipt-paper" id="receiptPrintArea">
-          <!-- Header -->
-          <div class="receipt-header">
-            <div class="receipt-brand">
-              <h2>NexVora Tech Solutions</h2>
-              <p>Enterprise Software, AI & Custom Web Engineering</p>
-              <p style="font-size:0.78rem;color:#94a3b8;">Email: support@nexvora.com | Web: nexvora.com</p>
-            </div>
-            <div style="text-align:right;">
-              <div class="receipt-badge-paid">${txn.pendingAmount === 0 ? '✅ FULLY PAID' : '⚡ ADVANCE TOKEN PAID'}</div>
-              <div style="font-size:0.82rem;color:#64748b;margin-top:0.5rem;">Receipt #: <strong>${txn.id}</strong></div>
-              <div style="font-size:0.82rem;color:#64748b;">Date: ${dateFormatted}</div>
-            </div>
+    receiptContainer.innerHTML = `
+      <div id="printableReceiptArea" style="background:#0f172a;color:#fff;padding:1.5rem;border-radius:8px;border:1px solid var(--border-light);font-family:var(--font-body);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--primary);padding-bottom:1rem;margin-bottom:1.25rem;">
+          <div>
+            <div style="font-family:var(--font-heading);font-size:1.5rem;font-weight:800;color:var(--primary);">YUGVEX TECH SOLUTIONS</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);">Enterprise Web Engineering & AI Solutions</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);">Director: Omkar Katturwar | Nanded, Maharashtra</div>
           </div>
-
-          <!-- Client & Sales Details -->
-          <div class="receipt-grid">
-            <div>
-              <div style="font-size:0.75rem;font-weight:700;color:#64748b;text-transform:uppercase;">Billed To:</div>
-              <div style="font-size:1.1rem;font-weight:800;color:#0f172a;margin-top:0.2rem;">${escapeHtml(txn.clientName)}</div>
-              ${txn.companyName ? `<div style="font-weight:600;color:#334155;">${escapeHtml(txn.companyName)}</div>` : ''}
-              <div style="color:#64748b;">+${txn.clientPhone}</div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-size:0.75rem;font-weight:700;color:#64748b;text-transform:uppercase;">Payment Info:</div>
-              <div style="font-weight:600;color:#0f172a;margin-top:0.2rem;">Mode: ${escapeHtml(txn.paymentMethod)}</div>
-              <div style="color:#64748b;">Ref #: ${escapeHtml(txn.txnRef)}</div>
-              <div style="color:#64748b;">Sales Rep: ${escapeHtml(txn.salesPerson)}</div>
-            </div>
+          <div style="text-align:right;">
+            <div style="font-size:1.1rem;font-weight:700;color:#fff;">OFFICIAL RECEIPT</div>
+            <div style="font-size:0.85rem;color:var(--primary);font-weight:700;">${txn.id}</div>
+            <div style="font-size:0.75rem;color:var(--text-subtle);">${dateStr}</div>
           </div>
+        </div>
 
-          <!-- Items Table -->
-          <table class="receipt-table">
-            <thead>
-              <tr>
-                <th>Requirement / Scope Description</th>
-                <th>Category</th>
-                <th style="text-align:right;">Amount (INR)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <strong style="color:#0f172a;">${escapeHtml(txn.requirementCategory)}</strong>
-                  <div style="font-size:0.85rem;color:#64748b;margin-top:0.25rem;">${escapeHtml(txn.requirementDetails)}</div>
-                </td>
-                <td><span style="font-size:0.8rem;background:#e2e8f0;padding:0.2rem 0.5rem;border-radius:4px;color:#334155;">${escapeHtml(txn.requirementCategory)}</span></td>
-                <td style="text-align:right;font-weight:700;color:#0f172a;">₹${parseFloat(txn.totalAmount).toLocaleString('en-IN')}</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <!-- Financial Breakdown Box -->
-          <div class="receipt-total-box">
-            <div class="receipt-total-row">
-              <span style="color:#475569;">Total Project Amount:</span>
-              <strong style="color:#0f172a;">₹${parseFloat(txn.totalAmount).toLocaleString('en-IN')}</strong>
-            </div>
-            <div class="receipt-total-row">
-              <span style="color:#16a34a;font-weight:700;">Token / Advance Paid:</span>
-              <strong style="color:#16a34a;">- ₹${parseFloat(txn.tokenPaid).toLocaleString('en-IN')}</strong>
-            </div>
-            <div class="receipt-total-row grand-total">
-              <span>Remaining Pending Balance:</span>
-              <strong style="color:${txn.pendingAmount > 0 ? '#d97706' : '#16a34a'};">₹${parseFloat(txn.pendingAmount).toLocaleString('en-IN')}</strong>
-            </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem;background:rgba(255,255,255,0.03);padding:0.85rem;border-radius:6px;">
+          <div>
+            <div style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">BILLED TO:</div>
+            <div style="font-weight:700;color:#fff;font-size:0.95rem;">${escapeHtml(txn.clientName)}</div>
+            ${txn.companyName ? `<div style="font-size:0.82rem;color:var(--primary);">${escapeHtml(txn.companyName)}</div>` : ''}
+            <div style="font-size:0.8rem;color:var(--text-muted);">WhatsApp: +${txn.clientPhone}</div>
           </div>
-
-          <!-- Official Payment Gateway Footer -->
-          <div style="margin-top:2rem;padding-top:1rem;border-top:1px dashed #cbd5e1;display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;color:#64748b;">
-            <div>
-              <strong>Official Payee UPI:</strong> ${upiId} (${payeeName})
-            </div>
-            <div>
-              *Computer generated receipt. Valid without signature.
-            </div>
+          <div>
+            <div style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">PAYEE DETAILS:</div>
+            <div style="font-weight:700;color:#fff;font-size:0.95rem;">${DEFAULT_PAYMENT_CONFIG.payeeName}</div>
+            <div style="font-size:0.8rem;color:var(--text-muted);">UPI ID: ${DEFAULT_PAYMENT_CONFIG.upiId}</div>
+            <div style="font-size:0.8rem;color:var(--text-muted);">Method: ${escapeHtml(txn.paymentMethod)}</div>
           </div>
-        </div>`;
-    }
+        </div>
+
+        <div style="margin-bottom:1.25rem;">
+          <div style="font-size:0.8rem;font-weight:700;color:var(--primary);margin-bottom:0.4rem;">REQUIREMENT & PROJECT SCOPE:</div>
+          <div style="font-size:0.88rem;color:#fff;font-weight:600;margin-bottom:0.25rem;">${escapeHtml(txn.requirementCategory)}</div>
+          <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.5;">${escapeHtml(txn.requirementDetails)}</div>
+        </div>
+
+        <table style="width:100%;border-collapse:collapse;margin-bottom:1.25rem;font-size:0.85rem;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border-light);text-align:left;color:var(--text-muted);">
+              <th style="padding:0.5rem 0;">Description</th>
+              <th style="padding:0.5rem 0;text-align:right;">Amount (₹)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px dashed var(--border-light);">
+              <td style="padding:0.6rem 0;">Total Agreed Project Valuation</td>
+              <td style="padding:0.6rem 0;text-align:right;font-weight:700;">₹${parseFloat(txn.totalAmount).toLocaleString('en-IN')}</td>
+            </tr>
+            <tr style="border-bottom:1px dashed var(--border-light);">
+              <td style="padding:0.6rem 0;color:#34D399;font-weight:700;">Amount Paid / Token Received (Txn Ref: ${txn.txnRef})</td>
+              <td style="padding:0.6rem 0;text-align:right;font-weight:700;color:#34D399;">₹${parseFloat(txn.tokenPaid).toLocaleString('en-IN')}</td>
+            </tr>
+            <tr>
+              <td style="padding:0.6rem 0;color:#FBBF24;font-weight:700;">Remaining Balance Due ${txn.dueDate ? '(Due: ' + txn.dueDate + ')' : ''}</td>
+              <td style="padding:0.6rem 0;text-align:right;font-weight:700;color:#FBBF24;">₹${parseFloat(txn.pendingAmount).toLocaleString('en-IN')}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border-light);padding-top:1rem;margin-top:1rem;">
+          <div style="font-size:0.75rem;color:var(--text-subtle);">
+            Computer Generated Payment Receipt • Yugvex Tech Solutions
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:0.85rem;font-weight:700;color:#34D399;">PAYMENT VERIFIED</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);">Authorized Signatory</div>
+          </div>
+        </div>
+      </div>
+    `;
 
     openModal(receiptModal);
   };
 
-  // --- PDF Download Function ---
+  // --- Download PDF Receipt ---
   window.downloadPdfReceipt = function (txnId) {
-    const txn = transactions.find(t => t.id === (txnId || activeReceiptTransaction?.id));
-    if (!txn) return;
-
-    window.viewReceiptModal(txn.id);
-
-    setTimeout(() => {
-      const element = document.getElementById('receiptPrintArea');
-      if (!element) return;
-
-      const opt = {
-        margin:       0.3,
-        filename:     `NexVora_Receipt_${txn.id}.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-      };
-
-      if (window.html2pdf) {
-        window.html2pdf().set(opt).from(element).save();
-      } else {
-        window.print();
-      }
-    }, 250);
+    if (typeof window.downloadClientRequestPDF === 'function') {
+      window.downloadClientRequestPDF(txnId);
+    }
   };
 
-  const downloadPdfReceiptBtn = document.getElementById('downloadPdfReceiptBtn');
-  if (downloadPdfReceiptBtn) {
-    downloadPdfReceiptBtn.addEventListener('click', () => {
-      if (activeReceiptTransaction) {
-        window.downloadPdfReceipt(activeReceiptTransaction.id);
-      }
-    });
-  }
-
-  // --- Print Receipt Action ---
-  if (printReceiptBtn) {
-    printReceiptBtn.addEventListener('click', () => {
-      window.print();
-    });
-  }
-
-  if (sendWhatsappReceiptBtn) {
-    sendWhatsappReceiptBtn.addEventListener('click', () => {
-      if (activeReceiptTransaction) {
-        window.sendWhatsappReceipt(activeReceiptTransaction.id);
-      }
-    });
-  }
+  // --- Send Receipt via WhatsApp ---
+  window.sendWhatsappReceipt = function (txnId) {
+    if (typeof window.shareClientRequestWhatsapp === 'function') {
+      window.shareClientRequestWhatsapp(txnId);
+    }
+  };
 
   // --- Export Ledger to CSV ---
   if (exportCsvBtn) {
@@ -707,7 +718,7 @@ Need help? Contact support or visit https://nexvora.com`;
       const encodedUri = encodeURI(csvContent);
       const link = document.createElement('a');
       link.setAttribute('href', encodedUri);
-      link.setAttribute('download', `nexvora_sales_ledger_${new Date().toISOString().slice(0, 10)}.csv`);
+      link.setAttribute('download', `yugvex_sales_ledger_${new Date().toISOString().slice(0, 10)}.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -719,7 +730,6 @@ Need help? Contact support or visit https://nexvora.com`;
     if (portalSearchInput) portalSearchInput.addEventListener('input', renderLedgerTable);
     if (portalFilterSelect) portalFilterSelect.addEventListener('change', renderLedgerTable);
 
-    // Modal Triggers
     document.querySelectorAll('[data-modal-open]').forEach(btn => {
       btn.addEventListener('click', () => {
         const targetId = btn.getAttribute('data-modal-open');
@@ -736,7 +746,6 @@ Need help? Contact support or visit https://nexvora.com`;
     });
   }
 
-  // Helper Modal Functions
   function openModal(modal) {
     if (!modal) return;
     modal.style.display = 'flex';
@@ -756,7 +765,6 @@ Need help? Contact support or visit https://nexvora.com`;
       .replace(/"/g, '&quot;');
   }
 
-  // Boot Engine on DOM Ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initPortal);
   } else {

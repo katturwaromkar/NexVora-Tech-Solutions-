@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sales & Transaction Portal | NexVora Tech Solutions</title>
-  <meta name="description" content="Official Sales & Transaction Portal for NexVora Tech Solutions. Record client leads, requirements, generate PhonePe UPI QR payments, and dispatch WhatsApp receipts.">
+  <title>Staff & Admin Portal | Yugvex Tech Solutions</title>
+  <meta name="description" content="Official Staff & Admin Portal for Yugvex Tech Solutions. Review client project requests, verify transaction UTRs, generate PDF receipts, and dispatch WhatsApp copies.">
 
   <!-- Core Google Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="css/sales-portal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body class="bg-dark text-main">
 
@@ -22,20 +23,21 @@
   <header class="site-header" id="siteHeader">
     <div class="container header-container">
       <a href="index.html" class="brand-logo">
-        <div class="logo-icon-box">N</div>
-        <span>Nex<span class="text-gradient">Vora</span></span>
+        <div class="logo-icon-box">Y</div>
+        <span>Yug<span class="text-gradient">vex</span></span>
       </a>
 
       <nav class="nav-menu">
         <a href="index.html" class="nav-link">Home</a>
         <a href="services.html" class="nav-link">Services</a>
         <a href="products.html" class="nav-link">Products</a>
-        <a href="sales-portal.html" class="nav-link active">Sales Portal</a>
+        <a href="brochures.html" class="nav-link">Brochures</a>
+        <a href="sales-portal.html" class="nav-link active">Staff Portal</a>
       </nav>
 
       <div style="display:flex;align-items:center;gap:1rem;">
         <div class="portal-user-badge sales" id="userBadge">
-          <span id="userNameText">💼 Sales Portal</span>
+          <span id="userNameText">🔐 Staff Portal</span>
         </div>
         <button class="btn btn-secondary btn-sm" id="logoutBtn" style="padding:0.4rem 0.85rem;">Logout</button>
       </div>
@@ -46,16 +48,16 @@
   <div class="portal-auth-overlay" id="authOverlay" style="display:none;">
     <div class="auth-card">
       <div style="font-family:var(--font-heading);font-size:1.6rem;font-weight:800;color:var(--text-main);margin-bottom:0.25rem;">
-        Nex<span class="text-gradient">Vora</span> Portal Access
+        Yug<span class="text-gradient">vex</span> Portal Access
       </div>
-      <p style="color:var(--text-muted);font-size:0.88rem;">Select your role to access Sales Management & Receipts</p>
+      <p style="color:var(--text-muted);font-size:0.88rem;">Select your role to access Sales Management & Payment Verification</p>
 
       <form id="authForm" style="margin-top:1.5rem;text-align:left;">
         <div class="form-group" style="margin-bottom:1rem;">
           <label style="display:block;font-size:0.82rem;font-weight:600;color:var(--text-muted);margin-bottom:0.4rem;">Select Account Role</label>
           <select id="authUserSelect" class="form-control" style="background:rgba(15,23,42,0.9);border:1px solid var(--border-light);color:#fff;padding:0.75rem;border-radius:var(--radius-sm);width:100%;font-size:0.92rem;">
-            <option value="sales">💼 Sales Person (Enter Leads & Send Receipts)</option>
-            <option value="admin">👑 Admin (Full Financial Control & Ledger)</option>
+            <option value="sales">💼 Sales Executive (View Leads & Send Receipts)</option>
+            <option value="admin">👑 Admin (Verify Payments, Issue Receipts & Ledger)</option>
           </select>
         </div>
 
@@ -71,10 +73,10 @@
 
       <!-- Quick Demo Credentials Box -->
       <div class="quick-credentials-box">
-        <strong style="color:var(--primary);">💡 Quick Testing Login Credentials:</strong>
+        <strong style="color:var(--primary);">💡 Quick Login Credentials:</strong>
         <div style="margin-top:0.4rem;color:var(--text-muted);">
-          • <strong>Admin Login:</strong> admin@nexvora.com | Pass: <code>admin123</code> (PIN: 9999)<br>
-          • <strong>Sales Login:</strong> sales@nexvora.com | Pass: <code>sales123</code> (PIN: 1234)
+          • <strong>Admin Login:</strong> admin@yugvex.com | Pass: <code>admin123</code> (PIN: 9999)<br>
+          • <strong>Sales Login:</strong> sales@yugvex.com | Pass: <code>sales123</code> (PIN: 1234)
         </div>
       </div>
     </div>
@@ -87,9 +89,9 @@
       <!-- Header & Title -->
       <div class="portal-header-bar">
         <div>
-          <div class="section-tag" style="margin-bottom:0.35rem;">Sales & Financial Operations</div>
-          <h1 class="section-title" style="font-size:2.2rem;margin-bottom:0.25rem;">Client Leads & <span class="text-gradient">Payment Ledger</span></h1>
-          <p style="color:var(--text-muted);font-size:0.95rem;">Enter new client requirements, generate PhonePe UPI QRs, and dispatch instant WhatsApp receipts.</p>
+          <div class="section-tag" style="margin-bottom:0.35rem;">Yugvex Financial Operations</div>
+          <h1 class="section-title" style="font-size:2.2rem;margin-bottom:0.25rem;">Client Requests & <span class="text-gradient">Payment Verification</span></h1>
+          <p style="color:var(--text-muted);font-size:0.95rem;">Verify PhonePe transaction UTRs, generate PDF payment receipts, and dispatch WhatsApp copies to clients.</p>
         </div>
 
         <div>
@@ -101,7 +103,6 @@
 
       <!-- KPI Summary Cards -->
       <div class="portal-kpi-grid">
-        <!-- KPI 1: Total Collected -->
         <div class="kpi-card">
           <div class="kpi-header">
             <span class="kpi-title">Total Revenue Collected</span>
@@ -111,7 +112,6 @@
           <div class="kpi-sub">Total Token & Upfront Advance Received</div>
         </div>
 
-        <!-- KPI 2: Active Leads -->
         <div class="kpi-card">
           <div class="kpi-header">
             <span class="kpi-title">Total Active Leads</span>
@@ -121,24 +121,57 @@
           <div class="kpi-sub">Clients & Enterprise Projects</div>
         </div>
 
-        <!-- KPI 3: Pending Balance -->
         <div class="kpi-card">
           <div class="kpi-header">
-            <span class="kpi-title">Total Pending Balance</span>
+            <span class="kpi-title">Pending Payment Requests</span>
             <div class="kpi-icon" style="color:#FBBF24;background:rgba(245,158,11,0.12);">⏳</div>
           </div>
-          <div class="kpi-value" id="kpiPendingAmount" style="color:#FBBF24;">₹0</div>
-          <div class="kpi-sub">Remaining Balance Due from Clients</div>
+          <div class="kpi-value" id="kpiPendingRequestsCount" style="color:#FBBF24;">0</div>
+          <div class="kpi-sub">Awaiting Admin UTR Verification</div>
         </div>
 
-        <!-- KPI 4: Completed Projects -->
         <div class="kpi-card">
           <div class="kpi-header">
-            <span class="kpi-title">Fully Paid Transactions</span>
+            <span class="kpi-title">Verified Transactions</span>
             <div class="kpi-icon" style="color:#A5B4FC;background:rgba(99,102,241,0.12);">✅</div>
           </div>
           <div class="kpi-value" id="kpiCompletedTxns">0</div>
-          <div class="kpi-sub">Cleared & Delivered Invoices</div>
+          <div class="kpi-sub">Cleared & PDF Receipts Issued</div>
+        </div>
+      </div>
+
+      <!-- NEW SECTION: Client Web Submitted Project Requests & Approvals -->
+      <div style="background:rgba(15,23,42,0.8);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:2.5rem;box-shadow:var(--shadow-md);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem;">
+          <div>
+            <h3 style="margin:0;font-family:var(--font-heading);font-size:1.3rem;color:#fff;">
+              📋 Online Client Project Requests (Payment QR Submissions)
+            </h3>
+            <p style="margin:0.2rem 0 0 0;font-size:0.85rem;color:var(--text-muted);">
+              Review incoming client project submissions, verify PhonePe UTR payment IDs, and issue PDF receipts.
+            </p>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="renderClientRequestsTable()">🔄 Refresh Requests</button>
+        </div>
+
+        <div class="ledger-table-wrap">
+          <table class="ledger-table">
+            <thead>
+              <tr>
+                <th>Request ID</th>
+                <th>Client Name & WhatsApp</th>
+                <th>Plan & Category</th>
+                <th>Amount Paid</th>
+                <th>Transaction UTR</th>
+                <th>Payment Date</th>
+                <th>Status</th>
+                <th>Admin Actions</th>
+              </tr>
+            </thead>
+            <tbody id="clientRequestsTableBody">
+              <!-- Dynamically Rendered by js/sales-portal.js -->
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -332,7 +365,7 @@
   <!-- Footer Component -->
   <footer class="site-footer" style="padding:2rem 0;background:rgba(15,23,42,0.9);border-top:1px solid var(--border-light);margin-top:3rem;">
     <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:0.85rem;color:var(--text-muted);">
-      <div>© 2026 NexVora Tech Solutions. All rights reserved.</div>
+      <div>© 2026 Yugvex Tech Solutions. All rights reserved.</div>
       <div>Official Payee: <strong>GOVINDRAJ HANMANT AMBATWAR</strong> (UPI: <code>8484080732@ybl</code>)</div>
     </div>
   </footer>

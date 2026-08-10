@@ -1,21 +1,21 @@
 /* ==========================================================================
-   NexVora Tech Solutions - Animated Floating Social Dock Engine
+   Yugvex Tech Solutions - Animated Floating Social Dock Engine
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initNexVoraSocialDock();
+  initYugvexSocialDock();
 });
 
-function initNexVoraSocialDock() {
-  if (document.getElementById('nexvoraSocialDock')) return;
+function initYugvexSocialDock() {
+  if (document.getElementById('yugvexSocialDock')) return;
 
   const dock = document.createElement('div');
   dock.className = 'social-floating-dock';
-  dock.id = 'nexvoraSocialDock';
+  dock.id = 'yugvexSocialDock';
 
   dock.innerHTML = `
     <!-- WhatsApp -->
-    <a href="https://wa.me/917219290885?text=Hello%20NexVora%20Tech%20Solutions!" target="_blank" class="social-dock-item whatsapp" data-tooltip="WhatsApp Direct Chat" aria-label="WhatsApp">
+    <a href="https://wa.me/917219290885?text=Hello%20Yugvex%20Tech%20Solutions!" target="_blank" class="social-dock-item whatsapp" data-tooltip="WhatsApp Direct Chat" aria-label="WhatsApp">
       <svg viewBox="0 0 24 24"><path d="M12.031 0C5.384 0 0 5.383 0 12.031c0 2.124.553 4.197 1.604 6.02L.062 24l6.096-1.599a11.956 11.956 0 005.873 1.536h.005c6.645 0 12.028-5.384 12.028-12.031C24.064 5.383 18.678 0 12.031 0zm.005 22.012h-.004a9.98 9.98 0 01-5.087-1.396l-.365-.217-3.781.991 1.009-3.687-.238-.379a9.957 9.957 0 01-1.53-5.301c0-5.513 4.486-9.999 10.001-9.999 5.514 0 10.001 4.486 10.001 9.999 0 5.514-4.487 10.001-10.002 10.001zm5.485-7.495c-.301-.15-1.782-.879-2.057-.979-.275-.101-.476-.15-.677.15-.201.301-.777.979-.953 1.18-.175.201-.351.226-.652.076-.301-.15-1.272-.469-2.424-1.498-.897-.801-1.502-1.79-1.677-2.091-.175-.301-.019-.464.131-.614.135-.134.301-.351.451-.526.15-.175.201-.301.301-.501.101-.201.05-.376-.025-.526-.075-.15-.677-1.632-.927-2.233-.243-.585-.49-.506-.677-.516l-.577-.01c-.201 0-.526.075-.802.376s-1.053 1.03-1.053 2.513c0 1.483 1.078 2.91 1.228 3.111.15.201 2.122 3.24 5.141 4.545.718.31 1.279.495 1.716.634.721.229 1.377.197 1.896.12.578-.086 1.782-.728 2.033-1.431.25-.702.25-1.304.175-1.43-.075-.126-.275-.201-.576-.351z"/></svg>
     </a>
 

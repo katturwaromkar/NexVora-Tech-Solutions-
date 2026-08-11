@@ -140,7 +140,7 @@ function injectChatbotDOM() {
           </div>
           <div class="chat-title-box">
             <h4>Yugvex AI Assistant <span style="font-size:0.75rem;padding:0.1rem 0.4rem;border-radius:4px;background:rgba(6,182,212,0.2);color:var(--primary);">v2.4</span></h4>
-            <div class="chat-status-sub">⚡ Online • Founder Omkar Katturwar</div>
+            <div class="chat-status-sub">⚡ Online • Co-Founder Omkar Katturwar</div>
           </div>
         </div>
         <div class="chat-header-actions">
@@ -174,7 +174,7 @@ function injectChatbotDOM() {
           <input type="text" class="chat-input" id="aiChatInput" placeholder="Ask about ERPs, Templates, Pricing, AI..." autocomplete="off">
           <button class="chat-send-btn" id="aiChatSend" aria-label="Send Message">➤</button>
         </div>
-        <div class="chat-footer-note">Direct response powered by Founder Omkar Katturwar (+91 7219290885)</div>
+        <div class="chat-footer-note">Direct response powered by Co-Founder Omkar Katturwar (+91 7219290885)</div>
       </div>
     </div>
   `;
@@ -295,7 +295,7 @@ function generateAIResponse(userText) {
         • 💻 Full-Stack Web Engineering<br>
         • 🤖 AI & Machine Learning Research<br>
         • 🎨 UI/UX Design & Product Architecture<br><br>
-        Applications are reviewed directly by Founder Omkar Katturwar!`,
+        Applications are reviewed directly by Co-Founder Omkar Katturwar!`,
       chips: ['View Careers Page', 'Apply on WhatsApp', 'Book Consultation']
     };
   }
@@ -361,7 +361,7 @@ function generateAIResponse(userText) {
   // Default Fallback
   return {
     text: `Thanks for asking! At <strong>Yugvex Tech Solutions</strong>, we specialize in Custom Web & Mobile Apps, Enterprise ERPs, SaaS Products, Turnkey Website Templates, and AI Automation.<br><br>
-      How can Founder Omkar Katturwar & our engineering team help your business today?`,
+      How can Co-Founder Omkar Katturwar & our engineering team help your business today?`,
     chips: ['Explore SaaS Products', 'Turnkey Templates', 'AI Innovations', 'Chat on WhatsApp']
   };
 }

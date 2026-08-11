@@ -109,7 +109,7 @@ function initProjectModal() {
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;border-bottom:1px solid var(--border-light);padding-bottom:1rem;">
         <div>
           <span class="badge" style="background:rgba(6,182,212,0.15);color:var(--primary);margin-bottom:0.25rem;display:inline-block;">Yugvex Client Portal</span>
-          <h3 style="margin:0;font-family:var(--font-heading);font-size:1.4rem;color:#fff;">🚀 Request Project & Submit Token Payment</h3>
+          <h3 style="margin:0;font-family:var(--font-heading);font-size:1.4rem;color:var(--text-main);">Request Project</h3>
         </div>
         <button class="modal-close-btn" id="closeProjectModalBtn" style="font-size:1.8rem;background:transparent;border:none;color:#fff;cursor:pointer;">&times;</button>
       </div>

@@ -390,3 +390,47 @@ img, video, iframe, svg, canvas {
     border-color: transparent;
   }
 }
+
+/* Modal Mobile Responsiveness & Form Formatting Fixes */
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: 0.75rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .modal-card {
+    width: 96% !important;
+    max-width: 100% !important;
+    padding: 1.25rem 1rem !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    border-radius: var(--radius-md) !important;
+    margin: 0 auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #projectRequestForm div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  #projectRequestForm input,
+  #projectRequestForm select,
+  #projectRequestForm textarea {
+    font-size: 16px !important; /* Prevents auto-zoom on iOS Safari focus */
+    padding: 0.65rem 0.75rem !important;
+  }
+
+  #projectRequestForm h4 {
+    font-size: 1rem !important;
+  }
+
+  #projectRequestForm button[type="submit"] {
+    width: 100% !important;
+    padding: 0.85rem 1rem !important;
+    font-size: 1rem !important;
+  }
+}
+

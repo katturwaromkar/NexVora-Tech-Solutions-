@@ -6,9 +6,17 @@
   <title>Our Team & Leadership | Yugvex Tech Solutions</title>
   <meta name="description" content="Meet the leadership, software architects, AI engineers, and product designers at Yugvex Tech Solutions. Founded by Omkar Katturwar.">
   
+  <!-- Security HTTP Header Policy Meta Tags -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src 'self' https://www.google.com; connect-src 'self' https://wa.me https://api.whatsapp.com;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/security.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
@@ -41,7 +49,11 @@
       </nav>
 
       <div class="nav-actions">
-        <a href="careers.html" class="btn btn-primary btn-sm">Join Our Team</a>
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Theme" title="Switch Theme (Dark / Light)">
+          <span class="theme-icon-dark">🌙</span>
+          <span class="theme-icon-light" style="display:none;">☀️</span>
+        </button>
+        <a href="careers.html" class="btn btn-primary btn-sm"><span class="btn-text-full">Join Our Team</span><span class="btn-text-short">Join Team</span><span class="btn-text-micro">Join</span></a>
         <div class="hamburger-btn" aria-label="Toggle Menu">
           <span></span><span></span><span></span>
         </div>
@@ -79,35 +91,55 @@
     </div>
   </section>
 
-  <!-- Team Grid (9 Cards Total) -->
+  <!-- Team Grid (Founders & Leadership) -->
   <section class="section-padding" style="padding-top:0;">
     <div class="container">
-      <div class="services-grid">
+      <div class="team-grid">
 
-        <!-- Single Founder & Director Card: Omkar Katturwar -->
-        <div class="glass-card reveal" style="grid-column: 1 / -1; max-width: 650px; margin: 0 auto; text-align: center; padding: 3.5rem 2rem;">
-          <div style="width:130px;height:130px;border-radius:50%;background:var(--gradient-primary);margin:0 auto 1.5rem auto;display:flex;align-items:center;justify-content:center;font-size:3rem;font-weight:800;color:#fff;border:3px solid var(--primary);box-shadow:var(--shadow-glow);">
-            OK
-          </div>
-          <h2 style="font-size:1.8rem;margin-bottom:0.35rem;">Omkar Katturwar</h2>
-          <p style="color:var(--primary);font-weight:700;font-size:1.05rem;margin-bottom:1.25rem;text-transform:uppercase;letter-spacing:0.05em;">Founder & Managing Director</p>
-          <p style="color:var(--text-muted);font-size:1rem;line-height:1.7;margin-bottom:1.5rem;">
+        <!-- Founder & Managing Director: Omkar Katturwar -->
+        <div class="glass-card reveal team-card">
+          <div class="team-avatar">OK</div>
+          <h2 class="team-name">Omkar Katturwar</h2>
+          <p class="team-role">Founder & Managing Director</p>
+          <p class="team-desc">
             Full-stack software architect, enterprise systems strategist, and AI engineer leading technical vision, software engineering, and product innovation at Yugvex Tech Solutions.
           </p>
-          
-          <div style="font-size:0.85rem;color:var(--text-subtle);margin-bottom:1.75rem;display:flex;justify-content:center;gap:0.6rem;flex-wrap:wrap;">
-            <span class="module-badge">Full-Stack SaaS Architecture</span>
-            <span class="module-badge">Enterprise ERP Systems</span>
-            <span class="module-badge">AI & Voice Automation</span>
-            <span class="module-badge">Cloud Infrastructure</span>
+          <div class="team-tags">
+            <span class="module-badge">Full-Stack SaaS</span>
+            <span class="module-badge">Enterprise ERPs</span>
+            <span class="module-badge">AI Automation</span>
+            <span class="module-badge">Cloud Infra</span>
           </div>
-
-          <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-            <button class="btn btn-primary btn-lg" data-modal-target="profileModal" data-modal-title="Omkar Katturwar - Director Profile">
-              View Director Profile
+          <div class="team-actions">
+            <button class="btn btn-primary btn-sm" data-modal-target="profileModal" data-modal-title="Omkar Katturwar - Director Profile" style="flex:1;">
+              Director Profile
             </button>
-            <a href="contact.html" class="btn btn-secondary btn-lg">
+            <a href="contact.html" class="btn btn-secondary btn-sm" style="flex:1;">
               Get In Touch
+            </a>
+          </div>
+        </div>
+
+        <!-- Co-Founder - Sales & Management: Govindraj Ambatwar -->
+        <div class="glass-card reveal team-card">
+          <div class="team-avatar team-avatar-alt">GA</div>
+          <h2 class="team-name">Govindraj Ambatwar</h2>
+          <p class="team-role">Co-Founder - Sales & Management</p>
+          <p class="team-desc">
+            Co-Founder heading enterprise sales operations, strategic client relationships, market expansion, financial management, and business growth at Yugvex Tech Solutions.
+          </p>
+          <div class="team-tags">
+            <span class="module-badge">Sales Strategy</span>
+            <span class="module-badge">Business Dev</span>
+            <span class="module-badge">Client Relations</span>
+            <span class="module-badge">Operations</span>
+          </div>
+          <div class="team-actions">
+            <a href="tel:+918484080732" class="btn btn-primary btn-sm" style="flex:1;">
+              📞 Call 8484080732
+            </a>
+            <a href="https://wa.me/918484080732" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="flex:1;">
+              💬 WhatsApp Sales
             </a>
           </div>
         </div>
@@ -153,6 +185,7 @@
     </div>
   </div>
 
+  <script src="js/security.js"></script>
   <script src="js/main.js"></script>
   <script src="js/animation.js"></script>
 </body>

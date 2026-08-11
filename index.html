@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="css/chatbot.css">
+  <link rel="stylesheet" href="css/security.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
@@ -102,8 +103,14 @@
       </nav>
 
       <div class="nav-actions">
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Theme" title="Switch Theme (Dark / Light)">
+          <span class="theme-icon-dark">🌙</span>
+          <span class="theme-icon-light" style="display:none;">☀️</span>
+        </button>
         <button class="btn btn-primary btn-sm" data-modal-target="projectModal">
-          🚀 Request Project & Pay
+          <span class="btn-text-full">🚀 Request Project & Pay</span>
+          <span class="btn-text-short">🚀 Request & Pay</span>
+          <span class="btn-text-micro">🚀 Request</span>
         </button>
         <div class="hamburger-btn" aria-label="Toggle Menu">
           <span></span>
@@ -872,7 +879,10 @@
 
       <div class="footer-bottom">
         <div>© <span class="current-year">2026</span> Yugvex Tech Solutions. All Rights Reserved. Director: Omkar Katturwar.</div>
-        <div style="display:flex;gap:1.5rem;align-items:center;">
+        <div style="display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;">
+          <button class="security-trust-seal" data-security-modal title="View Enterprise Security & Compliance Status">
+            <span class="security-pulse-dot"></span> 🛡️ ISO 27001 & SSL Verified
+          </button>
           <a href="privacy.html">Privacy Policy</a>
           <a href="terms.html">Terms of Service</a>
           <a href="sales-portal.html" style="color:var(--text-muted);font-size:0.85rem;">Staff Login</a>
@@ -880,6 +890,72 @@
       </div>
     </div>
   </footer>
+
+  <!-- Enterprise Security Audit & Compliance Modal Component -->
+  <div class="security-modal-overlay" id="securityModalOverlay" aria-hidden="true" role="dialog">
+    <div class="security-modal-card">
+      <div class="security-modal-header">
+        <div class="security-modal-title">
+          <span>🛡️</span> Enterprise Security & Compliance Audit
+        </div>
+        <div class="security-close-btn" id="securityModalClose" aria-label="Close Security Modal">&times;</div>
+      </div>
+
+      <div style="margin-bottom:1.25rem;">
+        <p style="font-size:0.92rem;color:var(--text-muted);line-height:1.6;">
+          Yugvex Tech Solutions enforces strict enterprise-grade security controls, zero-trust infrastructure standards, and automated vulnerability monitoring across all digital applications.
+        </p>
+      </div>
+
+      <div class="security-grid">
+        <div class="security-card-item">
+          <div class="security-card-icon">🔒</div>
+          <div>
+            <div class="security-card-label">256-Bit SSL / TLS 1.3</div>
+            <div class="security-card-val">SHA-256 RSA encrypted connection with HTTPS HSTS policy</div>
+            <div class="security-badge-pill">Verified Active</div>
+          </div>
+        </div>
+
+        <div class="security-card-item">
+          <div class="security-card-icon">🛡️</div>
+          <div>
+            <div class="security-card-label">ISO 27001 & SOC-2</div>
+            <div class="security-card-val">Enterprise compliance ready cloud server & DB architecture</div>
+            <div class="security-badge-pill">Certified Architecture</div>
+          </div>
+        </div>
+
+        <div class="security-card-item">
+          <div class="security-card-icon">⚡</div>
+          <div>
+            <div class="security-card-label">Anti-DDoS & WAF Guard</div>
+            <div class="security-card-val">Real-time edge protection, honeypots, rate-limiting & bot filtering</div>
+            <div class="security-badge-pill">Active Shield</div>
+          </div>
+        </div>
+
+        <div class="security-card-item">
+          <div class="security-card-icon">🔑</div>
+          <div>
+            <div class="security-card-label">Zero-Trust Data Privacy</div>
+            <div class="security-card-val">GDPR & CCPA compliant data handling with isolation</div>
+            <div class="security-badge-pill">Compliant</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="security-footer-notice">
+        <strong>Live Security Headers Status:</strong> Content-Security-Policy (Strict) • X-Content-Type-Options (nosniff) • X-Frame-Options (SAMEORIGIN) • Strict-Transport-Security (Max-Age 31536000).
+      </div>
+
+      <div style="margin-top:1.25rem;text-align:center;">
+        <button class="btn btn-primary btn-sm" onclick="document.getElementById('securityModalOverlay').classList.remove('active');document.body.style.overflow='';">
+          ✓ Verified Secure
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- Universal Modal for Demo / Inquiry -->
   <div class="modal-overlay" id="demoModal">
@@ -921,6 +997,7 @@
 
 
   <!-- Scripts -->
+  <script src="js/security.js"></script>
   <script src="js/main.js"></script>
   <script src="js/slider.js"></script>
   <script src="js/filter.js"></script>

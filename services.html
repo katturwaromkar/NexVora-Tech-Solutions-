@@ -6,10 +6,18 @@
   <title>Services | Yugvex Tech Solutions</title>
   <meta name="description" content="Explore end-to-end technology services from Yugvex Tech Solutions: Custom Web Dev, Mobile Apps, Enterprise ERP/CRM, AI Chatbots, Cloud Solutions, and Digital Transformation.">
   
+  <!-- Security HTTP Header Policy Meta Tags -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src 'self' https://www.google.com; connect-src 'self' https://wa.me https://api.whatsapp.com;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="css/chatbot.css">
+  <link rel="stylesheet" href="css/security.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
@@ -42,7 +50,7 @@
       </nav>
 
       <div class="nav-actions">
-        <button class="btn btn-primary btn-sm" data-modal-target="projectModal">🚀 Request Project & Pay</button>
+        <button class="btn btn-primary btn-sm" data-modal-target="projectModal"><span class="btn-text-full">🚀 Request Project & Pay</span><span class="btn-text-short">🚀 Request & Pay</span><span class="btn-text-micro">🚀 Request</span></button>
         <div class="hamburger-btn" aria-label="Toggle Menu">
           <span></span><span></span><span></span>
         </div>
@@ -225,6 +233,7 @@
     </div>
   </div>
 
+  <script src="js/security.js"></script>
   <script src="js/main.js"></script>
   <script src="js/animation.js"></script>
   <script src="js/chatbot.js"></script>

@@ -4,6 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
+  initThemeToggle();
   initMobileDrawer();
   initRippleEffect();
   initProjectModal();
@@ -414,7 +415,36 @@ function showProjectSubmissionSuccess(reqData) {
   document.body.appendChild(modalOverlay);
 }
 
-// Global PDF Receipt Download function
+/* --- Theme Switcher (Dark Mode / Bright White Light Mode) --- */
+function initThemeToggle() {
+  const toggleBtns = document.querySelectorAll('#themeToggleBtn, .theme-toggle-btn');
+  const savedTheme = localStorage.getItem('yugvex_theme') || 'dark';
+
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.querySelectorAll('.theme-icon-dark').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.theme-icon-light').forEach(el => el.style.display = 'inline');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      document.querySelectorAll('.theme-icon-dark').forEach(el => el.style.display = 'inline');
+      document.querySelectorAll('.theme-icon-light').forEach(el => el.style.display = 'none');
+    }
+  }
+
+  applyTheme(savedTheme);
+
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('yugvex_theme', next);
+      applyTheme(next);
+    });
+  });
+}
+
+// Global PDF Receipt Download function - Enhanced Corporate Format
 window.downloadClientRequestPDF = function(reqId) {
   let req = null;
   const reqs = JSON.parse(localStorage.getItem('yugvex_project_requests') || '[]');
@@ -449,64 +479,237 @@ window.downloadClientRequestPDF = function(reqId) {
   const jsPDF = window.jspdf ? window.jspdf.jsPDF : (window.jsPDF ? window.jsPDF : null);
 
   if (jsPDF) {
-    const doc = new jsPDF();
+    const doc = new jsPDF('p', 'mm', 'a4');
 
-    doc.setFillColor(15, 23, 42);
+    // Page Background: Crisp Clean White
+    doc.setFillColor(255, 255, 255);
     doc.rect(0, 0, 210, 297, 'F');
 
+    // Top Header Banner (Dark Navy Blue Block)
+    doc.setFillColor(15, 23, 42);
+    doc.rect(0, 0, 210, 36, 'F');
+
+    // Electric Cyan Accent Line
+    doc.setFillColor(6, 182, 212);
+    doc.rect(0, 36, 210, 2, 'F');
+
+    // Company Brand Name & Subtitle
+    doc.setFont("helvetica", "bold");
     doc.setTextColor(6, 182, 212);
-    doc.setFontSize(22);
-    doc.text("YUGVEX TECH SOLUTIONS", 20, 25);
+    doc.setFontSize(20);
+    doc.text("YUGVEX TECH SOLUTIONS", 14, 16);
 
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(14);
-    doc.text("OFFICIAL PAYMENT RECEIPT & AGREEMENT", 20, 38);
-
-    doc.setFontSize(10);
-    doc.setTextColor(180, 180, 180);
-    doc.text(`Receipt / Request ID: ${req.id}`, 20, 50);
-    doc.text(`Payment Date: ${req.payDate || '2026-08-10'}`, 130, 50);
-
-    doc.setLineWidth(0.5);
-    doc.setDrawColor(6, 182, 212);
-    doc.line(20, 55, 190, 55);
-
-    doc.setFontSize(11);
-    doc.setTextColor(255, 255, 255);
-    doc.text("CLIENT & BUSINESS DETAILS", 20, 68);
-    doc.setFontSize(10);
-    doc.setTextColor(200, 200, 200);
-    doc.text(`Name: ${req.name}`, 20, 78);
-    doc.text(`WhatsApp Phone: +${req.phone}`, 20, 86);
-    doc.text(`Email: ${req.email || 'N/A'}`, 20, 94);
-    doc.text(`Business / Store Name: ${req.business || 'N/A'}`, 20, 102);
-
-    doc.setFontSize(11);
-    doc.setTextColor(255, 255, 255);
-    doc.text("FINANCIAL BREAKDOWN & PAYMENT SUMMARY", 20, 118);
-    doc.setFontSize(10);
-    doc.setTextColor(200, 200, 200);
-    doc.text(`Selected Plan / Service: ${req.plan}`, 20, 128);
-    doc.text(`Total Agreed Valuation: Rs. ${parseFloat(req.totalAmount || req.amount).toLocaleString('en-IN')}`, 20, 136);
-    doc.text(`Token Amount Paid Now: Rs. ${parseFloat(req.amount || 0).toLocaleString('en-IN')}`, 20, 144);
-    doc.text(`Remaining Balance Due: Rs. ${parseFloat(req.pendingAmount || 0).toLocaleString('en-IN')}`, 20, 152);
-    doc.text(`Transaction UTR / Ref ID: ${req.txnRef}`, 20, 160);
-    doc.text(`Payment Method: ${req.payMethod || 'PhonePe QR'}`, 20, 168);
-    doc.text(`Payee Account Name: GOVINDRAJ HANMANT AMBATWAR`, 20, 176);
-
-    doc.setLineWidth(0.5);
-    doc.setDrawColor(6, 182, 212);
-    doc.line(20, 186, 190, 186);
-
-    doc.setFontSize(12);
-    doc.setTextColor(52, 211, 153);
-    doc.text("STATUS: PAYMENT VERIFIED & CONFIRMED", 20, 200);
-
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(203, 213, 225);
     doc.setFontSize(9);
-    doc.setTextColor(150, 150, 150);
-    doc.text("Director: Omkar Katturwar | Yugvex Tech Solutions - Nanded, Maharashtra | www.yugvex.com", 20, 260);
+    doc.text("Enterprise Software, ERP Architectures & Cloud Technologies", 14, 23);
+    doc.text("GST Compliant Tax Invoice & Financial Payment Receipt", 14, 28);
 
-    doc.save(`Yugvex_Payment_Receipt_${req.id}.pdf`);
+    // Official Receipt Badge (Right Header)
+    doc.setFillColor(30, 41, 59);
+    doc.roundedRect(132, 10, 64, 18, 3, 3, 'F');
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(10);
+    doc.text("OFFICIAL RECEIPT", 140, 17);
+    doc.setFontSize(8);
+    doc.setTextColor(52, 211, 153);
+    doc.text("STATUS: VERIFIED & CONFIRMED", 137, 23);
+
+    // Receipt Meta Info Bar
+    doc.setFillColor(248, 250, 252);
+    doc.roundedRect(14, 44, 182, 16, 2, 2, 'F');
+    doc.setDrawColor(226, 232, 240);
+    doc.roundedRect(14, 44, 182, 16, 2, 2, 'D');
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8.5);
+    doc.setTextColor(71, 85, 105);
+    doc.text("Receipt ID:", 18, 54);
+    doc.setTextColor(15, 23, 42);
+    doc.text(String(req.id), 38, 54);
+
+    doc.setTextColor(71, 85, 105);
+    doc.text("Date:", 85, 54);
+    doc.setTextColor(15, 23, 42);
+    doc.text(String(req.payDate || '2026-08-11'), 95, 54);
+
+    doc.setTextColor(71, 85, 105);
+    doc.text("Payment Ref / UTR:", 135, 54);
+    doc.setTextColor(15, 23, 42);
+    doc.text(String(req.txnRef || 'PAY-VERIFIED'), 168, 54);
+
+    // Two Column Grid Box for Issuer & Client Info
+    // Box 1: Issuer Details (Left)
+    doc.setFillColor(241, 245, 249);
+    doc.roundedRect(14, 66, 88, 48, 2, 2, 'F');
+    doc.setDrawColor(203, 213, 225);
+    doc.roundedRect(14, 66, 88, 48, 2, 2, 'D');
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor(6, 182, 212);
+    doc.text("ISSUER DETAILS / COMPANY", 18, 73);
+
+    doc.setFontSize(8.5);
+    doc.setTextColor(15, 23, 42);
+    doc.text("Yugvex Tech Solutions", 18, 80);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(71, 85, 105);
+    doc.text("Director: Omkar Katturwar", 18, 86);
+    doc.text("Co-Founder & Sales: Govindraj Ambatwar", 18, 92);
+    doc.text("Location: Nanded, Maharashtra - 431602", 18, 98);
+    doc.text("Email: katturwaroma313@gmail.com", 18, 104);
+    doc.text("Phone: +91 8484080732 | www.yugvex.com", 18, 110);
+
+    // Box 2: Client Details (Right)
+    doc.setFillColor(241, 245, 249);
+    doc.roundedRect(108, 66, 88, 48, 2, 2, 'F');
+    doc.setDrawColor(203, 213, 225);
+    doc.roundedRect(108, 66, 88, 48, 2, 2, 'D');
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor(6, 182, 212);
+    doc.text("BILLED TO / CLIENT DETAILS", 112, 73);
+
+    doc.setFontSize(8.5);
+    doc.setTextColor(15, 23, 42);
+    doc.text(String(req.name || 'Valued Client'), 112, 80);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(71, 85, 105);
+    doc.text(`Phone / WhatsApp: +${req.phone || 'N/A'}`, 112, 86);
+    doc.text(`Email: ${req.email || 'N/A'}`, 112, 92);
+    doc.text(`Business Name: ${req.business || 'Individual'}`, 112, 98);
+    doc.text(`Payment Method: ${req.payMethod || 'PhonePe / UPI QR'}`, 112, 104);
+    doc.text("Payee: GOVINDRAJ HANMANT AMBATWAR", 112, 110);
+
+    // Financial Table Header Box
+    doc.setFillColor(15, 23, 42);
+    doc.rect(14, 122, 182, 10, 'F');
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8.5);
+    doc.setTextColor(255, 255, 255);
+    doc.text("SL", 18, 128.5);
+    doc.text("SERVICE / PROJECT DESCRIPTION", 32, 128.5);
+    doc.text("AGREED VALUE", 110, 128.5);
+    doc.text("PAID NOW", 145, 128.5);
+    doc.text("BALANCE DUE", 172, 128.5);
+
+    // Financial Table Content Row
+    doc.setFillColor(255, 255, 255);
+    doc.rect(14, 132, 182, 16, 'F');
+    doc.setDrawColor(226, 232, 240);
+    doc.rect(14, 132, 182, 16, 'D');
+
+    const totalVal = parseFloat(req.totalAmount || req.amount || 0);
+    const tokenVal = parseFloat(req.amount || 0);
+    const pendingVal = parseFloat(req.pendingAmount || (totalVal - tokenVal));
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8.5);
+    doc.setTextColor(15, 23, 42);
+    doc.text("01", 18, 142);
+    doc.text(String(req.plan || 'Custom Enterprise Software / ERP System'), 32, 142);
+    doc.text(`Rs. ${totalVal.toLocaleString('en-IN')}`, 110, 142);
+
+    doc.setTextColor(5, 150, 105);
+    doc.text(`Rs. ${tokenVal.toLocaleString('en-IN')}`, 145, 142);
+
+    doc.setTextColor(pendingVal > 0 ? 225 : 5, pendingVal > 0 ? 29 : 150, pendingVal > 0 ? 72 : 105);
+    doc.text(`Rs. ${pendingVal.toLocaleString('en-IN')}`, 172, 142);
+
+    // Financial Summary Totals Card
+    doc.setFillColor(248, 250, 252);
+    doc.roundedRect(108, 154, 88, 38, 2, 2, 'F');
+    doc.setDrawColor(203, 213, 225);
+    doc.roundedRect(108, 154, 88, 38, 2, 2, 'D');
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8.5);
+    doc.setTextColor(71, 85, 105);
+    doc.text("Total Agreed Valuation:", 112, 162);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(15, 23, 42);
+    doc.text(`Rs. ${totalVal.toLocaleString('en-IN')}`, 168, 162);
+
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(71, 85, 105);
+    doc.text("Amount Paid / Token Received:", 112, 170);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(5, 150, 105);
+    doc.text(`Rs. ${tokenVal.toLocaleString('en-IN')}`, 168, 170);
+
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(71, 85, 105);
+    doc.text("Remaining Outstanding Balance:", 112, 178);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(pendingVal > 0 ? 225 : 5, pendingVal > 0 ? 29 : 150, pendingVal > 0 ? 72 : 105);
+    doc.text(`Rs. ${pendingVal.toLocaleString('en-IN')}`, 168, 178);
+
+    doc.setFillColor(15, 23, 42);
+    doc.rect(108, 184, 88, 8, 'F');
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8.5);
+    doc.setTextColor(255, 255, 255);
+    doc.text("NET PAYMENT CONFIRMED", 112, 189.5);
+
+    // Terms & Security Notice (Left Side)
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8.5);
+    doc.setTextColor(15, 23, 42);
+    doc.text("SECURITY & TRANSACTION GUARANTEE", 14, 160);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(7.5);
+    doc.setTextColor(100, 116, 139);
+    doc.text("1. Digital Receipt & Agreement automatically generated upon transaction verification.", 14, 166);
+    doc.text("2. Payments processed via Bank UPI / PhonePe Business QR Gateway.", 14, 171);
+    doc.text("3. Protected by 256-Bit SSL encryption & zero-trust compliance standards.", 14, 176);
+    doc.text("4. Payee Account: GOVINDRAJ HANMANT AMBATWAR (Co-Founder & Sales Head).", 14, 181);
+    doc.text("5. Contact Support: +91 8484080732 | katturwaroma313@gmail.com", 14, 186);
+
+    // Official Stamp & Authorised Signatory Seal
+    doc.setFillColor(241, 245, 249);
+    doc.roundedRect(14, 200, 182, 34, 3, 3, 'F');
+    doc.setDrawColor(6, 182, 212);
+    doc.roundedRect(14, 200, 182, 34, 3, 3, 'D');
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor(6, 182, 212);
+    doc.text("AUTHORIZED DIGITAL SIGNATURE & CORPORATE SEAL", 18, 208);
+
+    doc.setFontSize(8);
+    doc.setTextColor(15, 23, 42);
+    doc.text("Yugvex Tech Solutions - Financial Operations Dept.", 18, 216);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(71, 85, 105);
+    doc.text("Verified Signatories: Omkar Katturwar (Director) & Govindraj Ambatwar (Co-Founder)", 18, 222);
+    doc.text("System Verification Timestamp: " + new Date().toLocaleString(), 18, 228);
+
+    // Decorative Digital Stamp Box
+    doc.setFillColor(5, 150, 105);
+    doc.roundedRect(145, 205, 45, 24, 2, 2, 'F');
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8);
+    doc.setTextColor(255, 255, 255);
+    doc.text("YUGVEX SECURE", 148, 213);
+    doc.text("★ VERIFIED ★", 152, 219);
+    doc.setFontSize(7);
+    doc.text("PAYMENT STAMP", 149, 224);
+
+    // Bottom Page Footer Line
+    doc.setDrawColor(226, 232, 240);
+    doc.line(14, 275, 196, 275);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(7.5);
+    doc.setTextColor(148, 163, 184);
+    doc.text("Yugvex Tech Solutions • Enterprise Software & SaaS Solutions • Nanded, Maharashtra • www.yugvex.com", 14, 281);
+
+    doc.save(`Yugvex_Official_Receipt_${req.id}.pdf`);
   } else {
     window.print();
   }

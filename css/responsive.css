@@ -155,6 +155,45 @@
     margin: 1rem;
     max-height: 85vh;
   }
+
+  /* --- Navbar & Actions Responsiveness Safeguards --- */
+  .navbar {
+    height: calc(70px + env(safe-area-inset-top, 0px));
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .nav-container {
+    gap: 0.5rem !important;
+    padding: 0 0.85rem !important;
+  }
+
+  .nav-actions {
+    gap: 0.45rem !important;
+    flex-shrink: 0;
+  }
+
+  .nav-actions .btn {
+    padding: 0.45rem 0.8rem !important;
+    font-size: 0.82rem !important;
+    white-space: nowrap !important;
+  }
+
+  .btn-text-short, .btn-text-micro {
+    display: none;
+  }
+}
+
+/* Mobile Devices & Medium Screens (576px and below) */
+@media (max-width: 576px) {
+  .btn-text-full {
+    display: none !important;
+  }
+  .btn-text-short {
+    display: inline !important;
+  }
+  .btn-text-micro {
+    display: none !important;
+  }
 }
 
 /* Small Phones & Micro Screens (480px and below) */
@@ -214,11 +253,28 @@
   }
 }
 
-/* Extra Micro Screens & Ultra-Small Devices (360px and below) */
-@media (max-width: 360px) {
+/* Extra Micro Screens & Small Mobile Models (380px and below - e.g. iPhone SE, Galaxy S8/S20) */
+@media (max-width: 380px) {
+  .btn-text-full, .btn-text-short {
+    display: none !important;
+  }
+  .btn-text-micro {
+    display: inline !important;
+  }
+
+  .nav-actions .btn {
+    padding: 0.4rem 0.6rem !important;
+    font-size: 0.78rem !important;
+  }
+
+  .brand-logo {
+    font-size: 1.05rem;
+  }
+
   .section-title {
     font-size: 1.5rem;
   }
+
   .btn-lg {
     padding: 0.75rem 1.25rem;
     font-size: 0.95rem;
@@ -275,6 +331,10 @@ img, video, iframe, svg, canvas {
   display: none;
 }
 
+.btn-text-short, .btn-text-micro {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .mobile-quick-jump-bar {
     display: flex;
@@ -282,18 +342,25 @@ img, video, iframe, svg, canvas {
     gap: 0.5rem;
     overflow-x: auto;
     white-space: nowrap;
-    width: 100vw;
+    width: 100%;
     max-width: 100vw;
     padding: 0.6rem 1rem;
     background: rgba(15, 23, 42, 0.96);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-light);
-    position: relative;
-    z-index: 995;
+    position: sticky;
+    top: calc(70px + env(safe-area-inset-top, 0px));
+    margin-top: calc(70px + env(safe-area-inset-top, 0px));
+    z-index: 990;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
     box-sizing: border-box;
+  }
+
+  .mobile-quick-jump-bar + .hero-section,
+  .mobile-quick-jump-bar + section {
+    padding-top: 2rem !important;
   }
 
   .mobile-quick-jump-bar::-webkit-scrollbar {

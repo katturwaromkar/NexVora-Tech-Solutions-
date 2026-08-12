@@ -52,7 +52,52 @@
         <a href="products.html" class="nav-link">Products</a>
         <a href="portfolio.html" class="nav-link">Portfolio</a>
         <a href="clients.html" class="nav-link">Clients</a>
-        <a href="brochures.html" class="nav-link active">Brochures</a>
+        
+        <!-- Brochures Dropdown -->
+        <div class="nav-item-dropdown">
+          <a href="brochures.html" class="nav-link dropdown-trigger active">
+            Brochures <span class="dropdown-arrow">▾</span>
+          </a>
+          <div class="dropdown-menu">
+            <div class="dropdown-header">Brochures & Catalogs</div>
+            <a href="assets/brochures/Yugvex_Website_Details_Brochure.pdf" target="_blank" class="dropdown-item">
+              <div class="dropdown-item-icon">🌐</div>
+              <div>
+                <div class="dropdown-item-title">Website Details (PDF) <span class="badge-upcoming" style="background:rgba(6,182,212,0.15);color:var(--primary);border:1px solid rgba(6,182,212,0.3);">10 Pages</span></div>
+                <div class="dropdown-item-desc">Official Web Development Quotation & Specs</div>
+              </div>
+            </a>
+            <a href="brochures.html#website-details" class="dropdown-item">
+              <div class="dropdown-item-icon">📊</div>
+              <div>
+                <div class="dropdown-item-title">Website Development Plans</div>
+                <div class="dropdown-item-desc">Starter, Business, Professional & Custom</div>
+              </div>
+            </a>
+            <a href="brochures.html#pharmacy" class="dropdown-item">
+              <div class="dropdown-item-icon">💊</div>
+              <div>
+                <div class="dropdown-item-title">Pharmacy Store ERP Brochure</div>
+                <div class="dropdown-item-desc">Inventory, batch tracking & GST billing</div>
+              </div>
+            </a>
+            <a href="brochures.html#restaurant" class="dropdown-item">
+              <div class="dropdown-item-icon">🍽️</div>
+              <div>
+                <div class="dropdown-item-title">Restaurant Management POS</div>
+                <div class="dropdown-item-desc">Table QR ordering & KOT display specs</div>
+              </div>
+            </a>
+            <a href="brochures.html#ai" class="dropdown-item">
+              <div class="dropdown-item-icon">🤖</div>
+              <div>
+                <div class="dropdown-item-title">AI Voice Bot & Automation</div>
+                <div class="dropdown-item-desc">AI telecalling agent & Document OCR catalog</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
         <a href="team.html" class="nav-link">Team</a>
         <a href="careers.html" class="nav-link">Careers</a>
         <a href="contact.html" class="nav-link">Contact</a>
@@ -89,6 +134,7 @@
       <a href="templates.html" class="mobile-nav-link">Templates</a>
       <a href="products.html" class="mobile-nav-link">Products & ERPs</a>
       <a href="brochures.html" class="mobile-nav-link active">Brochures & Downloads</a>
+      <a href="assets/brochures/Yugvex_Website_Details_Brochure.pdf" target="_blank" class="mobile-nav-link" style="padding-left:1.5rem;font-size:0.85rem;color:var(--primary);">📄 Website Details Brochure (PDF)</a>
       <a href="portfolio.html" class="mobile-nav-link">Portfolio</a>
       <a href="clients.html" class="mobile-nav-link">Clients</a>
       <a href="team.html" class="mobile-nav-link">Team</a>
@@ -124,30 +170,33 @@
     <div class="container">
       <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:2rem;">
         
-        <!-- Brochure Item 1 -->
-        <div class="card glass-card" style="padding:2rem;display:flex;flex-direction:column;justify-content:space-between;">
+        <!-- Brochure Item 1: Website Details Official PDF -->
+        <div class="card glass-card" id="website-details" style="padding:2rem;display:flex;flex-direction:column;justify-content:space-between;border:1px solid rgba(6,182,212,0.4);box-shadow:0 8px 32px rgba(6,182,212,0.15);">
           <div>
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
-              <span class="badge" style="background:rgba(6,182,212,0.15);color:var(--primary);border:1px solid rgba(6,182,212,0.3);">Website Packages</span>
-              <span style="font-size:0.8rem;color:var(--text-muted);">PDF • 2026 Edition</span>
+              <span class="badge" style="background:rgba(6,182,212,0.2);color:var(--primary);border:1px solid rgba(6,182,212,0.4);font-weight:700;">🌐 Official 10-Page PDF</span>
+              <span style="font-size:0.8rem;color:var(--primary);font-weight:600;">PDF • Digital Solutions & Quotation</span>
             </div>
-            <h3 style="font-size:1.3rem;color:#fff;margin-bottom:0.75rem;">🌐 Website Development Plans & Pricing</h3>
+            <h3 style="font-size:1.4rem;color:#fff;margin-bottom:0.75rem;">🌐 Website Details & Development Quotation</h3>
             <p style="color:var(--text-muted);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">
-              Full feature list for Starter, Business, E-Commerce, and Custom Enterprise web applications. Includes timelines, Tech Stack, and SEO inclusions.
+              Complete official business brochure & quotation. Contains <strong>Starter (₹1,500+)</strong>, <strong>Business (₹4,999+)</strong>, <strong>Professional (₹9,999+)</strong>, Custom Quotations, Static vs Dynamic Matrix, 22 Capabilities, Tech Stack, 6-Step Launch Workflow, and Terms & Conditions.
             </p>
           </div>
-          <div style="display:flex;gap:0.75rem;">
-            <button class="btn btn-primary btn-sm" onclick="downloadSampleBrochure('website')" style="flex:1;">
-              📥 Download PDF
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="assets/brochures/Yugvex_Website_Details_Brochure.pdf" download="Yugvex_Website_Details_Brochure.pdf" class="btn btn-primary btn-sm" style="flex:1;text-align:center;">
+              📥 Download PDF (10 Pgs)
+            </a>
+            <button class="btn btn-secondary btn-sm" onclick="previewBrochure('Website Details & Quotation Brochure', 'Comprehensive 10-Page Official Quotation including Starter (Rs. 1,500+), Business (Rs. 4,999+), Professional (Rs. 9,999+), Static vs Dynamic Matrix, Tech Stack & Terms.', 'website', 'assets/brochures/Yugvex_Website_Details_Brochure.pdf')">
+              👁️ Preview PDF
             </button>
-            <button class="btn btn-secondary btn-sm" onclick="previewBrochure('Website Development Plans 2026', 'Comprehensive feature breakdown of Starter, Professional, and Enterprise Web Packages.')">
-              👁️ Preview
-            </button>
+            <a href="assets/brochures/Yugvex_Website_Details_Brochure.pdf" target="_blank" class="btn btn-secondary btn-sm" style="display:inline-flex;align-items:center;gap:0.3rem;">
+              📄 Open PDF ↗
+            </a>
           </div>
         </div>
 
         <!-- Brochure Item 2 -->
-        <div class="card glass-card" style="padding:2rem;display:flex;flex-direction:column;justify-content:space-between;">
+        <div class="card glass-card" id="pharmacy" style="padding:2rem;display:flex;flex-direction:column;justify-content:space-between;">
           <div>
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
               <span class="badge" style="background:rgba(139,92,246,0.15);color:#A78BFA;border:1px solid rgba(139,92,246,0.3);">Enterprise ERP</span>
@@ -162,14 +211,14 @@
             <button class="btn btn-primary btn-sm" onclick="downloadSampleBrochure('pharmacy')" style="flex:1;">
               📥 Download PDF
             </button>
-            <button class="btn btn-secondary btn-sm" onclick="previewBrochure('Pharmacy Store ERP Guide', 'Complete specifications for Pharmacy Inventory, Billing, and Expiry Alert Systems.')">
+            <button class="btn btn-secondary btn-sm" onclick="previewBrochure('Pharmacy Store ERP Guide', 'Complete specifications for Pharmacy Inventory, Billing, and Expiry Alert Systems.', 'pharmacy')">
               👁️ Preview
             </button>
           </div>
         </div>
 
         <!-- Brochure Item 3 -->
-        <div class="card glass-card" style="padding:2rem;display:flex;flex-direction:column;justify-content:space-between;">
+        <div class="card glass-card" id="restaurant" style="padding:2rem;display:flex;flex-direction:column;justify-content:space-between;">
           <div>
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
               <span class="badge" style="background:rgba(236,72,153,0.15);color:#F472B6;border:1px solid rgba(236,72,153,0.3);">Restaurant POS</span>
@@ -184,14 +233,14 @@
             <button class="btn btn-primary btn-sm" onclick="downloadSampleBrochure('restaurant')" style="flex:1;">
               📥 Download PDF
             </button>
-            <button class="btn btn-secondary btn-sm" onclick="previewBrochure('Restaurant Management POS Brochure', 'Overview of Table QR Digital Menu, Kitchen Display System, and Billing ERP.')">
+            <button class="btn btn-secondary btn-sm" onclick="previewBrochure('Restaurant Management POS Brochure', 'Overview of Table QR Digital Menu, Kitchen Display System, and Billing ERP.', 'restaurant')">
               👁️ Preview
             </button>
           </div>
         </div>
 
         <!-- Brochure Item 4 -->
-        <div class="card glass-card" style="padding:2rem;display:flex;flex-direction:column;justify-content:space-between;">
+        <div class="card glass-card" id="ai" style="padding:2rem;display:flex;flex-direction:column;justify-content:space-between;">
           <div>
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
               <span class="badge" style="background:rgba(16,185,129,0.15);color:#34D399;border:1px solid rgba(16,185,129,0.3);">AI Innovations</span>
@@ -206,7 +255,7 @@
             <button class="btn btn-primary btn-sm" onclick="downloadSampleBrochure('ai')" style="flex:1;">
               📥 Download PDF
             </button>
-            <button class="btn btn-secondary btn-sm" onclick="previewBrochure('AI Automation Product Catalog', 'Architecture and capability specifications of Yugvex AI Voice Agents and Document OCR.')">
+            <button class="btn btn-secondary btn-sm" onclick="previewBrochure('AI Automation Product Catalog', 'Architecture and capability specifications of Yugvex AI Voice Agents and Document OCR.', 'ai')">
               👁️ Preview
             </button>
           </div>
@@ -228,7 +277,7 @@
             <button class="btn btn-primary btn-sm" onclick="downloadSampleBrochure('corporate')" style="flex:1;">
               📥 Download PDF
             </button>
-            <button class="btn btn-secondary btn-sm" onclick="previewBrochure('Yugvex Corporate Deck', 'Company profile, capabilities, leadership team, and engagement methodology.')">
+            <button class="btn btn-secondary btn-sm" onclick="previewBrochure('Yugvex Corporate Deck', 'Company profile, capabilities, leadership team, and engagement methodology.', 'corporate')">
               👁️ Preview
             </button>
           </div>
@@ -240,22 +289,27 @@
 
   <!-- Preview Modal -->
   <div class="modal-overlay" id="brochurePreviewModal" style="display:none;">
-    <div class="modal-card" style="max-width:550px;">
-      <div class="modal-header">
+    <div class="modal-card" style="max-width:850px;width:95%;max-height:90vh;display:flex;flex-direction:column;">
+      <div class="modal-header" style="display:flex;justify-content:space-between;align-items:center;">
         <h3 class="modal-title" id="previewModalTitle">Brochure Preview</h3>
         <button class="modal-close-btn" onclick="closeBrochurePreview()">&times;</button>
       </div>
-      <div class="modal-body" style="padding:1.5rem 0;">
-        <div style="background:rgba(15,23,42,0.6);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:1.5rem;text-align:center;">
-          <div style="font-size:3rem;margin-bottom:0.5rem;">📄</div>
+      <div class="modal-body" style="padding:1rem 0;overflow-y:auto;flex:1;">
+        <div id="previewPdfContainer" style="display:none;margin-bottom:1rem;">
+          <iframe id="previewPdfIframe" src="" style="width:100%;height:500px;border:1px solid var(--border-light);border-radius:var(--radius-md);"></iframe>
+        </div>
+        <div id="previewDocContainer" style="background:rgba(15,23,42,0.6);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:1.5rem;">
           <h4 id="previewDocHeader" style="color:var(--primary);margin-bottom:0.5rem;">Yugvex Brochure Specifications</h4>
-          <p id="previewDocBody" style="color:var(--text-muted);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;"></p>
-          <div style="font-size:0.8rem;color:var(--text-muted);">Format: Standard Printable PDF • High Resolution</div>
+          <div id="previewDocBody" style="color:var(--text-muted);font-size:0.9rem;line-height:1.6;margin-bottom:1rem;"></div>
+          <div style="font-size:0.8rem;color:var(--text-muted);">Format: Official Printable PDF Document • High Resolution</div>
         </div>
       </div>
-      <div class="modal-footer" style="display:flex;justify-content:flex-end;gap:1rem;">
-        <button class="btn btn-secondary" onclick="closeBrochurePreview()">Close</button>
-        <button class="btn btn-primary" onclick="downloadCurrentPreview()">📥 Download Printable PDF</button>
+      <div class="modal-footer" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
+        <a id="previewPdfDirectLink" href="assets/brochures/Yugvex_Website_Details_Brochure.pdf" target="_blank" class="btn btn-secondary btn-sm" style="display:none;">📄 Open PDF in New Tab ↗</a>
+        <div style="display:flex;gap:0.75rem;margin-left:auto;">
+          <button class="btn btn-secondary" onclick="closeBrochurePreview()">Close</button>
+          <button class="btn btn-primary" onclick="downloadCurrentPreview()">📥 Download Official PDF</button>
+        </div>
       </div>
     </div>
   </div>
@@ -280,23 +334,21 @@
 
         <div>
           <h4 style="color:#fff;margin-bottom:1.25rem;">Quick Links</h4>
-          <ul style="list-style:none;display:flex;flex-direction:column;gap:0.75rem;font-size:0.9rem;color:var(--text-muted);">
-            <li><a href="about.html">About Yugvex</a></li>
-            <li><a href="services.html">Our Services</a></li>
-            <li><a href="industries.html">Industry Suites</a></li>
-            <li><a href="templates.html">Turnkey Templates</a></li>
-            <li><a href="products.html">SaaS & Enterprise ERPs</a></li>
-            <li><a href="brochures.html" style="color:var(--primary);font-weight:600;">Brochures</a></li>
+          <ul style="display:flex;flex-direction:column;gap:0.6rem;font-size:0.9rem;list-style:none;color:var(--text-muted);">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services & Solutions</a></li>
+            <li><a href="products.html">Products & ERPs</a></li>
+            <li><a href="brochures.html" style="color:var(--primary);font-weight:600;">Brochures & Catalogs</a></li>
+            <li><a href="portfolio.html">Case Studies</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 style="color:#fff;margin-bottom:1.25rem;">Featured Products</h4>
-          <ul style="list-style:none;display:flex;flex-direction:column;gap:0.75rem;font-size:0.9rem;color:var(--text-muted);">
-            <li><a href="products.html">Pharmacy Store ERP</a></li>
-            <li><a href="https://demo-restro-mangement-system.vercel.app/" target="_self">Restaurant Management POS ↗</a></li>
-            <li><a href="ai-products.html">AI Voice Calling Agents</a></li>
-            <li><a href="clients.html">Client Partner Directory</a></li>
+          <h4 style="color:#fff;margin-bottom:1.25rem;">Resources</h4>
+          <ul style="display:flex;flex-direction:column;gap:0.6rem;font-size:0.9rem;list-style:none;color:var(--text-muted);">
+            <li><a href="templates.html">UI Templates</a></li>
+            <li><a href="careers.html">Careers & Hiring</a></li>
+            <li><a href="blog.html">Tech Blog</a></li>
             <li><a href="portfolio.html">Director Portfolio ↗</a></li>
           </ul>
         </div>
@@ -306,7 +358,7 @@
           <div style="display:flex;flex-direction:column;gap:0.85rem;font-size:0.9rem;color:var(--text-muted);">
             <div>📞 <strong>Phone:</strong> <a href="tel:7219290885" style="color:var(--primary);">+91 7219290885</a></div>
             <div>✉️ <strong>Email:</strong> <a href="mailto:katturwaroma313@gmail.com" style="color:var(--primary);">katturwaroma313@gmail.com</a></div>
-            <div>📍 <strong>HQ:</strong> Nanded, Maharashtra, India</div>
+            <div>📍 <strong>HQ:</strong> Remote, Pune</div>
           </div>
         </div>
       </div>
@@ -325,11 +377,30 @@
   <script src="js/main.js"></script>
   <script>
     let activePreviewType = 'website';
+    let activePdfUrl = 'assets/brochures/Yugvex_Website_Details_Brochure.pdf';
 
-    function previewBrochure(title, desc) {
+    function previewBrochure(title, desc, type, pdfUrl) {
+      activePreviewType = type || 'website';
+      activePdfUrl = pdfUrl || (type === 'website' ? 'assets/brochures/Yugvex_Website_Details_Brochure.pdf' : null);
+      
       document.getElementById('previewModalTitle').innerText = title;
       document.getElementById('previewDocHeader').innerText = title;
-      document.getElementById('previewDocBody').innerText = desc;
+      document.getElementById('previewDocBody').innerHTML = desc;
+
+      const iframeContainer = document.getElementById('previewPdfContainer');
+      const iframe = document.getElementById('previewPdfIframe');
+      const directLink = document.getElementById('previewPdfDirectLink');
+
+      if (activePdfUrl) {
+        iframe.src = activePdfUrl;
+        iframeContainer.style.display = 'block';
+        directLink.href = activePdfUrl;
+        directLink.style.display = 'inline-flex';
+      } else {
+        iframeContainer.style.display = 'none';
+        directLink.style.display = 'none';
+      }
+
       document.getElementById('brochurePreviewModal').style.display = 'flex';
     }
 
@@ -344,6 +415,16 @@
 
     function downloadSampleBrochure(type) {
       activePreviewType = type;
+      if (type === 'website') {
+        const link = document.createElement('a');
+        link.href = 'assets/brochures/Yugvex_Website_Details_Brochure.pdf';
+        link.download = 'Yugvex_Website_Details_Brochure.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        return;
+      }
+      
       if (window.jspdf) {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
@@ -361,14 +442,7 @@
         let title = "OFFICIAL SOLUTION BROCHURE";
         let items = [];
 
-        if (type === 'website') {
-          title = "WEBSITE DEVELOPMENT PLANS & PRICING";
-          items = [
-            "• Starter Plan (Rs. 9,999): 5-page Responsive Site, Mobile Fast, Contact Form",
-            "• Business Plan (Rs. 24,999): Custom UI/UX, Dynamic Content, CMS Dashboard, SEO",
-            "• E-Commerce / Enterprise (Rs. 49,999+): Payment Gateways, ERP Sync, Custom SaaS"
-          ];
-        } else if (type === 'pharmacy') {
+        if (type === 'pharmacy') {
           title = "PHARMACY STORE ERP SPECIFICATION";
           items = [
             "• Medicine Stock Inventory with Batch & Expiry Date Alerts",
@@ -414,7 +488,7 @@
 
         doc.setFontSize(10);
         doc.setTextColor(150, 150, 150);
-        doc.text("Yugvex Tech Solutions - Nanded, Maharashtra | www.yugvex.com", 20, y + 25);
+        doc.text("Yugvex Tech Solutions - Remote, Pune | www.yugvextechsolutions.site", 20, y + 25);
 
         doc.save(`Yugvex_${type}_brochure.pdf`);
       } else {

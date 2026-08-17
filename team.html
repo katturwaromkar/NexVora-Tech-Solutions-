@@ -152,7 +152,7 @@
   <!-- Team Grid (Founders & Leadership) -->
   <section class="section-padding" style="padding-top:0;">
     <div class="container">
-      <div class="team-grid" id="teamCardsContainer" style="transition: all 0.5s ease;">
+      <div class="team-grid" id="teamCardsContainer" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto;">
 
         <!-- Co-Founder & Managing Director: Omkar Katturwar -->
         <div class="glass-card reveal team-card">
@@ -171,31 +171,6 @@
           </div>
           <div class="team-actions">
             <button class="btn btn-primary btn-sm" data-modal-target="profileModal" data-modal-title="Omkar Katturwar - Co-Founder Profile" style="flex:1;">
-              Profile
-            </button>
-            <a href="contact.html" class="btn btn-secondary btn-sm" style="flex:1;">
-              Get In Touch
-            </a>
-          </div>
-        </div>
-
-        <!-- Co-Founder & Full Stack Developer: Nikhil Raghuwanshi -->
-        <div class="glass-card reveal team-card">
-          <div class="team-avatar team-avatar-green">NR</div>
-          <h2 class="team-name">Nikhil Raghuwanshi</h2>
-          <p class="team-role">Co-Founder & Full Stack Developer</p>
-          <div class="team-edu">🎓 B.Tech in Computer Science & Engineering<br><span style="color:var(--primary);font-weight:600;">(Specialization in Artificial Intelligence)</span></div>
-          <p class="team-desc">
-            Co-Founder and full stack developer specializing in modern web engineering, scalable backends, database architectures, and AI solution implementation at Yugvex Tech Solutions.
-          </p>
-          <div class="team-tags">
-            <span class="module-badge">Full Stack Dev</span>
-            <span class="module-badge">Web Engineering</span>
-            <span class="module-badge">AI Integration</span>
-            <span class="module-badge">Database Design</span>
-          </div>
-          <div class="team-actions">
-            <button class="btn btn-primary btn-sm" data-modal-target="profileModal" data-modal-title="Nikhil Raghuwanshi - Co-Founder Profile" style="flex:1;">
               Profile
             </button>
             <a href="contact.html" class="btn btn-secondary btn-sm" style="flex:1;">
@@ -229,81 +204,6 @@
           </div>
         </div>
 
-        <!-- Full Stack Developer: Shital Kalekar -->
-        <div class="glass-card reveal team-card">
-          <div class="team-avatar" style="background:linear-gradient(135deg, #ec4899, #8b5cf6);">SK</div>
-          <h2 class="team-name">Shital Kalekar</h2>
-          <p class="team-role">Full Stack Developer</p>
-          <div class="team-edu">🎓 B.Tech in Computer Science & Engineering<br><span style="color:var(--primary);font-weight:600;">(Specialization in Artificial Intelligence)</span></div>
-          <p class="team-desc">
-            Full Stack Developer specializing in responsive web applications, modern JavaScript frameworks, API integrations, and AI module engineering at Yugvex Tech Solutions.
-          </p>
-          <div class="team-tags">
-            <span class="module-badge">Full Stack Dev</span>
-            <span class="module-badge">Web Apps</span>
-            <span class="module-badge">AI Systems</span>
-            <span class="module-badge">UI Engineering</span>
-          </div>
-          <div class="team-actions">
-            <button class="btn btn-primary btn-sm" data-modal-target="profileModal" data-modal-title="Shital Kalekar - Full Stack Developer Profile" style="flex:1;">
-              Profile
-            </button>
-            <a href="contact.html" class="btn btn-secondary btn-sm" style="flex:1;">
-              Get In Touch
-            </a>
-          </div>
-        </div>
-
-        <!-- Software Engineer: Gayatri Shinde -->
-        <div class="glass-card reveal team-card">
-          <div class="team-avatar" style="background:linear-gradient(135deg, #06b6d4, #10b981);">GS</div>
-          <h2 class="team-name">Gayatri Shinde</h2>
-          <p class="team-role">Software Engineer</p>
-          <div class="team-edu">🎓 B.Tech in Computer Science & Engineering<br><span style="color:var(--primary);font-weight:600;">(Specialization in Artificial Intelligence)</span></div>
-          <p class="team-desc">
-            Software Engineer focusing on backend development, data processing pipelines, AI algorithm deployment, and enterprise software architecture at Yugvex Tech Solutions.
-          </p>
-          <div class="team-tags">
-            <span class="module-badge">Software Dev</span>
-            <span class="module-badge">Backend APIs</span>
-            <span class="module-badge">AI Pipelines</span>
-            <span class="module-badge">Data Eng</span>
-          </div>
-          <div class="team-actions">
-            <button class="btn btn-primary btn-sm" data-modal-target="profileModal" data-modal-title="Gayatri Shinde - Software Engineer Profile" style="flex:1;">
-              Profile
-            </button>
-            <a href="contact.html" class="btn btn-secondary btn-sm" style="flex:1;">
-              Get In Touch
-            </a>
-          </div>
-        </div>
-
-        <!-- Software Engineer: Nilam Thorat -->
-        <div class="glass-card reveal team-card">
-          <div class="team-avatar" style="background:linear-gradient(135deg, #f59e0b, #6366f1);">NT</div>
-          <h2 class="team-name">Nilam Thorat</h2>
-          <p class="team-role">Software Engineer</p>
-          <div class="team-edu">🎓 B.Tech in Computer Science & Engineering<br><span style="color:var(--primary);font-weight:600;">(Specialization in Artificial Intelligence)</span></div>
-          <p class="team-desc">
-            Software Engineer specializing in web user interfaces, cloud integration, frontend optimization, and intelligent automation systems at Yugvex Tech Solutions.
-          </p>
-          <div class="team-tags">
-            <span class="module-badge">Frontend Dev</span>
-            <span class="module-badge">AI Automation</span>
-            <span class="module-badge">Cloud Apps</span>
-            <span class="module-badge">Web UX</span>
-          </div>
-          <div class="team-actions">
-            <button class="btn btn-primary btn-sm" data-modal-target="profileModal" data-modal-title="Nilam Thorat - Software Engineer Profile" style="flex:1;">
-              Profile
-            </button>
-            <a href="contact.html" class="btn btn-secondary btn-sm" style="flex:1;">
-              Get In Touch
-            </a>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -326,7 +226,7 @@
     <div class="modal-content">
       <div class="modal-close-btn">&times;</div>
       <h3 class="modal-dynamic-title" style="margin-bottom:0.5rem;font-size:1.4rem;">Member Profile</h3>
-      <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;">Co-Founder & Core Engineering Leadership at Yugvex Tech Solutions</p>
+      <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;">Co-Founder & Core Leadership at Yugvex Tech Solutions</p>
       
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div>
@@ -357,7 +257,7 @@
 
       setInterval(() => {
         const cards = Array.from(container.children);
-        if (cards.length > 1) {
+        if (cards.length > 2) {
           cards.forEach(card => {
             card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
             card.style.opacity = '0.3';

@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="1000" height="650">
+  <defs>
+    <!-- Gradients -->
+    <!-- Dark Navy for Y -->
+    <linearGradient id="yNavyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1b36"/>
+      <stop offset="50%" stop-color="#071224"/>
+      <stop offset="100%" stop-color="#030814"/>
+    </linearGradient>
+
+    <!-- Bevel Highlight for Y Left Arm -->
+    <linearGradient id="yBevelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#0b1b36"/>
+    </linearGradient>
+
+    <!-- V Electric Cyan/Blue Gradient -->
+    <linearGradient id="vBlueGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0044ff"/>
+      <stop offset="50%" stop-color="#0088ff"/>
+      <stop offset="100%" stop-color="#00d5ff"/>
+    </linearGradient>
+    
+    <linearGradient id="vHighlightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0055ff"/>
+    </linearGradient>
+
+    <!-- Swoosh Orbital Ring Gradient -->
+    <linearGradient id="swooshGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00a3ff" stop-opacity="0.1"/>
+      <stop offset="25%" stop-color="#00c3ff"/>
+      <stop offset="60%" stop-color="#ffffff"/>
+      <stop offset="85%" stop-color="#00d5ff"/>
+      <stop offset="100%" stop-color="#0066ff"/>
+    </linearGradient>
+
+    <!-- VEX Text Gradient -->
+    <linearGradient id="vexGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0052cc"/>
+      <stop offset="50%" stop-color="#0084ff"/>
+      <stop offset="100%" stop-color="#00c8ff"/>
+    </linearGradient>
+
+    <!-- Subtitle Line Gradient -->
+    <linearGradient id="subLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00a3ff"/>
+      <stop offset="100%" stop-color="#0052cc"/>
+    </linearGradient>
+  </defs>
+
+  <!-- BACKGROUND (Transparent) -->
+
+  <!-- EMBLEM CONTAINER -->
+  <g transform="translate(260, 30)">
+    <!-- Y Dark Navy 3D Structure -->
+    <!-- Left diagonal arm -->
+    <path d="M 60 25 L 195 185 L 195 255 L 125 255 L 125 185 L 10 25 Z" fill="url(#yBevelGrad)" />
+    <!-- Main stem and right branch -->
+    <path d="M 60 25 L 260 25 L 290 75 L 195 210 L 195 275 L 125 275 L 125 185 L 185 85 L 105 25 Z" fill="url(#yNavyGrad)" />
+
+    <!-- V Electric Blue Structure -->
+    <!-- V Left Arm -->
+    <path d="M 160 200 L 255 275 L 305 275 L 210 200 Z" fill="#0033aa" />
+    <!-- V Main Body (Ascending Right Arm) -->
+    <path d="M 210 200 L 285 275 L 435 65 L 365 65 L 260 220 L 220 155 Z" fill="url(#vBlueGrad)" />
+    <!-- V Inner Bevel Layer -->
+    <path d="M 260 220 L 365 65 L 395 65 L 285 240 Z" fill="url(#vHighlightGrad)" opacity="0.8" />
+
+    <!-- ORBITAL SWOOSH ARC -->
+    <path d="M 45 205 C 75 275, 185 260, 275 235 C 375 205, 435 110, 465 70 C 395 160, 285 210, 185 220 C 115 227, 65 205, 45 205 Z" fill="url(#swooshGrad)" />
+    <path d="M 50 195 C 115 270, 255 235, 450 70 C 345 180, 205 225, 50 195 Z" fill="#ffffff" opacity="0.85" />
+
+    <!-- DIGITAL PIXEL GRID (Top Right) -->
+    <rect x="425" y="35" width="14" height="14" rx="2.5" fill="#00c8ff" />
+    <rect x="444" y="35" width="14" height="14" rx="2.5" fill="#0077ff" />
+    <rect x="463" y="35" width="10" height="10" rx="2" fill="#38bdf8" />
+    
+    <rect x="410" y="54" width="16" height="16" rx="3" fill="#0055ff" />
+    <rect x="431" y="54" width="16" height="16" rx="3" fill="#00d5ff" />
+    <rect x="452" y="54" width="20" height="20" rx="3.5" fill="#0033cc" />
+    <rect x="477" y="54" width="12" height="12" rx="2" fill="#00a3ff" />
+    
+    <rect x="438" y="75" width="14" height="14" rx="2.5" fill="#00b4ff" />
+    <rect x="457" y="78" width="12" height="12" rx="2" fill="#38bdf8" />
+    <rect x="474" y="78" width="10" height="10" rx="2" fill="#0055ff" />
+    
+    <rect x="488" y="30" width="12" height="12" rx="2" fill="#7dd3fc" />
+    <rect x="470" y="16" width="14" height="14" rx="2.5" fill="#00c8ff" />
+  </g>
+
+  <!-- TYPOGRAPHY GROUP -->
+  <g transform="translate(500, 390)" text-anchor="middle">
+    <!-- Brand Name: YUGVEX -->
+    <text font-family="'Montserrat', 'Arial Black', 'Helvetica', sans-serif" font-weight="900" font-size="92" letter-spacing="3">
+      <tspan x="-170" fill="#071224">YUG</tspan><tspan fill="url(#vexGrad)">VEX</tspan>
+    </text>
+  </g>
+
+  <!-- SUBTITLE LINE: — TECH SOLUTIONS — -->
+  <g transform="translate(500, 460)">
+    <!-- Left Accent Line -->
+    <line x1="80" y1="-8" x2="260" y2="-8" stroke="url(#subLineGrad)" stroke-width="4" stroke-linecap="round" />
+    
+    <!-- Subtitle Text -->
+    <text x="500" y="0" text-anchor="middle" font-family="'Montserrat', 'Arial', sans-serif" font-weight="800" font-size="28" letter-spacing="12" fill="#0b1b36">
+      TECH SOLUTIONS
+    </text>
+    
+    <!-- Right Accent Line -->
+    <line x1="740" y1="-8" x2="920" y2="-8" stroke="url(#subLineGrad)" stroke-width="4" stroke-linecap="round" />
+  </g>
+
+  <!-- TAGLINE: CODE • DESIGN • INNOVATE -->
+  <g transform="translate(500, 520)" text-anchor="middle">
+    <text font-family="'Montserrat', 'Arial', sans-serif" font-weight="700" font-size="22" letter-spacing="9" fill="#1e293b">
+      CODE  <tspan fill="#0084ff">•</tspan>  DESIGN  <tspan fill="#0084ff">•</tspan>  INNOVATE
+    </text>
+  </g>
+</svg>

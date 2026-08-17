@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileDrawer();
   initRippleEffect();
   initProjectModal();
+  initMobileQuickDock();
   initModals();
   initFormsAndToasts();
   initFAQAccordion();
@@ -23,6 +24,32 @@ document.addEventListener('DOMContentLoaded', () => {
     initNexVoraSocialDock();
   }
 });
+
+/* --- Mobile Sticky Quick Action Dock --- */
+function initMobileQuickDock() {
+  if (document.getElementById('mobileQuickDock')) return;
+  const dock = document.createElement('div');
+  dock.className = 'mobile-quick-dock';
+  dock.id = 'mobileQuickDock';
+  dock.setAttribute('aria-label', 'Mobile Quick Action Navigation');
+  dock.innerHTML = `
+    <div class="mobile-quick-dock-container">
+      <a href="tel:+917219290885" class="mobile-dock-btn call-btn" aria-label="Call Yugvex Support">
+        <span class="mobile-dock-icon">📞</span>
+        <span>Call</span>
+      </a>
+      <a href="https://wa.me/917219290885" target="_blank" rel="noopener" class="mobile-dock-btn whatsapp-btn" aria-label="Chat on WhatsApp">
+        <span class="mobile-dock-icon">💬</span>
+        <span>WhatsApp</span>
+      </a>
+      <button type="button" class="mobile-dock-btn quote-btn" data-modal-target="projectModal" aria-label="Get Project Quote">
+        <span class="mobile-dock-icon">⚡</span>
+        <span>Get Quote</span>
+      </button>
+    </div>
+  `;
+  document.body.appendChild(dock);
+}
 
 /* --- Navbar Scroll Effect --- */
 function initNavbar() {
@@ -51,12 +78,14 @@ function initMobileDrawer() {
   function openDrawer() {
     drawer.classList.add('active');
     overlay.classList.add('active');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
   }
 
   function closeDrawer() {
     drawer.classList.remove('active');
     overlay.classList.remove('active');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   }
 
@@ -102,6 +131,9 @@ function initProjectModal() {
   const modalOverlay = document.createElement('div');
   modalOverlay.className = 'modal-overlay';
   modalOverlay.id = 'projectModal';
+  modalOverlay.setAttribute('role', 'dialog');
+  modalOverlay.setAttribute('aria-modal', 'true');
+  modalOverlay.setAttribute('aria-labelledby', 'projectModalTitle');
   modalOverlay.style.zIndex = '100000';
 
   modalOverlay.innerHTML = `
@@ -109,9 +141,9 @@ function initProjectModal() {
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;border-bottom:1px solid var(--border-light);padding-bottom:1rem;">
         <div>
           <span class="badge" style="background:rgba(6,182,212,0.15);color:var(--primary);margin-bottom:0.25rem;display:inline-block;">Yugvex Client Portal</span>
-          <h3 style="margin:0;font-family:var(--font-heading);font-size:1.4rem;color:var(--text-main);">Request Project</h3>
+          <h3 id="projectModalTitle" style="margin:0;font-family:var(--font-heading);font-size:1.4rem;color:var(--text-main);">Request Project</h3>
         </div>
-        <button class="modal-close-btn" id="closeProjectModalBtn" style="font-size:1.8rem;background:transparent;border:none;color:#fff;cursor:pointer;">&times;</button>
+        <button class="modal-close-btn" id="closeProjectModalBtn" aria-label="Close Project Modal" style="font-size:1.8rem;background:transparent;border:none;color:#fff;cursor:pointer;">&times;</button>
       </div>
 
       <form id="projectRequestForm">
@@ -121,7 +153,7 @@ function initProjectModal() {
 
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
             <div>
-              <label style="display:block;font-size:0.82rem;color:var(--text-muted);margin-bottom:0.35rem;font-weight:600;">Category *</label>
+              <label for="projCategory" style="display:block;font-size:0.82rem;color:var(--text-muted);margin-bottom:0.35rem;font-weight:600;">Category *</label>
               <select id="projCategory" required style="width:100%;padding:0.7rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);">
                 <option value="Website Development">Website Development</option>
                 <option value="Enterprise ERP & SaaS">Enterprise ERP & SaaS</option>
@@ -131,7 +163,7 @@ function initProjectModal() {
             </div>
 
             <div>
-              <label style="display:block;font-size:0.82rem;color:var(--text-muted);margin-bottom:0.35rem;font-weight:600;">Choose Plan / Package *</label>
+              <label for="projPlan" style="display:block;font-size:0.82rem;color:var(--text-muted);margin-bottom:0.35rem;font-weight:600;">Choose Plan / Package *</label>
               <select id="projPlan" required style="width:100%;padding:0.7rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);">
                 <option value="Starter Website Plan (Rs. 9,999)" data-price="9999">Starter Website Plan — ₹9,999</option>
                 <option value="Business Website Plan (Rs. 24,999)" data-price="24999" selected>Business Website Plan — ₹24,999</option>
@@ -145,28 +177,28 @@ function initProjectModal() {
 
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
             <div>
-              <label style="display:block;font-size:0.82rem;color:var(--text-muted);margin-bottom:0.35rem;font-weight:600;">Client Full Name *</label>
+              <label for="projClientName" style="display:block;font-size:0.82rem;color:var(--text-muted);margin-bottom:0.35rem;font-weight:600;">Client Full Name *</label>
               <input type="text" id="projClientName" required placeholder="e.g. Omkar Sharma" style="width:100%;padding:0.7rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);">
             </div>
             <div>
-              <label style="display:block;font-size:0.82rem;color:var(--text-muted);margin-bottom:0.35rem;font-weight:600;">WhatsApp Mobile Number *</label>
+              <label for="projClientPhone" style="display:block;font-size:0.82rem;color:var(--text-muted);margin-bottom:0.35rem;font-weight:600;">WhatsApp Mobile Number *</label>
               <input type="tel" id="projClientPhone" required placeholder="e.g. 9876543210" style="width:100%;padding:0.7rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);">
             </div>
           </div>
 
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
             <div>
-              <label style="display:block;font-size:0.82rem;color:var(--text-muted);margin-bottom:0.35rem;font-weight:600;">Email Address *</label>
+              <label for="projClientEmail" style="display:block;font-size:0.82rem;color:var(--text-muted);margin-bottom:0.35rem;font-weight:600;">Email Address *</label>
               <input type="email" id="projClientEmail" required placeholder="name@company.com" style="width:100%;padding:0.7rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);">
             </div>
             <div>
-              <label style="display:block;font-size:0.82rem;color:var(--text-muted);margin-bottom:0.35rem;font-weight:600;">Business / Store Name</label>
+              <label for="projBusinessName" style="display:block;font-size:0.82rem;color:var(--text-muted);margin-bottom:0.35rem;font-weight:600;">Business / Store Name</label>
               <input type="text" id="projBusinessName" placeholder="e.g. Shri Hanuman Super Market" style="width:100%;padding:0.7rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);">
             </div>
           </div>
 
           <div>
-            <label style="display:block;font-size:0.82rem;color:var(--text-muted);margin-bottom:0.35rem;font-weight:600;">Project Scope / Requirements Summary</label>
+            <label for="projDetails" style="display:block;font-size:0.82rem;color:var(--text-muted);margin-bottom:0.35rem;font-weight:600;">Project Scope / Requirements Summary</label>
             <textarea id="projDetails" rows="2" placeholder="Tell us about your website features, domain name, design preferences, or specific modules needed..." style="width:100%;padding:0.7rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);resize:vertical;"></textarea>
           </div>
         </div>
@@ -177,7 +209,7 @@ function initProjectModal() {
 
           <div style="display:grid;grid-template-columns:200px 1fr;gap:1.5rem;align-items:center;">
             <div style="text-align:center;background:#fff;padding:0.75rem;border-radius:var(--radius-sm);">
-              <img src="assets/images/payment-qr.jpg" alt="PhonePe QR Code" style="width:100%;max-width:180px;height:auto;display:block;margin:0 auto;border-radius:4px;">
+              <img src="assets/images/payment-qr.jpg" alt="PhonePe QR Code for Payment" width="180" height="180" style="width:100%;max-width:180px;height:auto;display:block;margin:0 auto;border-radius:4px;">
               <div style="font-size:0.75rem;color:#000;font-weight:700;margin-top:0.4rem;">Scan & Pay via PhonePe / UPI</div>
             </div>
 
@@ -201,29 +233,29 @@ function initProjectModal() {
 
               <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;">
                 <div>
-                  <label style="display:block;font-size:0.78rem;color:var(--text-muted);margin-bottom:0.25rem;font-weight:600;">Total Project Cost (₹)</label>
+                  <label for="projTotalCost" style="display:block;font-size:0.78rem;color:var(--text-muted);margin-bottom:0.25rem;font-weight:600;">Total Project Cost (₹)</label>
                   <input type="number" id="projTotalCost" readonly style="width:100%;padding:0.6rem;background:rgba(30,41,59,0.8);border:1px solid var(--border-light);color:#fff;font-weight:700;border-radius:var(--radius-sm);">
                 </div>
 
                 <div>
-                  <label style="display:block;font-size:0.78rem;color:#34D399;margin-bottom:0.25rem;font-weight:600;">Token Paid Now (₹) *</label>
+                  <label for="projAmountPaid" style="display:block;font-size:0.78rem;color:#34D399;margin-bottom:0.25rem;font-weight:600;">Token Paid Now (₹) *</label>
                   <input type="number" id="projAmountPaid" required placeholder="5000" style="width:100%;padding:0.6rem;background:rgba(30,41,59,0.9);border:1px solid rgba(16,185,129,0.4);color:#34D399;font-weight:700;border-radius:var(--radius-sm);">
                 </div>
 
                 <div>
-                  <label style="display:block;font-size:0.78rem;color:#FBBF24;margin-bottom:0.25rem;font-weight:600;">Pending Balance (₹)</label>
+                  <label for="projPendingBalance" style="display:block;font-size:0.78rem;color:#FBBF24;margin-bottom:0.25rem;font-weight:600;">Pending Balance (₹)</label>
                   <input type="number" id="projPendingBalance" readonly style="width:100%;padding:0.6rem;background:rgba(30,41,59,0.8);border:1px solid var(--border-light);color:#FBBF24;font-weight:700;border-radius:var(--radius-sm);">
                 </div>
               </div>
 
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
                 <div>
-                  <label style="display:block;font-size:0.78rem;color:var(--text-muted);margin-bottom:0.25rem;font-weight:600;">Transaction UTR / Ref No *</label>
+                  <label for="projTxnRef" style="display:block;font-size:0.78rem;color:var(--text-muted);margin-bottom:0.25rem;font-weight:600;">Transaction UTR / Ref No *</label>
                   <input type="text" id="projTxnRef" required placeholder="e.g. 423984029102" style="width:100%;padding:0.6rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;font-weight:600;border-radius:var(--radius-sm);">
                 </div>
 
                 <div>
-                  <label style="display:block;font-size:0.78rem;color:var(--text-muted);margin-bottom:0.25rem;font-weight:600;">Payment App/Method</label>
+                  <label for="projPayMethod" style="display:block;font-size:0.78rem;color:var(--text-muted);margin-bottom:0.25rem;font-weight:600;">Payment App/Method</label>
                   <select id="projPayMethod" style="width:100%;padding:0.6rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);">
                     <option value="PhonePe QR">PhonePe QR Code</option>
                     <option value="Google Pay">Google Pay UPI</option>
@@ -234,7 +266,7 @@ function initProjectModal() {
               </div>
               
               <div style="margin-top:0.75rem;">
-                <label style="display:block;font-size:0.78rem;color:var(--text-muted);margin-bottom:0.25rem;font-weight:600;">Payment Date</label>
+                <label for="projPayDate" style="display:block;font-size:0.78rem;color:var(--text-muted);margin-bottom:0.25rem;font-weight:600;">Payment Date</label>
                 <input type="date" id="projPayDate" style="width:100%;padding:0.6rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);">
               </div>
             </div>

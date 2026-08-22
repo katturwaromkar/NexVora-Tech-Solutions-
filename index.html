@@ -275,24 +275,36 @@
     <div class="container">
       <div class="hero-grid">
         <div class="hero-content reveal-left">
-          <div class="section-tag pulse-badge">
-            <span class="pulse-dot"></span>
-            Next-Gen Technology Startup
+          <div class="hero-badge-pill">
+            <span>✨ AI-Powered Enterprise Delivery & Transformation</span>
           </div>
-          <h1>Architecting The Future of <span class="text-gradient">Enterprise Software & AI</span></h1>
+          <h1><span class="gradient-text">AI-Powered</span> Enterprise Delivery & Software Transformation</h1>
           <p class="hero-description">
-            Yugvex Tech Solutions builds mission-critical SaaS products, high-performance web applications, customized ERP ecosystems, and AI automation engines for modern businesses worldwide.
+            Yugvex Tech Solutions helps SaaS platforms and enterprise organizations accelerate software delivery through custom AI agents, intelligent workflow automation, and enterprise program leadership.
           </p>
-          <div class="hero-btn-group">
-            <a href="products.html" class="btn btn-primary btn-lg">
-              Explore SaaS Products
+
+          <div class="hero-btn-group" style="margin-bottom:1.5rem;">
+            <button class="btn-gradient" onclick="let m=document.getElementById('consultationModal'); if(m) { m.classList.add('active'); document.body.style.overflow='hidden'; }">
+              <span>Book Free AI Consultation</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <button class="btn btn-secondary btn-lg" data-modal-target="demoModal" data-modal-title="Request Custom Software Consultation">
-              Request Consultation
             </button>
+            <a href="services.html" class="btn btn-secondary btn-lg">
+              Explore Services
+            </a>
           </div>
           
+          <!-- Expertise Pills -->
+          <div style="margin-top: 1rem; margin-bottom: 1.5rem;">
+            <p style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); margin-bottom:0.5rem;">Core Domain Expertise</p>
+            <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+              <span class="expertise-pill">Enterprise AI</span>
+              <span class="expertise-pill">AI Agents</span>
+              <span class="expertise-pill">Intelligent Automation</span>
+              <span class="expertise-pill">SaaS Delivery</span>
+              <span class="expertise-pill">ERP Software</span>
+            </div>
+          </div>
+
           <div class="hero-trust-badges">
             <div class="trust-item">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
@@ -310,29 +322,46 @@
         </div>
 
         <div class="hero-visual reveal-right">
-          <div class="hero-mockup-card card-shine">
-            <div class="mockup-header">
-              <span class="mockup-dot dot-red"></span>
-              <span class="mockup-dot dot-yellow"></span>
-              <span class="mockup-dot dot-green"></span>
-              <span style="font-size:0.8rem;color:var(--text-subtle);margin-left:0.5rem;">yugvex-ai-control-center.v2</span>
+          <!-- Delivery Command Center Widget -->
+          <div class="command-center-widget">
+            <div class="command-header-bar">
+              <div>
+                <span class="status-dot"></span>
+                <span>yugvex.ai / delivery-command-center</span>
+              </div>
+              <span>⌕ Live Node</span>
             </div>
-            <div class="mockup-body">
-              <div class="mockup-stat-box">
-                <div style="font-size:0.8rem;color:var(--text-muted);">Active Cloud Nodes</div>
-                <div class="mockup-stat-val">1,248</div>
-                <div style="font-size:0.75rem;color:var(--accent);">+24% this week</div>
+
+            <div class="command-kpi-grid">
+              <div class="command-kpi-card">
+                <div class="kpi-title">Programs On Track</div>
+                <div class="kpi-val">96%</div>
+                <div class="kpi-badge">+14% vs Q3</div>
               </div>
-              <div class="mockup-stat-box">
-                <div style="font-size:0.8rem;color:var(--text-muted);">AI Inferences / sec</div>
-                <div class="mockup-stat-val">42.8k</div>
-                <div style="font-size:0.75rem;color:var(--primary);">Real-time Neural API</div>
+              <div class="command-kpi-card">
+                <div class="kpi-title">Delivery Velocity</div>
+                <div class="kpi-val">2.1x</div>
+                <div class="kpi-badge">+48% speed</div>
               </div>
-              <div class="mockup-stat-box" style="grid-column: 1 / -1;">
-                <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.4rem;">Enterprise Workflow Automation</div>
-                <div style="height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;">
-                  <div class="progress-fill" data-progress="94%" style="height:100%;background:var(--gradient-primary);width:0%;transition:width 1.5s ease;"></div>
-                </div>
+              <div class="command-kpi-card">
+                <div class="kpi-title">AI Actions / Wk</div>
+                <div class="kpi-val">25.4k</div>
+                <div class="kpi-badge" style="color:var(--primary);">Real-time Neural</div>
+              </div>
+            </div>
+
+            <div style="margin-top:1.25rem; background:rgba(0,0,0,0.3); border-radius:var(--radius-md); padding:1rem; border:1px solid rgba(255,255,255,0.05);">
+              <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:0.75rem; display:flex; justify-content:space-between;">
+                <span>Portfolio Health & AI Delivery Velocity</span>
+                <span>Q4 → Q1 Active</span>
+              </div>
+              <div style="display:flex; align-items:flex-end; gap:0.4rem; height:90px;">
+                <div style="flex:1; background:linear-gradient(to top, var(--primary), var(--secondary)); height:45%; border-radius:4px 4px 0 0;"></div>
+                <div style="flex:1; background:linear-gradient(to top, var(--primary), var(--secondary)); height:65%; border-radius:4px 4px 0 0;"></div>
+                <div style="flex:1; background:linear-gradient(to top, var(--primary), var(--secondary)); height:55%; border-radius:4px 4px 0 0;"></div>
+                <div style="flex:1; background:linear-gradient(to top, var(--primary), var(--secondary)); height:80%; border-radius:4px 4px 0 0;"></div>
+                <div style="flex:1; background:linear-gradient(to top, var(--primary), var(--accent)); height:95%; border-radius:4px 4px 0 0;"></div>
+                <div style="flex:1; background:linear-gradient(to top, var(--primary), var(--accent)); height:100%; border-radius:4px 4px 0 0;"></div>
               </div>
             </div>
           </div>
@@ -340,7 +369,7 @@
           <div class="floating-badge badge-top-right">
             <div style="width:10px;height:10px;border-radius:50%;background:var(--accent);"></div>
             <div>
-              <div style="font-weight:700;font-size:0.85rem;">AI Chatbot Live</div>
+              <div style="font-weight:700;font-size:0.85rem;">AI Chatbot Active</div>
               <div style="font-size:0.75rem;color:var(--text-muted);">Responding in 12ms</div>
             </div>
           </div>
@@ -1115,6 +1144,60 @@
     </div>
   </div>
 
+
+  <!-- Book Free AI Consultation Modal Component -->
+  <div class="modal-overlay" id="consultationModal" aria-hidden="true" role="dialog" style="z-index: 100005;">
+    <div class="modal-card glass-card" style="max-width: 650px; width: 92%; padding: 2.25rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-light); padding-bottom: 1rem;">
+        <div>
+          <span class="hero-badge-pill" style="margin-bottom: 0.35rem; font-size: 0.78rem;">✨ Enterprise Consultation</span>
+          <h3 style="margin: 0; font-family: var(--font-heading); font-size: 1.5rem; color: var(--text-main);">Book Free AI & Delivery Consultation</h3>
+        </div>
+        <button class="modal-close-btn" onclick="document.getElementById('consultationModal').classList.remove('active'); document.body.style.overflow='';" aria-label="Close Consultation Modal" style="font-size: 1.8rem; background: transparent; border: none; color: var(--text-main); cursor: pointer;">&times;</button>
+      </div>
+
+      <form id="consultationForm" onsubmit="event.preventDefault(); alert('Thank you! Your AI Consultation request has been received. Our senior architect will contact you within 2 hours.'); document.getElementById('consultationModal').classList.remove('active'); document.body.style.overflow='';">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div>
+            <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.35rem;">Full Name *</label>
+            <input type="text" required placeholder="e.g. Rahul Sharma" style="width: 100%; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light); background: rgba(255,255,255,0.05); color: var(--text-main);">
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.35rem;">Work Email *</label>
+            <input type="email" required placeholder="rahul@company.com" style="width: 100%; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light); background: rgba(255,255,255,0.05); color: var(--text-main);">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div>
+            <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.35rem;">Phone Number *</label>
+            <input type="tel" required placeholder="+91 98765 43210" style="width: 100%; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light); background: rgba(255,255,255,0.05); color: var(--text-main);">
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.35rem;">Primary Need</label>
+            <select style="width: 100%; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light); background: rgba(15,23,42,0.9); color: var(--text-main);">
+              <option value="ai-agents">AI Agents & Copilot Integration</option>
+              <option value="saas-development">SaaS Product Engineering</option>
+              <option value="intelligent-automation">Intelligent Business Automation</option>
+              <option value="erp-systems">Enterprise ERP Software</option>
+              <option value="digital-marketing">Digital Marketing & Growth</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.35rem;">Project Goals / Requirements Overview</label>
+          <textarea rows="3" placeholder="Briefly describe your objectives, timeframe, or specific AI/software requirements..." style="width: 100%; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light); background: rgba(255,255,255,0.05); color: var(--text-main);"></textarea>
+        </div>
+
+        <div style="text-align: right;">
+          <button type="submit" class="btn-gradient" style="width: 100%; justify-content: center;">
+            ⚡ Confirm & Reserve Consultation Slot
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="js/security.js"></script>

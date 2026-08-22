@@ -1,0 +1,53 @@
+<!-- Book Free AI Consultation Modal Component -->
+<div class="modal-overlay" id="consultationModal" aria-hidden="true" role="dialog" style="z-index: 100005;">
+  <div class="modal-card glass-card" style="max-width: 650px; width: 92%; padding: 2.25rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-light); padding-bottom: 1rem;">
+      <div>
+        <span class="hero-badge-pill" style="margin-bottom: 0.35rem; font-size: 0.78rem;">✨ Enterprise Consultation</span>
+        <h3 style="margin: 0; font-family: var(--font-heading); font-size: 1.5rem; color: var(--text-main);">Book Free AI & Delivery Consultation</h3>
+      </div>
+      <button class="modal-close-btn" onclick="document.getElementById('consultationModal').classList.remove('active'); document.body.style.overflow='';" aria-label="Close Consultation Modal" style="font-size: 1.8rem; background: transparent; border: none; color: var(--text-main); cursor: pointer;">&times;</button>
+    </div>
+
+    <form id="consultationForm" onsubmit="event.preventDefault(); alert('Thank you! Your AI Consultation request has been received. Our senior architect will contact you within 2 hours.'); document.getElementById('consultationModal').classList.remove('active'); document.body.style.overflow='';">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+        <div>
+          <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.35rem;">Full Name *</label>
+          <input type="text" required placeholder="e.g. Rahul Sharma" style="width: 100%; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light); background: rgba(255,255,255,0.05); color: var(--text-main);">
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.35rem;">Work Email *</label>
+          <input type="email" required placeholder="rahul@company.com" style="width: 100%; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light); background: rgba(255,255,255,0.05); color: var(--text-main);">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+        <div>
+          <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.35rem;">Phone Number *</label>
+          <input type="tel" required placeholder="+91 98765 43210" style="width: 100%; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light); background: rgba(255,255,255,0.05); color: var(--text-main);">
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.35rem;">Primary Need</label>
+          <select style="width: 100%; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light); background: rgba(15,23,42,0.9); color: var(--text-main);">
+            <option value="ai-agents">AI Agents & Copilot Integration</option>
+            <option value="saas-development">SaaS Product Engineering</option>
+            <option value="intelligent-automation">Intelligent Business Automation</option>
+            <option value="erp-systems">Enterprise ERP Software</option>
+            <option value="digital-marketing">Digital Marketing & Growth</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.35rem;">Project Goals / Requirements Overview</label>
+        <textarea rows="3" placeholder="Briefly describe your objectives, timeframe, or specific AI/software requirements..." style="width: 100%; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light); background: rgba(255,255,255,0.05); color: var(--text-main);"></textarea>
+      </div>
+
+      <div style="text-align: right;">
+        <button type="submit" class="btn-gradient" style="width: 100%; justify-content: center;">
+          ⚡ Confirm & Reserve Consultation Slot
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

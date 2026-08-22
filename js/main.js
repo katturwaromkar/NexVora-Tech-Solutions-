@@ -25,6 +25,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+/* --- Theme Toggle Engine (Light / Dark Mode) --- */
+function initThemeToggle() {
+  const savedTheme = localStorage.getItem('yugvex_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  updateThemeIcons(savedTheme);
+
+  document.addEventListener('click', (e) => {
+    const toggleBtn = e.target.closest('.theme-toggle-btn');
+    if (!toggleBtn) return;
+
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', nextTheme);
+    localStorage.setItem('yugvex_theme', nextTheme);
+    updateThemeIcons(nextTheme);
+  });
+}
+
+function updateThemeIcons(theme) {
+  const themeBtns = document.querySelectorAll('.theme-toggle-btn');
+  themeBtns.forEach(btn => {
+    btn.innerHTML = theme === 'light' ? '🌙' : '☀️';
+    btn.setAttribute('aria-label', `Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`);
+  });
+}
+
 /* --- Mobile Sticky Quick Action Dock --- */
 function initMobileQuickDock() {
   if (document.getElementById('mobileQuickDock')) return;

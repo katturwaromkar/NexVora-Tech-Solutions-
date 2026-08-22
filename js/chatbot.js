@@ -115,14 +115,16 @@ function injectChatbotDOM() {
   container.innerHTML = `
     <!-- Floating Trigger -->
     <button class="ai-chat-trigger" id="aiChatTrigger" aria-label="Open Yugvex AI Assistant">
-      <span>🤖</span>
+      <img src="assets/images/ai-assistant-avatar.png" alt="Yugvex AI Assistant" class="trigger-avatar-img">
       <span class="trigger-pulse-dot"></span>
       <span class="ai-chat-badge" id="aiChatBadge">1</span>
     </button>
 
     <!-- Proactive Teaser Bubble -->
     <div class="ai-chat-teaser" id="aiChatTeaser" style="display:none;">
-      <div style="font-size:1.4rem;">👋</div>
+      <div style="width:36px;height:36px;flex-shrink:0;">
+        <img src="assets/images/ai-assistant-avatar.png" alt="Yugvex AI" style="width:100%;height:100%;border-radius:50%;object-fit:cover;border:1px solid var(--primary);">
+      </div>
       <div>
         <strong style="font-size:0.88rem;color:var(--text-main);display:block;margin-bottom:0.15rem;">Yugvex AI Assistant</strong>
         <p style="font-size:0.8rem;color:var(--text-muted);margin:0;">Looking for Custom ERP, Web Development, or AI solutions?</p>
@@ -135,12 +137,12 @@ function injectChatbotDOM() {
       <div class="chat-header">
         <div class="chat-brand-info">
           <div class="chat-avatar-wrap">
-            <div class="chat-avatar">N</div>
+            <img src="assets/images/ai-assistant-avatar.png" alt="Yugvex AI Avatar" class="chat-avatar-img">
             <div class="chat-avatar-status"></div>
           </div>
           <div class="chat-title-box">
             <h4>Yugvex AI Assistant <span style="font-size:0.75rem;padding:0.1rem 0.4rem;border-radius:4px;background:rgba(6,182,212,0.2);color:var(--primary);">v2.4</span></h4>
-            <div class="chat-status-sub">⚡ Online • Co-Founder Omkar Katturwar</div>
+            <div class="chat-status-sub">⚡ Online • Engineering Support</div>
           </div>
         </div>
         <div class="chat-header-actions">
@@ -151,11 +153,13 @@ function injectChatbotDOM() {
 
       <div class="chat-body" id="aiChatBody">
         <div class="chat-msg bot">
-          <div class="chat-msg-avatar">🤖</div>
+          <div class="chat-msg-avatar">
+            <img src="assets/images/ai-assistant-avatar.png" alt="AI Avatar" class="msg-avatar-img">
+          </div>
           <div>
             <div class="chat-msg-bubble">
               Welcome to <strong>Yugvex Tech Solutions</strong>! 🚀<br><br>
-              I am your 24/7 AI Sales & Engineering Guide. How can I assist your business today?
+              I am your 24/7 AI Sales & Engineering Assistant. How can I assist your business today?
             </div>
             <div class="chat-chips-wrap">
               <span class="chat-chip" data-value="Explore SaaS Products">🚀 SaaS Products</span>
@@ -188,7 +192,9 @@ function appendMessage(text, sender = 'bot', chips = []) {
   const msgDiv = document.createElement('div');
   msgDiv.className = `chat-msg ${sender}`;
 
-  const avatarIcon = sender === 'bot' ? '🤖' : '👤';
+  const avatarHTML = sender === 'bot' 
+    ? `<img src="assets/images/ai-assistant-avatar.png" alt="AI Avatar" class="msg-avatar-img">`
+    : `<span style="font-size:0.85rem;">👤</span>`;
   const timeStr = getCurrentTimeStr();
 
   let chipsHTML = '';
@@ -201,7 +207,7 @@ function appendMessage(text, sender = 'bot', chips = []) {
   }
 
   msgDiv.innerHTML = `
-    <div class="chat-msg-avatar">${avatarIcon}</div>
+    <div class="chat-msg-avatar">${avatarHTML}</div>
     <div>
       <div class="chat-msg-bubble">${formatMessageText(text)}</div>
       ${chipsHTML}
@@ -221,7 +227,9 @@ function showTypingIndicator() {
   typingDiv.className = 'chat-msg bot';
   typingDiv.id = 'aiChatTyping';
   typingDiv.innerHTML = `
-    <div class="chat-msg-avatar">🤖</div>
+    <div class="chat-msg-avatar">
+      <img src="assets/images/ai-assistant-avatar.png" alt="AI Avatar" class="msg-avatar-img">
+    </div>
     <div>
       <div class="chat-msg-bubble" style="padding:0.4rem 0.8rem;">
         <div class="typing-dots">

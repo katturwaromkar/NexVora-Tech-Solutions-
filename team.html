@@ -179,19 +179,19 @@
           </div>
         </div>
 
-        <!-- Co-Founder - Sales & Management: Govindraj Ambatwar -->
+        <!-- Co-Founder & CEO: Govindraj Ambatwar -->
         <div class="glass-card reveal team-card">
           <div class="team-avatar team-avatar-alt">GA</div>
           <h2 class="team-name">Govindraj Ambatwar</h2>
-          <p class="team-role">Co-Founder - Sales & Management</p>
+          <p class="team-role">Co-Founder & CEO</p>
           <div class="team-edu">🎓 Bachelor of Engineering in ENTC<br><span style="color:var(--secondary);font-weight:600;">🎓 MBA in Project Management</span></div>
           <p class="team-desc">
-            Co-Founder heading enterprise sales operations, strategic client relationships, market expansion, financial management, and business growth at Yugvex Tech Solutions.
+            Co-Founder & Chief Executive Officer driving strategic direction, executive business management, enterprise partnerships, and high-growth technology operations at Yugvex Tech Solutions.
           </p>
           <div class="team-tags">
-            <span class="module-badge">Sales Strategy</span>
+            <span class="module-badge">Executive Leadership</span>
             <span class="module-badge">Business Dev</span>
-            <span class="module-badge">Client Relations</span>
+            <span class="module-badge">Enterprise Sales</span>
             <span class="module-badge">Operations</span>
           </div>
           <div class="team-actions">
@@ -199,7 +199,7 @@
               📞 Call 8484080732
             </a>
             <a href="https://wa.me/918484080732" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="flex:1;">
-              💬 WhatsApp Sales
+              💬 WhatsApp CEO
             </a>
           </div>
         </div>
@@ -249,32 +249,10 @@
   <script src="js/main.js"></script>
   <script src="js/animation.js"></script>
 
-  <!-- Auto Team Card Swapping Script (rotates every 4 seconds) -->
+  <!-- Profile Modal Script -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const container = document.getElementById('teamCardsContainer');
-      if (!container) return;
-
-      setInterval(() => {
-        const cards = Array.from(container.children);
-        if (cards.length > 2) {
-          cards.forEach(card => {
-            card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-            card.style.opacity = '0.3';
-            card.style.transform = 'scale(0.96)';
-          });
-          
-          setTimeout(() => {
-            const firstCard = cards.shift();
-            container.appendChild(firstCard);
-            
-            Array.from(container.children).forEach(card => {
-              card.style.opacity = '1';
-              card.style.transform = 'scale(1)';
-            });
-          }, 400);
-        }
-      }, 4000);
+      // Clean, static leadership display
     });
   </script>
 </body>

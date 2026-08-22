@@ -589,7 +589,7 @@ window.downloadClientRequestPDF = function(reqId) {
     doc.setFont("helvetica", "normal");
     doc.setTextColor(71, 85, 105);
     doc.text("Director: Omkar Katturwar", 18, 86);
-    doc.text("Co-Founder & Sales: Govindraj Ambatwar", 18, 92);
+    doc.text("Co-Founder & CEO: Govindraj Ambatwar", 18, 92);
     doc.text("Location: Nanded, Maharashtra - 431602", 18, 98);
     doc.text("Email: katturwaroma313@gmail.com", 18, 104);
     doc.text("Phone: +91 8484080732 | www.yugvex.com", 18, 110);
@@ -699,7 +699,7 @@ window.downloadClientRequestPDF = function(reqId) {
     doc.text("1. Digital Receipt & Agreement automatically generated upon transaction verification.", 14, 166);
     doc.text("2. Payments processed via Bank UPI / PhonePe Business QR Gateway.", 14, 171);
     doc.text("3. Protected by 256-Bit SSL encryption & zero-trust compliance standards.", 14, 176);
-    doc.text("4. Payee Account: GOVINDRAJ HANMANT AMBATWAR (Co-Founder & Sales Head).", 14, 181);
+    doc.text("4. Payee Account: GOVINDRAJ HANMANT AMBATWAR (Co-Founder & CEO).", 14, 181);
     doc.text("5. Contact Support: +91 8484080732 | katturwaroma313@gmail.com", 14, 186);
 
     // Official Stamp & Authorised Signatory Seal

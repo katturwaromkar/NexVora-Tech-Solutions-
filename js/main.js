@@ -1105,7 +1105,7 @@ function initCookieBanner() {
   if (localStorage.getItem('yugvex_cookie_accepted')) return;
 
   const banner = document.createElement('div');
-  banner.className = 'glass-card';
+  banner.className = 'glass-card cookie-banner-card';
   banner.style.cssText = `
     position: fixed;
     bottom: 1.5rem;

@@ -109,6 +109,11 @@
   cursor: pointer;
   transition: var(--transition-fast);
   line-height: 1;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .security-close-btn:hover {
@@ -123,6 +128,13 @@
 }
 
 @media (max-width: 576px) {
+  .security-modal-card {
+    padding: 1.25rem 0.85rem !important;
+    width: 96% !important;
+    max-height: 90vh !important;
+    margin: 0 auto !important;
+  }
+
   .security-grid {
     grid-template-columns: 1fr;
   }

@@ -159,29 +159,10 @@
 /* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
   .social-floating-dock {
-    left: 0.75rem;
-    padding: 0.5rem 0.35rem;
-    gap: 0.5rem;
-  }
-
-  .social-dock-item {
-    width: 38px;
-    height: 38px;
-  }
-
-  .social-dock-item svg {
-    width: 17px;
-    height: 17px;
-  }
-
-  /* Disable tooltips on touch screens to prevent awkward popups */
-  .social-dock-item::after {
     display: none !important;
   }
-}
 
-@media (max-width: 480px) {
-  .social-floating-dock {
+  .social-dock-item::after {
     display: none !important;
   }
 }

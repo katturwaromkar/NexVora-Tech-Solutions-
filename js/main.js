@@ -307,8 +307,8 @@ function initProjectModal() {
           <!-- Section 3B: PhonePe QR Code Payment View -->
           <div id="qrPaymentSection" style="display:none;grid-template-columns:180px 1fr;gap:1.25rem;align-items:center;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);padding:1.25rem;border-radius:var(--radius-sm);">
             <div style="text-align:center;background:#fff;padding:0.6rem;border-radius:var(--radius-sm);">
-              <img src="assets/images/payment-qr.jpg" alt="PhonePe QR Code" style="width:100%;max-width:160px;height:auto;display:block;margin:0 auto;border-radius:4px;">
-              <div style="font-size:0.72rem;color:#000;font-weight:700;margin-top:0.3rem;">Scan & Pay via PhonePe / UPI</div>
+              <img src="assets/images/payment-qr.jpg" alt="Razorpay & BHIM UPI QR Code - Yugvextechsolutions" style="width:100%;max-width:180px;height:auto;display:block;margin:0 auto;border-radius:6px;">
+              <div style="font-size:0.72rem;color:#000;font-weight:700;margin-top:0.3rem;">Scan & Pay with Any UPI App</div>
             </div>
 
             <div>

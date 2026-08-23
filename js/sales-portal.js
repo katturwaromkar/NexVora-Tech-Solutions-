@@ -582,9 +582,9 @@
 
     paymentQrContainer.innerHTML = `
       <div style="background:#fff;padding:1rem;border-radius:var(--radius-md);margin-bottom:1rem;text-align:center;">
-        <img src="assets/images/payment-qr.jpg" alt="PhonePe QR" style="width:100%;max-width:220px;display:block;margin:0 auto;border-radius:4px;">
-        <div style="color:#000;font-weight:700;font-size:0.9rem;margin-top:0.5rem;">Payee: GOVINDRAJ HANMANT AMBATWAR</div>
-        <div style="color:#4b5563;font-size:0.8rem;">UPI: <code>${DEFAULT_PAYMENT_CONFIG.upiId}</code></div>
+        <img src="assets/images/payment-qr.jpg" alt="Razorpay & BHIM UPI QR Code - Yugvextechsolutions" style="width:100%;max-width:240px;display:block;margin:0 auto;border-radius:6px;">
+        <div style="color:#000;font-weight:700;font-size:0.9rem;margin-top:0.5rem;">Payee: Yugvex Tech Solutions</div>
+        <div style="color:#4b5563;font-size:0.8rem;">UPI App: GPay, PhonePe, Paytm, BHIM</div>
       </div>
       <div style="background:rgba(15,23,42,0.8);padding:1rem;border-radius:var(--radius-sm);text-align:left;font-size:0.85rem;">
         <div>Client Name: <strong style="color:#fff;">${escapeHtml(clientName)}</strong></div>

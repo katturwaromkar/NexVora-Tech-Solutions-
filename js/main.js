@@ -226,12 +226,26 @@ function initProjectModal() {
             <div>
               <label for="projPlan" style="display:block;font-size:0.82rem;color:var(--text-muted);margin-bottom:0.35rem;font-weight:600;">Choose Plan / Package *</label>
               <select id="projPlan" required style="width:100%;padding:0.7rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);">
-                <option value="Starter Website Plan (Rs. 9,999)" data-price="9999">Starter Website Plan — ₹9,999</option>
-                <option value="Business Website Plan (Rs. 24,999)" data-price="24999" selected>Business Website Plan — ₹24,999</option>
-                <option value="Custom E-Commerce & App (Rs. 49,999)" data-price="49999">Custom E-Commerce & App — ₹49,999</option>
-                <option value="Pharmacy Store ERP (Rs. 19,999)" data-price="19999">Pharmacy Store ERP — ₹19,999</option>
-                <option value="Restaurant Management POS (Rs. 14,999)" data-price="14999">Restaurant Management POS — ₹14,999</option>
-                <option value="Custom AI Solution Deposit (Rs. 10,000)" data-price="10000">Custom AI Solution Advance — ₹10,000</option>
+                <optgroup label="Website & Digital Solutions (Brochure Rates)">
+                  <option value="Single-Page Starter Website (Rs. 1,500)" data-price="1500">Single-Page Starter Web — ₹1,500</option>
+                  <option value="Starter Business Website (Rs. 2,999)" data-price="2999">Starter Business Web — ₹2,999</option>
+                  <option value="Business Dynamic Web App (Rs. 4,999)" data-price="4999" selected>Business Web App (WhatsApp Orders) — ₹4,999</option>
+                  <option value="Professional E-Commerce Portal (Rs. 9,999)" data-price="9999">Professional E-Commerce Store & Admin — ₹9,999</option>
+                  <option value="Custom Enterprise Web & App Suite (Rs. 24,999)" data-price="24999">Custom Enterprise Web Suite — ₹24,999</option>
+                </optgroup>
+                <optgroup label="Enterprise ERP & POS Systems">
+                  <option value="Pharmacy Store ERP Software (Rs. 19,999)" data-price="19999">Pharmacy Store ERP Software — ₹19,999</option>
+                  <option value="Restaurant Management POS (Rs. 14,999)" data-price="14999">Restaurant POS System — ₹14,999</option>
+                  <option value="Full Multi-Branch Enterprise ERP (Rs. 59,999)" data-price="59999">Full Enterprise ERP Architecture — ₹59,999</option>
+                </optgroup>
+                <optgroup label="AI Solutions & Automation">
+                  <option value="AI Voice Telecalling Agent Bot (Rs. 29,999)" data-price="29999">AI Voice Telecaller Bot — ₹29,999</option>
+                  <option value="OCR Document & Invoice Parsing AI (Rs. 34,999)" data-price="34999">Document OCR & Catalog AI — ₹34,999</option>
+                </optgroup>
+                <optgroup label="Mobile App Engineering">
+                  <option value="Android Native Mobile App (Rs. 39,999)" data-price="39999">Android Native Mobile App — ₹39,999</option>
+                  <option value="Cross-Platform iOS & Android App (Rs. 69,999)" data-price="69999">Cross-Platform iOS & Android App — ₹69,999</option>
+                </optgroup>
               </select>
             </div>
           </div>
@@ -315,7 +329,7 @@ function initProjectModal() {
             <div>
               <div style="background:rgba(15,23,42,0.7);padding:0.75rem;border-radius:var(--radius-sm);margin-bottom:0.75rem;font-size:0.82rem;">
                 <div style="color:#34D399;font-weight:700;">Payee Account Details:</div>
-                <div style="color:#fff;">Payee Name: <strong>GOVINDRAJ HANMANT AMBATWAR</strong></div>
+                <div style="color:#fff;">Payee Name: <strong>Yugvex Tech Solutions, Pune</strong></div>
                 <div style="color:var(--text-muted);">UPI ID: <code>8484080732@ybl</code></div>
               </div>
 
@@ -570,7 +584,7 @@ function showProjectSubmissionSuccess(reqData) {
     `⏳ *Pending Balance:* Rs. ${reqData.pendingAmount}%0A` +
     `💳 *Txn UTR:* ${encodeURIComponent(reqData.txnRef)}%0A` +
     `📌 *Status:* ${encodeURIComponent(reqData.status)}%0A` +
-    `👤 *Payee Account:* GOVINDRAJ HANMANT AMBATWAR%0A%0A` +
+    `👤 *Payee Account:* Yugvex Tech Solutions, Pune%0A%0A` +
     (isTemp ? `_Please verify payment UTR and send my confirmed Official PDF receipt on WhatsApp._` : `_My payment is verified. Please confirm my project onboarding schedule._`);
 
   const whatsappUrl = `https://wa.me/917219290885?text=${whatsappMsg}`;
@@ -792,7 +806,7 @@ window.downloadClientRequestPDF = function(reqId) {
     doc.text(`Email: ${req.email || 'N/A'}`, 112, 92);
     doc.text(`Business Name: ${req.business || 'Individual'}`, 112, 98);
     doc.text(`Payment Method: ${req.payMethod || 'PhonePe / UPI QR'}`, 112, 104);
-    doc.text("Payee: GOVINDRAJ HANMANT AMBATWAR", 112, 110);
+    doc.text("Payee: Yugvex Tech Solutions, Pune", 112, 110);
 
     // Financial Table Header Box
     doc.setFillColor(15, 23, 42);
@@ -877,7 +891,7 @@ window.downloadClientRequestPDF = function(reqId) {
     doc.text("1. Temporary receipts require manual UTR verification before issuing final seal.", 14, 166);
     doc.text("2. Payments processed via Bank UPI / PhonePe Business QR / Razorpay Gateway.", 14, 171);
     doc.text("3. Protected by 256-Bit SSL encryption & zero-trust compliance standards.", 14, 176);
-    doc.text("4. Payee Account: GOVINDRAJ HANMANT AMBATWAR (Co-Founder & CEO).", 14, 181);
+    doc.text("4. Payee Account: Yugvex Tech Solutions, Pune.", 14, 181);
     doc.text("5. Contact Support: +91 8484080732 | katturwaroma313@gmail.com", 14, 186);
 
     // Official Stamp & Authorised Signatory Seal
@@ -1125,6 +1139,7 @@ function setCurrentYear() {
 }
 
 /* --- Instant Quotation Generator & Project Cost Calculator Engine --- */
+/* --- Instant Quotation Generator & Project Cost Calculator Engine --- */
 function initQuotationModal() {
   if (document.getElementById('quotationModal')) return;
 
@@ -1137,13 +1152,14 @@ function initQuotationModal() {
   modalOverlay.style.zIndex = '100002';
 
   modalOverlay.innerHTML = `
-    <div class="modal-content glass-card" style="max-width:880px;width:95%;max-height:92vh;overflow-y:auto;padding:2rem;">
+    <div class="modal-content glass-card" style="max-width:920px;width:95%;max-height:92vh;overflow-y:auto;padding:2rem;position:relative;border:1px solid rgba(6,182,212,0.4);box-shadow:0 10px 40px rgba(0,0,0,0.6);">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;border-bottom:1px solid var(--border-light);padding-bottom:1rem;">
         <div>
-          <span class="badge" style="background:rgba(6,182,212,0.15);color:var(--primary);margin-bottom:0.25rem;display:inline-block;">Yugvex Cost Estimator</span>
-          <h3 id="quotationModalTitle" style="margin:0;font-family:var(--font-heading);font-size:1.4rem;color:var(--text-main);">🧮 Project Quotation & Cost Calculator</h3>
+          <span class="badge" style="background:rgba(6,182,212,0.15);color:var(--primary);border:1px solid rgba(6,182,212,0.3);margin-bottom:0.35rem;display:inline-block;font-weight:700;padding:0.25rem 0.6rem;">Yugvex Tech Solutions • Pune & Nanded</span>
+          <h3 id="quotationModalTitle" style="margin:0;font-family:var(--font-heading);font-size:1.5rem;color:var(--text-main);">🧮 Instant Project Quotation & Cost Calculator</h3>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin:0.2rem 0 0 0;">Select your custom tech requirements to generate an official 2-Page corporate proposal PDF.</p>
         </div>
-        <button class="modal-close-btn" id="closeQuotationModalBtn" aria-label="Close Quotation Modal" style="font-size:1.8rem;background:transparent;border:none;color:#fff;cursor:pointer;">&times;</button>
+        <button class="modal-close-btn" id="closeQuotationModalBtn" aria-label="Close Quotation Modal" style="font-size:1.8rem;background:transparent;border:none;color:#fff;cursor:pointer;padding:0.2rem 0.6rem;">&times;</button>
       </div>
 
       <div style="display:grid;grid-template-columns:1.2fr 0.8fr;gap:1.5rem;align-items:start;">
@@ -1151,60 +1167,66 @@ function initQuotationModal() {
         <!-- Left Side: Selection Controls -->
         <div>
           <!-- Step 1: Base Service Selection -->
-          <div style="background:rgba(15,23,42,0.6);padding:1.1rem;border-radius:var(--radius-md);border:1px solid var(--border-light);margin-bottom:1rem;">
-            <h4 style="color:var(--primary);margin-bottom:0.75rem;font-size:0.95rem;font-weight:700;">1. Select Primary Package / Service *</h4>
-            <select id="quoteBasePackage" style="width:100%;padding:0.7rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);font-size:0.9rem;">
-              <optgroup label="Website & E-Commerce">
-                <option value="Starter Website Plan" data-price="9999" selected>Starter Website Plan — ₹9,999</option>
-                <option value="Business Website Plan" data-price="24999">Business Website Plan — ₹24,999</option>
-                <option value="Custom E-Commerce Portal & Mobile App" data-price="49999">Custom E-Commerce & Mobile App — ₹49,999</option>
+          <div style="background:rgba(15,23,42,0.7);padding:1.1rem;border-radius:var(--radius-md);border:1px solid var(--border-light);margin-bottom:1rem;">
+            <h4 style="color:var(--primary);margin-bottom:0.75rem;font-size:0.95rem;font-weight:700;display:flex;align-items:center;gap:0.4rem;">
+              <span>🌐 1. Select Primary Service Package *</span>
+            </h4>
+            <select id="quoteBasePackage" style="width:100%;padding:0.75rem;background:rgba(30,41,59,0.95);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);font-size:0.9rem;font-weight:600;">
+              <optgroup label="Website & Digital Solutions (From Official Brochure)">
+                <option value="Single-Page Starter Website" data-price="1500">Starter Landing Page — ₹1,500</option>
+                <option value="Starter Business Website" data-price="2999">Business Starter Web — ₹2,999</option>
+                <option value="Business Dynamic Web App" data-price="4999" selected>Business Web App (WhatsApp Orders) — ₹4,999</option>
+                <option value="Professional E-Commerce Portal" data-price="9999">Professional E-Commerce Store & Admin — ₹9,999</option>
+                <option value="Custom Enterprise Web & App Suite" data-price="24999">Custom Enterprise Web & Mobile Suite — ₹24,999</option>
               </optgroup>
-              <optgroup label="Enterprise ERP & Point of Sale">
-                <option value="Pharmacy Store ERP Software" data-price="19999">Pharmacy Store ERP — ₹19,999</option>
-                <option value="Restaurant POS & QR Ordering" data-price="14999">Restaurant POS System — ₹14,999</option>
-                <option value="Full Multi-Branch Enterprise ERP" data-price="59999">Full Enterprise ERP Architecture — ₹59,999</option>
+              <optgroup label="Enterprise ERP & POS Systems">
+                <option value="Pharmacy Store ERP Software" data-price="19999">Pharmacy Store ERP (Batch Expiry & GST) — ₹19,999</option>
+                <option value="Restaurant Management & POS" data-price="14999">Restaurant POS (Table QR & KOT) — ₹14,999</option>
+                <option value="Full Multi-Branch Enterprise ERP" data-price="59999">Multi-Branch Enterprise ERP Architecture — ₹59,999</option>
               </optgroup>
-              <optgroup label="AI Solutions & Automation">
-                <option value="AI Voice Telecalling Agent Bot" data-price="29999">AI Telecaller Voice Bot — ₹29,999</option>
-                <option value="OCR Document & Invoice Parsing AI" data-price="34999">Document OCR & Catalog AI — ₹34,999</option>
-                <option value="Custom Enterprise AI Solution" data-price="45000">Custom Enterprise AI Model — ₹45,000</option>
+              <optgroup label="AI Innovations & Automation">
+                <option value="AI Voice Telecalling Agent Bot" data-price="29999">AI Voice Telecalling Agent Bot — ₹29,999</option>
+                <option value="OCR Document & Invoice Parsing AI" data-price="34999">Document OCR & Catalog AI Parser — ₹34,999</option>
+                <option value="Custom Enterprise AI Model" data-price="45000">Custom Enterprise AI Neural Solution — ₹45,000</option>
               </optgroup>
-              <optgroup label="Native & Cross-Platform Mobile Apps">
-                <option value="Android Native Mobile App" data-price="39999">Android Native App — ₹39,999</option>
+              <optgroup label="Mobile App Engineering">
+                <option value="Android Native Mobile App" data-price="39999">Android Native Mobile App — ₹39,999</option>
                 <option value="Cross-Platform iOS & Android App" data-price="69999">Cross-Platform iOS & Android App — ₹69,999</option>
               </optgroup>
             </select>
           </div>
 
           <!-- Step 2: Custom Add-on Modules -->
-          <div style="background:rgba(15,23,42,0.6);padding:1.1rem;border-radius:var(--radius-md);border:1px solid var(--border-light);margin-bottom:1rem;">
-            <h4 style="color:var(--secondary);margin-bottom:0.75rem;font-size:0.95rem;font-weight:700;">2. Choose Custom Add-on Modules</h4>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;font-size:0.82rem;">
-              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;">
-                <input type="checkbox" class="quote-addon-cb" data-addon="Custom UI/UX Design System" data-price="4999" style="accent-color:var(--primary);">
+          <div style="background:rgba(15,23,42,0.7);padding:1.1rem;border-radius:var(--radius-md);border:1px solid var(--border-light);margin-bottom:1rem;">
+            <h4 style="color:var(--secondary);margin-bottom:0.75rem;font-size:0.95rem;font-weight:700;display:flex;align-items:center;gap:0.4rem;">
+              <span>🧩 2. Choose Custom Add-on Modules</span>
+            </h4>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;font-size:0.82rem;">
+              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
+                <input type="checkbox" class="quote-addon-cb" data-addon="Custom UI/UX Design System & Wireframes" data-price="4999" style="accent-color:var(--primary);">
                 <span>UI/UX Design (+₹4,999)</span>
               </label>
-              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;">
+              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
                 <input type="checkbox" class="quote-addon-cb" data-addon="Razorpay Online Payment Gateway" data-price="2999" checked style="accent-color:var(--primary);">
                 <span>Razorpay Gateway (+₹2,999)</span>
               </label>
-              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;">
-                <input type="checkbox" class="quote-addon-cb" data-addon="WhatsApp Direct Order Automation" data-price="3499" checked style="accent-color:var(--primary);">
+              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
+                <input type="checkbox" class="quote-addon-cb" data-addon="WhatsApp Direct Order Automation Bot" data-price="3499" checked style="accent-color:var(--primary);">
                 <span>WhatsApp Bot (+₹3,499)</span>
               </label>
-              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;">
-                <input type="checkbox" class="quote-addon-cb" data-addon="Multi-Branch & Warehouse Sync" data-price="7999" style="accent-color:var(--primary);">
+              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
+                <input type="checkbox" class="quote-addon-cb" data-addon="Multi-Branch & Multi-Warehouse Sync" data-price="7999" style="accent-color:var(--primary);">
                 <span>Multi-Warehouse (+₹7,999)</span>
               </label>
-              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;">
+              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
                 <input type="checkbox" class="quote-addon-cb" data-addon="SEO Optimization & Google Indexing" data-price="3999" checked style="accent-color:var(--primary);">
                 <span>SEO & Indexing (+₹3,999)</span>
               </label>
-              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;">
-                <input type="checkbox" class="quote-addon-cb" data-addon="Domain, SSL & Cloud Infra Setup" data-price="2499" checked style="accent-color:var(--primary);">
+              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
+                <input type="checkbox" class="quote-addon-cb" data-addon="Domain, SSL & Cloud Infrastructure Setup" data-price="2499" checked style="accent-color:var(--primary);">
                 <span>Domain & Cloud (+₹2,499)</span>
               </label>
-              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;grid-column:span 2;">
+              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;grid-column:span 2;background:rgba(30,41,59,0.6);padding:0.5rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
                 <input type="checkbox" class="quote-addon-cb" data-addon="1-Year Priority Maintenance & SLA Support" data-price="6999" style="accent-color:var(--primary);">
                 <span>1-Year Priority Maintenance & Dedicated SLA Support (+₹6,999)</span>
               </label>
@@ -1212,38 +1234,45 @@ function initQuotationModal() {
           </div>
 
           <!-- Step 3: Timeline & Delivery Urgency -->
-          <div style="background:rgba(15,23,42,0.6);padding:1.1rem;border-radius:var(--radius-md);border:1px solid var(--border-light);margin-bottom:1rem;">
-            <h4 style="color:#34D399;margin-bottom:0.75rem;font-size:0.95rem;font-weight:700;">3. Delivery Timeline & Urgency</h4>
+          <div style="background:rgba(15,23,42,0.7);padding:1.1rem;border-radius:var(--radius-md);border:1px solid var(--border-light);margin-bottom:1rem;">
+            <h4 style="color:#34D399;margin-bottom:0.75rem;font-size:0.95rem;font-weight:700;display:flex;align-items:center;gap:0.4rem;">
+              <span>⚡ 3. Delivery Timeline & Sprint Speed</span>
+            </h4>
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;font-size:0.8rem;">
-              <label style="background:rgba(30,41,59,0.8);padding:0.5rem;border-radius:4px;border:1px solid var(--border-light);cursor:pointer;text-align:center;">
+              <label style="background:rgba(30,41,59,0.8);padding:0.6rem;border-radius:4px;border:1px solid var(--border-light);cursor:pointer;text-align:center;">
                 <input type="radio" name="quoteUrgency" value="1.0" checked style="accent-color:#34D399;"> Standard (14-21 Days)
               </label>
-              <label style="background:rgba(30,41,59,0.8);padding:0.5rem;border-radius:4px;border:1px solid var(--border-light);cursor:pointer;text-align:center;">
+              <label style="background:rgba(30,41,59,0.8);padding:0.6rem;border-radius:4px;border:1px solid var(--border-light);cursor:pointer;text-align:center;">
                 <input type="radio" name="quoteUrgency" value="1.15" style="accent-color:#34D399;"> Express 7-Day (+15%)
               </label>
-              <label style="background:rgba(30,41,59,0.8);padding:0.5rem;border-radius:4px;border:1px solid var(--border-light);cursor:pointer;text-align:center;">
+              <label style="background:rgba(30,41,59,0.8);padding:0.6rem;border-radius:4px;border:1px solid var(--border-light);cursor:pointer;text-align:center;">
                 <input type="radio" name="quoteUrgency" value="1.30" style="accent-color:#34D399;"> Rush 72-Hour (+30%)
               </label>
             </div>
           </div>
 
           <!-- Step 4: Client Contact Details -->
-          <div style="background:rgba(15,23,42,0.6);padding:1.1rem;border-radius:var(--radius-md);border:1px solid var(--border-light);">
-            <h4 style="color:#FBBF24;margin-bottom:0.75rem;font-size:0.95rem;font-weight:700;">4. Recipient Details (For Official PDF Quotation)</h4>
+          <div style="background:rgba(15,23,42,0.7);padding:1.1rem;border-radius:var(--radius-md);border:1px solid var(--border-light);">
+            <h4 style="color:#FBBF24;margin-bottom:0.75rem;font-size:0.95rem;font-weight:700;display:flex;align-items:center;gap:0.4rem;">
+              <span>👤 4. Client Information (For Corporate PDF Proposal)</span>
+            </h4>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.5rem;">
-              <input type="text" id="quoteClientName" placeholder="Full Name *" required style="width:100%;padding:0.6rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);font-size:0.85rem;">
-              <input type="tel" id="quoteClientPhone" placeholder="WhatsApp Number *" required style="width:100%;padding:0.6rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);font-size:0.85rem;">
+              <input type="text" id="quoteClientName" placeholder="Client Full Name *" required style="width:100%;padding:0.65rem;background:rgba(30,41,59,0.95);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);font-size:0.85rem;">
+              <input type="tel" id="quoteClientPhone" placeholder="WhatsApp Mobile Number *" required style="width:100%;padding:0.65rem;background:rgba(30,41,59,0.95);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);font-size:0.85rem;">
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
-              <input type="email" id="quoteClientEmail" placeholder="Email Address *" required style="width:100%;padding:0.6rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);font-size:0.85rem;">
-              <input type="text" id="quoteBusinessName" placeholder="Business Name (Optional)" style="width:100%;padding:0.6rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);font-size:0.85rem;">
+              <input type="email" id="quoteClientEmail" placeholder="Email Address *" required style="width:100%;padding:0.65rem;background:rgba(30,41,59,0.95);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);font-size:0.85rem;">
+              <input type="text" id="quoteBusinessName" placeholder="Company / Store Name" style="width:100%;padding:0.65rem;background:rgba(30,41,59,0.95);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);font-size:0.85rem;">
             </div>
           </div>
         </div>
 
         <!-- Right Side: Live Calculation Box & Actions -->
-        <div style="background:linear-gradient(145deg, rgba(15,23,42,0.95) 0%, rgba(30,41,59,0.95) 100%);padding:1.25rem;border-radius:var(--radius-md);border:1px solid var(--primary);position:sticky;top:0;">
-          <h4 style="color:#fff;margin-bottom:0.75rem;font-size:1.1rem;border-bottom:1px solid var(--border-light);padding-bottom:0.5rem;">Live Quotation Estimate</h4>
+        <div style="background:linear-gradient(145deg, rgba(15,23,42,0.98) 0%, rgba(30,41,59,0.98) 100%);padding:1.35rem;border-radius:var(--radius-md);border:1px solid var(--primary);position:sticky;top:0;box-shadow:0 8px 30px rgba(0,0,0,0.5);">
+          <h4 style="color:#fff;margin-bottom:0.75rem;font-size:1.15rem;border-bottom:1px solid var(--border-light);padding-bottom:0.5rem;display:flex;align-items:center;justify-content:space-between;">
+            <span>Live Quotation Summary</span>
+            <span style="font-size:0.75rem;color:var(--primary);font-weight:600;">GST Compliant</span>
+          </h4>
 
           <div id="quoteBreakdownList" style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1rem;max-height:220px;overflow-y:auto;padding-right:0.3rem;">
             <!-- Rendered by JS -->
@@ -1251,18 +1280,19 @@ function initQuotationModal() {
 
           <div style="background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.3);padding:1rem;border-radius:var(--radius-sm);margin-bottom:1.25rem;text-align:center;">
             <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.25rem;">Total Estimated Quotation Valuation</div>
-            <div id="quoteGrandTotal" style="font-size:1.8rem;font-weight:800;color:#34D399;">₹0</div>
-            <div style="font-size:0.72rem;color:var(--text-subtle);margin-top:0.25rem;">Valid for 30 days • Includes Tax & Implementation</div>
+            <div id="quoteGrandTotal" style="font-size:1.85rem;font-weight:800;color:#34D399;">₹0</div>
+            <div id="quoteTokenRequiredText" style="font-size:0.75rem;color:#FBBF24;font-weight:700;margin-top:0.35rem;">Token Deposit Required: ₹2,000</div>
+            <div style="font-size:0.7rem;color:var(--text-subtle);margin-top:0.2rem;">Valid 30 Days • Payee: Yugvex Tech Solutions, Pune</div>
           </div>
 
-          <div style="display:flex;flex-direction:column;gap:0.65rem;">
-            <button type="button" id="downloadQuotePdfBtn" class="btn btn-primary btn-md" style="width:100%;justify-content:center;">
-              📄 Download Official PDF Quotation
+          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            <button type="button" id="downloadQuotePdfBtn" class="btn btn-primary btn-md" style="width:100%;justify-content:center;font-weight:700;">
+              📄 Download Official Corporate PDF Proposal
             </button>
-            <button type="button" id="shareQuoteWhatsappBtn" class="btn btn-secondary btn-md" style="width:100%;justify-content:center;border-color:#25D366;color:#25D366;">
+            <button type="button" id="shareQuoteWhatsappBtn" class="btn btn-secondary btn-md" style="width:100%;justify-content:center;border-color:#25D366;color:#25D366;font-weight:700;">
               💬 Share Quotation on WhatsApp ↗
             </button>
-            <button type="button" id="proceedToBookFromQuoteBtn" class="btn btn-accent btn-md" style="width:100%;justify-content:center;background:linear-gradient(135deg,#0284c7,#06b6d4);color:#fff;">
+            <button type="button" id="proceedToBookFromQuoteBtn" class="btn btn-accent btn-md" style="width:100%;justify-content:center;background:linear-gradient(135deg,#0284c7,#06b6d4);color:#fff;font-weight:800;box-shadow:0 4px 15px rgba(6,182,212,0.35);padding:0.85rem;">
               🚀 Book Project with this Quotation →
             </button>
           </div>
@@ -1289,11 +1319,12 @@ function initQuotationModal() {
   const urgencyRadios = document.querySelectorAll('input[name="quoteUrgency"]');
   const breakdownList = document.getElementById('quoteBreakdownList');
   const grandTotalEl = document.getElementById('quoteGrandTotal');
+  const quoteTokenRequiredText = document.getElementById('quoteTokenRequiredText');
 
   function calculateQuotation() {
     const selectedPkgOpt = packageSelect.options[packageSelect.selectedIndex];
     const basePkgName = selectedPkgOpt.text.split('—')[0].trim();
-    const basePrice = parseFloat(selectedPkgOpt.getAttribute('data-price')) || 9999;
+    const basePrice = parseFloat(selectedPkgOpt.getAttribute('data-price')) || 4999;
 
     let addonsTotal = 0;
     const selectedAddons = [];
@@ -1314,6 +1345,7 @@ function initQuotationModal() {
 
     const subtotal = basePrice + addonsTotal;
     const grandTotal = Math.round(subtotal * urgencyMultiplier);
+    const requiredToken = Math.min(5000, Math.max(2000, Math.round(grandTotal * 0.20)));
 
     // Build breakdown HTML
     let html = `<div style="display:flex;justify-content:space-between;margin-bottom:0.4rem;color:#fff;font-weight:600;">
@@ -1341,6 +1373,7 @@ function initQuotationModal() {
 
     breakdownList.innerHTML = html;
     grandTotalEl.textContent = `₹${grandTotal.toLocaleString('en-IN')}`;
+    quoteTokenRequiredText.textContent = `Required Booking Deposit Token: ₹${requiredToken.toLocaleString('en-IN')}`;
 
     return {
       basePkgName,
@@ -1349,7 +1382,8 @@ function initQuotationModal() {
       addonsTotal,
       urgencyMultiplier,
       subtotal,
-      grandTotal
+      grandTotal,
+      requiredToken
     };
   }
 
@@ -1359,7 +1393,7 @@ function initQuotationModal() {
 
   calculateQuotation();
 
-  // Download PDF Button
+  // Download Corporate PDF Proposal Button
   document.getElementById('downloadQuotePdfBtn').addEventListener('click', () => {
     const calcData = calculateQuotation();
     const name = document.getElementById('quoteClientName').value.trim() || 'Valued Client';
@@ -1381,19 +1415,32 @@ function initQuotationModal() {
     const calcData = calculateQuotation();
     const name = document.getElementById('quoteClientName').value.trim() || 'Valued Client';
     
-    const msg = `*YUGVEX TECH SOLUTIONS - PROJECT QUOTATION ESTIMATE*%0A%0A` +
+    const msg = `*YUGVEX TECH SOLUTIONS - OFFICIAL PROJECT QUOTATION*%0A%0A` +
       `👤 *Client Name:* ${encodeURIComponent(name)}%0A` +
-      `📦 *Package:* ${encodeURIComponent(calcData.basePkgName)} (Rs. ${calcData.basePrice})%0A` +
-      `➕ *Add-ons Total:* Rs. ${calcData.addonsTotal}%0A` +
-      `⚡ *Grand Total Estimated Quotation:* Rs. ${calcData.grandTotal}%0A%0A` +
-      `_Quotations valid for 30 days. Contact Director Omkar Katturwar at 7219290885 for custom scopes._`;
+      `📦 *Package:* ${encodeURIComponent(calcData.basePkgName)} (Rs. ${calcData.basePrice.toLocaleString('en-IN')})%0A` +
+      `➕ *Add-ons Subtotal:* Rs. ${calcData.addonsTotal.toLocaleString('en-IN')}%0A` +
+      `⚡ *Grand Total Valuation:* Rs. ${calcData.grandTotal.toLocaleString('en-IN')}%0A` +
+      `💳 *Booking Deposit:* Rs. ${calcData.requiredToken.toLocaleString('en-IN')}%0A` +
+      `🏢 *Official Payee:* Yugvex Tech Solutions, Pune%0A%0A` +
+      `_Proposal valid 30 days. Contact Director Omkar Katturwar at 7219290885 for onboarding schedule._`;
 
     window.open(`https://wa.me/917219290885?text=${msg}`, '_blank');
   });
 
-  // Proceed to Book Project Button
+  // Seamless Connection: Proceed to Book Project with this Quotation
   document.getElementById('proceedToBookFromQuoteBtn').addEventListener('click', () => {
     const calcData = calculateQuotation();
+    const clientName = document.getElementById('quoteClientName').value.trim();
+    const clientPhone = document.getElementById('quoteClientPhone').value.trim();
+    const clientEmail = document.getElementById('quoteClientEmail').value.trim();
+    const businessName = document.getElementById('quoteBusinessName').value.trim();
+
+    if (!clientName || !clientPhone || !clientEmail) {
+      alert('Please enter your Client Full Name, WhatsApp Number, and Email Address before proceeding to book.');
+      document.getElementById('quoteClientName').focus();
+      return;
+    }
+
     modalOverlay.classList.remove('active');
 
     const projectModal = document.getElementById('projectModal');
@@ -1401,33 +1448,69 @@ function initQuotationModal() {
       projectModal.classList.add('active');
       document.body.style.overflow = 'hidden';
 
+      // 1. Fill Step 1 Contact & Business Details
       const projClientName = document.getElementById('projClientName');
       const projClientPhone = document.getElementById('projClientPhone');
       const projClientEmail = document.getElementById('projClientEmail');
       const projBusinessName = document.getElementById('projBusinessName');
+
+      if (projClientName) projClientName.value = clientName;
+      if (projClientPhone) projClientPhone.value = clientPhone;
+      if (projClientEmail) projClientEmail.value = clientEmail;
+      if (projBusinessName) projBusinessName.value = businessName;
+
+      // 2. Fill Step 2 Category, Plan & Details Scope
+      const projCategory = document.getElementById('projCategory');
+      const projPlan = document.getElementById('projPlan');
       const projDetails = document.getElementById('projDetails');
-      const projAmountPaid = document.getElementById('projAmountPaid');
 
-      if (projClientName) projClientName.value = document.getElementById('quoteClientName').value.trim();
-      if (projClientPhone) projClientPhone.value = document.getElementById('quoteClientPhone').value.trim();
-      if (projClientEmail) projClientEmail.value = document.getElementById('quoteClientEmail').value.trim();
-      if (projBusinessName) projBusinessName.value = document.getElementById('quoteBusinessName').value.trim();
-
-      if (projDetails) {
-        const addonsList = calcData.selectedAddons.map(a => a.name).join(', ');
-        projDetails.value = `Quotation Estimate (${calcData.basePkgName}) with Add-ons: [${addonsList}]. Estimated Total: ₹${calcData.grandTotal}`;
+      if (projCategory) {
+        if (calcData.basePkgName.includes('ERP') || calcData.basePkgName.includes('POS')) {
+          projCategory.value = 'Enterprise ERP & SaaS';
+        } else if (calcData.basePkgName.includes('AI') || calcData.basePkgName.includes('OCR')) {
+          projCategory.value = 'AI Voice & Automation';
+        } else if (calcData.basePkgName.includes('App')) {
+          projCategory.value = 'Custom Web App / Software';
+        } else {
+          projCategory.value = 'Website Development';
+        }
       }
 
-      if (projAmountPaid) projAmountPaid.value = Math.min(5000, calcData.grandTotal);
+      if (projPlan) {
+        let matchedOpt = Array.from(projPlan.options).find(opt => opt.value.includes(calcData.basePkgName) || opt.getAttribute('data-price') == calcData.basePrice);
+        if (matchedOpt) {
+          projPlan.value = matchedOpt.value;
+        } else {
+          projPlan.value = 'Business Website Plan (Rs. 24,999)';
+        }
+      }
+
+      if (projDetails) {
+        const addonsList = calcData.selectedAddons.length > 0 
+          ? calcData.selectedAddons.map(a => `${a.name} (+₹${a.price.toLocaleString('en-IN')})`).join(', ')
+          : 'Standard Core Platform Scope';
+        projDetails.value = `OFFICIAL QUOTATION BOOKING:\n• Base Package: ${calcData.basePkgName} (₹${calcData.basePrice.toLocaleString('en-IN')})\n• Add-ons Selected: [${addonsList}]\n• Delivery Speed: ${calcData.urgencyMultiplier > 1 ? (calcData.urgencyMultiplier === 1.15 ? 'Express 7-Day Sprint (+15%)' : 'Rush 72-Hour Sprint (+30%)') : 'Standard Timeline'}\n• Total Valuation: ₹${calcData.grandTotal.toLocaleString('en-IN')}\n• Deposit Token: ₹${calcData.requiredToken.toLocaleString('en-IN')}`;
+      }
+
+      // 3. Fill Step 3 Totals & Token Deposit Amount
+      const projTotalAmountInput = document.getElementById('projTotalAmount');
+      const projAmountPaidInput = document.getElementById('projAmountPaid');
+
+      if (projTotalAmountInput) projTotalAmountInput.value = calcData.grandTotal;
+      if (projAmountPaidInput) {
+        projAmountPaidInput.value = calcData.requiredToken;
+        projAmountPaidInput.dispatchEvent(new Event('input'));
+      }
     }
   });
 }
 
-// Global PDF Quotation Generator
+// Global 2-Page Executive Corporate Tech Proposal & Quotation PDF Exporter
 window.downloadQuotationPDF = function(quoteInfo) {
   const { calcData, name, phone, email, business } = quoteInfo;
-  const quoteId = 'YUG-QUOTE-' + Math.floor(100000 + Math.random() * 900000);
+  const quoteId = 'YUG-QUOTE-2026-' + Math.floor(100000 + Math.random() * 900000);
   const today = new Date().toISOString().split('T')[0];
+  const expiryDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
   const jsPDF = window.jspdf ? window.jspdf.jsPDF : (window.jsPDF ? window.jsPDF : null);
   if (!jsPDF) {
@@ -1437,14 +1520,15 @@ window.downloadQuotationPDF = function(quoteInfo) {
 
   const doc = new jsPDF('p', 'mm', 'a4');
 
-  // Background
+  // ==========================================
+  // PAGE 1: EXECUTIVE PROPOSAL & TECHNICAL SCOPE
+  // ==========================================
   doc.setFillColor(255, 255, 255);
   doc.rect(0, 0, 210, 297, 'F');
 
-  // Top Banner
+  // Top Dark Banner
   doc.setFillColor(15, 23, 42);
   doc.rect(0, 0, 210, 36, 'F');
-
   doc.setFillColor(6, 182, 212);
   doc.rect(0, 36, 210, 2, 'F');
 
@@ -1456,19 +1540,19 @@ window.downloadQuotationPDF = function(quoteInfo) {
   doc.setFont("helvetica", "normal");
   doc.setTextColor(203, 213, 225);
   doc.setFontSize(9);
-  doc.text("Enterprise Software, ERP Architectures & AI Solutions", 14, 23);
-  doc.text("Official Project Scope & Financial Cost Quotation Estimate", 14, 28);
+  doc.text("Enterprise Software, Custom ERPs & AI Solutions", 14, 23);
+  doc.text("Official Technical Scope & Commercial Cost Quotation Proposal", 14, 28);
 
   // Quote Badge
   doc.setFillColor(30, 41, 59);
-  doc.roundedRect(128, 10, 68, 18, 3, 3, 'F');
+  doc.roundedRect(122, 10, 74, 18, 3, 3, 'F');
   doc.setFont("helvetica", "bold");
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(9.5);
-  doc.text("PROJECT QUOTATION", 132, 17);
+  doc.text("TECHNICAL QUOTATION", 126, 17);
   doc.setFontSize(7.5);
   doc.setTextColor(52, 211, 153);
-  doc.text("VALIDITY: 30 DAYS FROM ISSUE", 130, 23);
+  doc.text("VALID UNTIL: " + expiryDate, 126, 23);
 
   // Meta bar
   doc.setFillColor(248, 250, 252);
@@ -1479,21 +1563,22 @@ window.downloadQuotationPDF = function(quoteInfo) {
   doc.setFont("helvetica", "bold");
   doc.setFontSize(8.5);
   doc.setTextColor(71, 85, 105);
-  doc.text("Quote Ref ID:", 18, 54);
+  doc.text("Proposal Ref ID:", 18, 54);
   doc.setTextColor(15, 23, 42);
-  doc.text(String(quoteId), 42, 54);
+  doc.text(String(quoteId), 44, 54);
 
   doc.setTextColor(71, 85, 105);
-  doc.text("Date Issued:", 85, 54);
+  doc.text("Date Issued:", 92, 54);
   doc.setTextColor(15, 23, 42);
-  doc.text(String(today), 104, 54);
+  doc.text(String(today), 112, 54);
 
   doc.setTextColor(71, 85, 105);
-  doc.text("Status:", 145, 54);
+  doc.text("Proposal Status:", 146, 54);
   doc.setTextColor(5, 150, 105);
-  doc.text("ESTIMATE PROPOSAL", 158, 54);
+  doc.text("OFFICIAL PROPOSAL", 170, 54);
 
   // Issuer & Client Grid
+  // Box 1: Solution Provider (Left)
   doc.setFillColor(241, 245, 249);
   doc.roundedRect(14, 66, 88, 48, 2, 2, 'F');
   doc.setDrawColor(203, 213, 225);
@@ -1502,19 +1587,20 @@ window.downloadQuotationPDF = function(quoteInfo) {
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9);
   doc.setTextColor(6, 182, 212);
-  doc.text("ISSUER / SOLUTION PROVIDER", 18, 73);
+  doc.text("SOLUTION PROVIDER / COMPANY", 18, 73);
 
   doc.setFontSize(8.5);
   doc.setTextColor(15, 23, 42);
   doc.text("Yugvex Tech Solutions", 18, 80);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(71, 85, 105);
-  doc.text("Director: Omkar Katturwar", 18, 86);
-  doc.text("Co-Founder & CEO: Govindraj Ambatwar", 18, 92);
-  doc.text("Co-Founder: Nikhil Raghuwanshi", 18, 98);
-  doc.text("Location: Nanded, Maharashtra - 431602", 18, 104);
-  doc.text("Phone: +91 8484080732 | www.yugvex.com", 18, 110);
+  doc.text("Corporate Offices: Pune & Nanded, Maharashtra", 18, 86);
+  doc.text("Director: Omkar Katturwar | CEO: Govindraj Ambatwar", 18, 92);
+  doc.text("Co-Founder & Full Stack Dev: Nikhil Raghuwanshi", 18, 98);
+  doc.text("Payee Account: Yugvex Tech Solutions, Pune", 18, 104);
+  doc.text("Contact: +91 8484080732 | www.yugvex.com", 18, 110);
 
+  // Box 2: Client Details (Right)
   doc.setFillColor(241, 245, 249);
   doc.roundedRect(108, 66, 88, 48, 2, 2, 'F');
   doc.setDrawColor(203, 213, 225);
@@ -1523,128 +1609,298 @@ window.downloadQuotationPDF = function(quoteInfo) {
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9);
   doc.setTextColor(6, 182, 212);
-  doc.text("PROPOSED FOR / CLIENT DETAILS", 112, 73);
+  doc.text("CLIENT / PROPOSAL RECIPIENT", 112, 73);
 
   doc.setFontSize(8.5);
   doc.setTextColor(15, 23, 42);
-  doc.text(String(name), 112, 80);
+  doc.text(String(name || 'Valued Enterprise Client'), 112, 80);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(71, 85, 105);
-  doc.text(`Phone / WhatsApp: +${phone}`, 112, 86);
-  doc.text(`Email: ${email}`, 112, 92);
-  doc.text(`Business / Store Name: ${business}`, 112, 98);
-  doc.text("Valuation Model: Fixed Scope Quotation", 112, 104);
-  doc.text("Payee: GOVINDRAJ HANMANT AMBATWAR", 112, 110);
+  doc.text(`Phone / WhatsApp: +${phone || 'N/A'}`, 112, 86);
+  doc.text(`Email: ${email || 'N/A'}`, 112, 92);
+  doc.text(`Business / Store Name: ${business || 'Individual'}`, 112, 98);
+  doc.text("Engagement Model: Fixed Scope Commercial Contract", 112, 104);
+  doc.text("Quote Validity: 30 Calendar Days", 112, 110);
 
-  // Items Table
+  // Executive Scope Heading
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9.5);
+  doc.setTextColor(15, 23, 42);
+  doc.text("1. ITEMIZED TECHNICAL SCOPE & COST BREAKDOWN", 14, 122);
+
+  // Financial Table Header Box
   doc.setFillColor(15, 23, 42);
-  doc.rect(14, 122, 182, 10, 'F');
+  doc.rect(14, 126, 182, 10, 'F');
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(8.5);
   doc.setTextColor(255, 255, 255);
-  doc.text("SL", 18, 128.5);
-  doc.text("PROPOSED ITEM / MODULE DESCRIPTION", 32, 128.5);
-  doc.text("UNIT COST (₹)", 165, 128.5);
+  doc.text("SL", 18, 132.5);
+  doc.text("PROPOSED ARCHITECTURE / MODULE DESCRIPTION", 32, 132.5);
+  doc.text("ESTIMATED COST (₹)", 155, 132.5);
 
-  let y = 132;
+  let y = 136;
+  // Item 1: Base Package
   doc.setFillColor(255, 255, 255);
-  doc.rect(14, y, 182, 10, 'F');
+  doc.rect(14, y, 182, 11, 'F');
   doc.setDrawColor(226, 232, 240);
-  doc.rect(14, y, 182, 10, 'D');
+  doc.rect(14, y, 182, 11, 'D');
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(8.5);
   doc.setTextColor(15, 23, 42);
-  doc.text("01", 18, y + 6.5);
-  doc.text(`Base Package: ${calcData.basePkgName}`, 32, y + 6.5);
-  doc.text(`Rs. ${calcData.basePrice.toLocaleString('en-IN')}`, 165, y + 6.5);
+  doc.text("01", 18, y + 7);
+  doc.text(`Base Core Platform: ${calcData.basePkgName}`, 32, y + 7);
+  doc.text(`Rs. ${calcData.basePrice.toLocaleString('en-IN')}`, 158, y + 7);
 
   let sl = 2;
   calcData.selectedAddons.forEach(item => {
-    y += 10;
+    y += 11;
     doc.setFillColor(255, 255, 255);
-    doc.rect(14, y, 182, 10, 'F');
+    doc.rect(14, y, 182, 11, 'F');
     doc.setDrawColor(226, 232, 240);
-    doc.rect(14, y, 182, 10, 'D');
+    doc.rect(14, y, 182, 11, 'D');
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8.5);
     doc.setTextColor(15, 23, 42);
-    doc.text(String(sl < 10 ? '0' + sl : sl), 18, y + 6.5);
-    doc.text(`Add-on: ${item.name}`, 32, y + 6.5);
-    doc.text(`+Rs. ${item.price.toLocaleString('en-IN')}`, 165, y + 6.5);
+    doc.text(String(sl < 10 ? '0' + sl : sl), 18, y + 7);
+    doc.text(`Add-on Module: ${item.name}`, 32, y + 7);
+    doc.text(`+Rs. ${item.price.toLocaleString('en-IN')}`, 158, y + 7);
     sl++;
   });
 
   if (calcData.urgencyMultiplier > 1.0) {
-    y += 10;
+    y += 11;
     const extraVal = calcData.grandTotal - calcData.subtotal;
     doc.setFillColor(255, 255, 255);
-    doc.rect(14, y, 182, 10, 'F');
+    doc.rect(14, y, 182, 11, 'F');
     doc.setDrawColor(226, 232, 240);
-    doc.rect(14, y, 182, 10, 'D');
+    doc.rect(14, y, 182, 11, 'D');
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(8.5);
     doc.setTextColor(217, 119, 6);
-    doc.text(String(sl < 10 ? '0' + sl : sl), 18, y + 6.5);
-    doc.text(`Express Timeline Delivery Multiplier (${calcData.urgencyMultiplier}x)`, 32, y + 6.5);
-    doc.text(`+Rs. ${extraVal.toLocaleString('en-IN')}`, 165, y + 6.5);
+    doc.text(String(sl < 10 ? '0' + sl : sl), 18, y + 7);
+    doc.text(`Express Timeline Delivery Multiplier (${calcData.urgencyMultiplier}x Sprint)`, 32, y + 7);
+    doc.text(`+Rs. ${extraVal.toLocaleString('en-IN')}`, 158, y + 7);
   }
 
-  // Summary Box
-  y += 16;
+  // Summary Totals Card
+  y += 18;
   doc.setFillColor(248, 250, 252);
-  doc.roundedRect(108, y, 88, 30, 2, 2, 'F');
+  doc.roundedRect(108, y, 88, 38, 2, 2, 'F');
   doc.setDrawColor(203, 213, 225);
-  doc.roundedRect(108, y, 88, 30, 2, 2, 'D');
+  doc.roundedRect(108, y, 88, 38, 2, 2, 'D');
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8.5);
   doc.setTextColor(71, 85, 105);
-  doc.text("Subtotal Modules Price:", 112, y + 8);
+  doc.text("Modules Subtotal Price:", 112, y + 9);
   doc.setFont("helvetica", "bold");
   doc.setTextColor(15, 23, 42);
-  doc.text(`Rs. ${calcData.subtotal.toLocaleString('en-IN')}`, 168, y + 8);
+  doc.text(`Rs. ${calcData.subtotal.toLocaleString('en-IN')}`, 165, y + 9);
 
   doc.setFont("helvetica", "normal");
   doc.setTextColor(71, 85, 105);
-  doc.text("ESTIMATED GRAND TOTAL:", 112, y + 18);
+  doc.text("Booking Deposit Token:", 112, y + 17);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(10);
   doc.setTextColor(5, 150, 105);
-  doc.text(`Rs. ${calcData.grandTotal.toLocaleString('en-IN')}`, 165, y + 18);
+  const requiredTokenVal = calcData.requiredToken || Math.min(5000, Math.max(2000, Math.round(calcData.grandTotal * 0.20)));
+  doc.text(`Rs. ${requiredTokenVal.toLocaleString('en-IN')}`, 165, y + 17);
+
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(15, 23, 42);
+  doc.text("GRAND TOTAL VALUATION:", 112, y + 25);
+  doc.setFontSize(9.5);
+  doc.setTextColor(5, 150, 105);
+  doc.text(`Rs. ${calcData.grandTotal.toLocaleString('en-IN')}`, 162, y + 25);
 
   doc.setFillColor(15, 23, 42);
-  doc.rect(108, y + 22, 88, 8, 'F');
+  doc.rect(108, y + 29, 88, 9, 'F');
   doc.setFont("helvetica", "bold");
   doc.setFontSize(8.5);
   doc.setTextColor(255, 255, 255);
-  doc.text("OFFICIAL ESTIMATE PROPOSAL", 112, y + 27.5);
+  doc.text("NET AGREED COMMERCIAL VALUATION", 112, y + 35);
 
   // Digital Signature Seal
   doc.setFillColor(241, 245, 249);
-  doc.roundedRect(14, y, 88, 30, 2, 2, 'F');
+  doc.roundedRect(14, y, 88, 38, 2, 2, 'F');
   doc.setDrawColor(6, 182, 212);
-  doc.roundedRect(14, y, 88, 30, 2, 2, 'D');
+  doc.roundedRect(14, y, 88, 38, 2, 2, 'D');
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  doc.setTextColor(6, 182, 212);
+  doc.text("CORPORATE QUOTATION SEAL & SIGNATURE", 18, y + 9);
+  doc.setFontSize(8);
+  doc.setTextColor(15, 23, 42);
+  doc.text("Yugvex Tech Solutions, Pune & Nanded", 18, y + 17);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(71, 85, 105);
+  doc.text("Verified Signatories: Omkar Katturwar (Director)", 18, y + 24);
+  doc.text("Govindraj Ambatwar (CEO) & Nikhil Raghuwanshi (Dev)", 18, y + 30);
+  doc.text("Timestamp: " + new Date().toLocaleString(), 18, y + 36);
+
+  // Page 1 Footer
+  doc.setDrawColor(226, 232, 240);
+  doc.line(14, 278, 196, 278);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7.5);
+  doc.setTextColor(148, 163, 184);
+  doc.text("Page 1 of 2 • Yugvex Tech Solutions • Enterprise Software & AI • Nanded & Pune, Maharashtra • www.yugvex.com", 14, 284);
+
+  // ==========================================
+  // PAGE 2: MILESTONES, ARCHITECTURE & TERMS
+  // ==========================================
+  doc.addPage();
+
+  // Top Dark Banner
+  doc.setFillColor(15, 23, 42);
+  doc.rect(0, 0, 210, 24, 'F');
+  doc.setFillColor(6, 182, 212);
+  doc.rect(0, 24, 210, 1.5, 'F');
+
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(6, 182, 212);
+  doc.setFontSize(13);
+  doc.text("YUGVEX TECH SOLUTIONS", 14, 13);
+  doc.setFontSize(8.5);
+  doc.setTextColor(203, 213, 225);
+  doc.text("PROJECT MILESTONES, TECHNICAL STACK & COMMERCIAL TERMS", 14, 19);
+
+  doc.setFontSize(8);
+  doc.setTextColor(255, 255, 255);
+  doc.text("REF: " + quoteId, 165, 14);
+
+  // Section 2: Project Milestones
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9.5);
+  doc.setTextColor(15, 23, 42);
+  doc.text("2. PROJECT IMPLEMENTATION MILESTONES & SCHEDULE", 14, 34);
+
+  doc.setFillColor(248, 250, 252);
+  doc.roundedRect(14, 38, 182, 42, 2, 2, 'F');
+  doc.setDrawColor(203, 213, 225);
+  doc.roundedRect(14, 38, 182, 42, 2, 2, 'D');
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(8.5);
   doc.setTextColor(6, 182, 212);
-  doc.text("YUGVEX QUOTATION SEAL & SIGNATURE", 18, y + 8);
-  doc.setFontSize(7.5);
+  doc.text("Milestone 1: Project Kickoff & Booking Token (50% / Initial Token Advance)", 18, 46);
+  doc.setFont("helvetica", "normal");
   doc.setTextColor(71, 85, 105);
-  doc.text("Director: Omkar Katturwar | CEO: Govindraj Ambatwar", 18, y + 15);
-  doc.text("Co-Founder & Full Stack Dev: Nikhil Raghuwanshi", 18, y + 21);
+  doc.text("• Scope alignment, database schema modeling, UI wireframing & repository initialization.", 18, 51);
 
-  // Footer
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(6, 182, 212);
+  doc.text("Milestone 2: Alpha Build & Module Integration (30% Progress Payment)", 18, 59);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(71, 85, 105);
+  doc.text("• Core application features development, payment gateway API setup & client demo review.", 18, 64);
+
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(6, 182, 212);
+  doc.text("Milestone 3: Production Launch & Source Handover (20% Final Clearance)", 18, 72);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(71, 85, 105);
+  doc.text("• Cloud deployment (AWS/Vercel), SSL certificate binding, testing & complete source IP handover.", 18, 77);
+
+  // Section 3: Technical Specifications & Security
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9.5);
+  doc.setTextColor(15, 23, 42);
+  doc.text("3. SYSTEM ARCHITECTURE & SECURITY SPECIFICATIONS", 14, 90);
+
+  doc.setFillColor(241, 245, 249);
+  doc.roundedRect(14, 94, 182, 44, 2, 2, 'F');
+  doc.setDrawColor(203, 213, 225);
+  doc.roundedRect(14, 94, 182, 44, 2, 2, 'D');
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8.5);
+  doc.setTextColor(15, 23, 42);
+  doc.text("• Frontend & User Experience:", 18, 102);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(71, 85, 105);
+  doc.text("Responsive HTML5/CSS3, Modern UI Glassmorphism, Vanilla JS / React, Fast Page Speed.", 62, 102);
+
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(15, 23, 42);
+  doc.text("• Backend & Data Engine:", 18, 110);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(71, 85, 105);
+  doc.text("Node.js / Python FastAPI, PostgreSQL / MongoDB, RESTful APIs & WebSocket Realtime Data.", 62, 110);
+
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(15, 23, 42);
+  doc.text("• Security & Compliance:", 18, 118);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(71, 85, 105);
+  doc.text("256-Bit SSL HTTPS Encryption, OWASP Compliant Security Headers & CSP Protections.", 62, 118);
+
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(15, 23, 42);
+  doc.text("• Hosting & Cloud Infrastructure:", 18, 126);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(71, 85, 105);
+  doc.text("Vercel Cloud Edge Network / AWS EC2 Container Deployment with 99.99% Guaranteed Uptime.", 62, 126);
+
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(15, 23, 42);
+  doc.text("• Maintenance & Support:", 18, 134);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(71, 85, 105);
+  doc.text("1-Year Priority Technical Bug-Fix Warranty & System SLA Maintenance Included.", 62, 134);
+
+  // Section 4: Terms & Conditions
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9.5);
+  doc.setTextColor(15, 23, 42);
+  doc.text("4. COMMERCIAL TERMS & INTELLECTUAL PROPERTY GUARANTEE", 14, 148);
+
+  doc.setFillColor(255, 255, 255);
+  doc.roundedRect(14, 152, 182, 60, 2, 2, 'F');
+  doc.setDrawColor(203, 213, 225);
+  doc.roundedRect(14, 152, 182, 60, 2, 2, 'D');
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  doc.setTextColor(71, 85, 105);
+  doc.text("1. Intellectual Property Rights: 100% full source code ownership, database access, and design assets belong to", 18, 160);
+  doc.text("   the client upon complete clearance of the agreed project invoice balance.", 18, 165);
+  doc.text("2. Payment Terms: Payment token advance is non-refundable once project kickoff and design sprint commence.", 18, 172);
+  doc.text("3. Confidentiality & Non-Disclosure: Both parties agree to protect proprietary business logic, client data,", 18, 179);
+  doc.text("   and trade secrets under strict NDA standards.", 18, 184);
+  doc.text("4. Scope Revisions: Any additional feature requirements beyond the agreed itemized scope will be evaluated", 18, 191);
+  doc.text("   as a separate change order addendum.", 18, 196);
+  doc.text("5. Official Payee Account: All payments must be directed to Yugvex Tech Solutions, Pune (UPI: 8484080732@ybl).", 18, 203);
+
+  // Signatory Authorization Footer Box
+  doc.setFillColor(15, 23, 42);
+  doc.roundedRect(14, 222, 182, 42, 3, 3, 'F');
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  doc.setTextColor(6, 182, 212);
+  doc.text("EXECUTIVE AUTHORIZATION & CORPORATE APPROVAL", 18, 230);
+
+  doc.setFontSize(8);
+  doc.setTextColor(255, 255, 255);
+  doc.text("Yugvex Tech Solutions • Corporate Offices: Pune & Nanded, Maharashtra", 18, 238);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(203, 213, 225);
+  doc.text("Director: Omkar Katturwar | Co-Founder & CEO: Govindraj Ambatwar", 18, 245);
+  doc.text("Co-Founder & Full Stack Developer: Nikhil Raghuwanshi (B.Tech CSE)", 18, 251);
+  doc.text("Official Support Line: +91 8484080732 | Email: katturwaroma313@gmail.com", 18, 257);
+
+  // Page 2 Footer
   doc.setDrawColor(226, 232, 240);
-  doc.line(14, 275, 196, 275);
+  doc.line(14, 278, 196, 278);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(7.5);
   doc.setTextColor(148, 163, 184);
-  doc.text("Yugvex Tech Solutions • Enterprise Software & SaaS Solutions • Nanded, Maharashtra • www.yugvex.com", 14, 281);
+  doc.text("Page 2 of 2 • Yugvex Tech Solutions • Enterprise Software & AI • Nanded & Pune, Maharashtra • www.yugvex.com", 14, 284);
 
   doc.save(`Yugvex_Project_Quotation_${quoteId}.pdf`);
 };

@@ -10,7 +10,7 @@
   // --- Default Payment Receiver Credentials ---
   const DEFAULT_PAYMENT_CONFIG = {
     upiId: '8484080732@ybl',
-    payeeName: 'GOVINDRAJ HANMANT AMBATWAR',
+    payeeName: 'Yugvex Tech Solutions, Pune',
     bankName: 'PhonePe / YBL UPI',
     companyName: 'Yugvex Tech Solutions'
   };
@@ -477,7 +477,7 @@
       `⚡ *Token Amount Paid:* Rs. ${tokenPaid.toLocaleString('en-IN')}%0A` +
       `⏳ *Pending Balance:* Rs. ${pendingBal.toLocaleString('en-IN')}%0A` +
       `💳 *Transaction UTR:* ${encodeURIComponent(req.txnRef)}%0A` +
-      `👤 *Payee Account:* GOVINDRAJ HANMANT AMBATWAR%0A` +
+      `👤 *Payee Account:* Yugvex Tech Solutions, Pune%0A` +
       `✅ *Status:* PAYMENT VERIFIED & CONFIRMED%0A%0A` +
       `Director: Omkar Katturwar | Yugvex Tech Solutions%0A` +
       `Website: www.yugvex.com`;

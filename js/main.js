@@ -258,6 +258,14 @@ function initProjectModal() {
                 </div>
               </div>
 
+              <!-- Razorpay Instant Pay Action -->
+              <div style="margin-bottom:1rem;background:rgba(2,132,199,0.12);border:1px solid rgba(6,182,212,0.3);padding:0.85rem;border-radius:var(--radius-sm);text-align:center;">
+                <button type="button" id="payViaRazorpayBtn" class="btn btn-md" style="width:100%;background:linear-gradient(135deg, #0284C7 0%, #06B6D4 100%);color:#fff;font-weight:700;box-shadow:0 4px 15px rgba(6,182,212,0.3);display:flex;align-items:center;justify-content:center;gap:0.5rem;border:none;cursor:pointer;padding:0.75rem 1rem;">
+                  💳 Pay Instantly via Razorpay (UPI, Card, NetBanking)
+                </button>
+                <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Secured by Razorpay • Instant Payment ID & Receipt Auto-Fill</div>
+              </div>
+
               <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;">
                 <div>
                   <label for="projTotalCost" style="display:block;font-size:0.78rem;color:var(--text-muted);margin-bottom:0.25rem;font-weight:600;">Total Project Cost (₹)</label>
@@ -278,12 +286,13 @@ function initProjectModal() {
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
                 <div>
                   <label for="projTxnRef" style="display:block;font-size:0.78rem;color:var(--text-muted);margin-bottom:0.25rem;font-weight:600;">Transaction UTR / Ref No *</label>
-                  <input type="text" id="projTxnRef" required placeholder="e.g. 423984029102" style="width:100%;padding:0.6rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;font-weight:600;border-radius:var(--radius-sm);">
+                  <input type="text" id="projTxnRef" required placeholder="e.g. pay_Pxyz123456" style="width:100%;padding:0.6rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;font-weight:600;border-radius:var(--radius-sm);">
                 </div>
 
                 <div>
                   <label for="projPayMethod" style="display:block;font-size:0.78rem;color:var(--text-muted);margin-bottom:0.25rem;font-weight:600;">Payment App/Method</label>
                   <select id="projPayMethod" style="width:100%;padding:0.6rem;background:rgba(30,41,59,0.9);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);">
+                    <option value="Razorpay Online" selected>Razorpay Gateway (Online)</option>
                     <option value="PhonePe QR">PhonePe QR Code</option>
                     <option value="Google Pay">Google Pay UPI</option>
                     <option value="Paytm UPI">Paytm UPI</option>
@@ -350,6 +359,42 @@ function initProjectModal() {
         }
         updateFinancials();
       });
+    });
+  }
+
+  // Razorpay Button Click Listener
+  const payRazorpayBtn = document.getElementById('payViaRazorpayBtn');
+  if (payRazorpayBtn) {
+    payRazorpayBtn.addEventListener('click', () => {
+      const amount = parseFloat(amountPaidInput.value) || 5000;
+      const name = document.getElementById('projClientName').value.trim();
+      const email = document.getElementById('projClientEmail').value.trim();
+      const phone = document.getElementById('projClientPhone').value.trim();
+      const plan = document.getElementById('projPlan').value;
+
+      if (typeof window.initiateRazorpayPayment === 'function') {
+        window.initiateRazorpayPayment({
+          amount: amount,
+          name: name,
+          email: email,
+          phone: phone,
+          description: 'Payment for ' + plan,
+          onSuccess: (response) => {
+            const txnRefInput = document.getElementById('projTxnRef');
+            const payMethodSelect = document.getElementById('projPayMethod');
+            if (txnRefInput) txnRefInput.value = response.razorpay_payment_id;
+            if (payMethodSelect) payMethodSelect.value = 'Razorpay Online';
+            alert('✅ Razorpay Payment Successful!\nPayment ID: ' + response.razorpay_payment_id + '\n\nClick "Submit Request & Get PDF Receipt" below to finalize your booking.');
+          },
+          onFailure: (error) => {
+            if (error && error.message && error.message !== 'Payment cancelled by user') {
+              alert('Razorpay Payment Notification: ' + (error.description || error.message || 'Payment attempt completed.'));
+            }
+          }
+        });
+      } else {
+        alert('Razorpay Payment Gateway initializing... Please try again.');
+      }
     });
   }
 

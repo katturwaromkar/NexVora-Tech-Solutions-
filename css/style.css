@@ -802,7 +802,7 @@ h1, h2, h3, h4, h5, h6 {
 /* --- Services Showcase --- */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 2rem;
 }
 
@@ -872,7 +872,7 @@ h1, h2, h3, h4, h5, h6 {
 /* --- Products & AI Cards --- */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 2rem;
 }
 

@@ -124,7 +124,8 @@
     max-width: 100% !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
-    word-break: break-word !alignment;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
   }
 
   .product-tag, .badge-upcoming {

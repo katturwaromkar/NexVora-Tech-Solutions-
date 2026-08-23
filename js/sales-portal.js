@@ -391,7 +391,8 @@
     const reqIndex = requests.findIndex(r => r.id === reqId);
     if (reqIndex === -1) return;
 
-    requests[reqIndex].status = 'Payment Verified & Confirmed';
+    requests[reqIndex].status = 'Verified & Confirmed';
+    requests[reqIndex].isTemporary = false;
     localStorage.setItem('yugvex_project_requests', JSON.stringify(requests));
 
     const req = requests[reqIndex];
@@ -412,7 +413,8 @@
       paymentMethod: req.payMethod + ' (UTR: ' + req.txnRef + ')',
       txnRef: req.txnRef,
       status: pendingAmt === 0 ? 'fully-paid' : 'token-received',
-      salesPerson: 'Admin Approval',
+      isTemporary: false,
+      salesPerson: 'Admin Approval (Omkar Katturwar)',
       createdAt: new Date().toISOString(),
       dueDate: req.payDate
     };
@@ -429,10 +431,10 @@
 
     window.renderClientRequestsTable();
 
-    // Auto download PDF receipt for Admin
+    // Auto download Official Verified PDF receipt for Admin
     window.downloadClientRequestPDF(req.id);
 
-    if (confirm(`Payment for Request ${req.id} (UTR: ${req.txnRef}) verified & approved!\n\nOfficial PDF receipt generated. Would you like to share the receipt with ${req.name} on WhatsApp now?`)) {
+    if (confirm(`Payment for Request ${req.id} (UTR: ${req.txnRef}) verified & approved!\n\nOfficial Final PDF receipt generated. Would you like to share the verified receipt with ${req.name} on WhatsApp now?`)) {
       window.shareClientRequestWhatsapp(req.id);
     }
   };

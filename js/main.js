@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjectModal();
   initQuotationModal();
   initMobileQuickDock();
+  initFloatingWhatsapp();
   initModals();
   initFormsAndToasts();
   initFAQAccordion();
@@ -26,31 +27,47 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-/* --- Theme Toggle Engine (Light / Dark Mode) --- */
+/* --- Theme Toggle Engine (Syncrio Bright Light / Dark Mode) --- */
 function initThemeToggle() {
   const savedTheme = localStorage.getItem('yugvex_theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  updateThemeIcons(savedTheme);
+  applyTheme(savedTheme);
 
   document.addEventListener('click', (e) => {
-    const toggleBtn = e.target.closest('.theme-toggle-btn');
+    const toggleBtn = e.target.closest('#themeToggleBtn, .theme-toggle-btn');
     if (!toggleBtn) return;
 
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    const currentTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
     const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
     
-    document.documentElement.setAttribute('data-theme', nextTheme);
     localStorage.setItem('yugvex_theme', nextTheme);
-    updateThemeIcons(nextTheme);
+    applyTheme(nextTheme);
   });
 }
 
-function updateThemeIcons(theme) {
-  const themeBtns = document.querySelectorAll('.theme-toggle-btn');
-  themeBtns.forEach(btn => {
-    btn.innerHTML = theme === 'light' ? '🌙' : '☀️';
-    btn.setAttribute('aria-label', `Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`);
-  });
+function applyTheme(theme) {
+  if (theme === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.querySelectorAll('.theme-icon-dark').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.theme-icon-light').forEach(el => el.style.display = 'inline');
+    document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+      if (!btn.querySelector('.theme-icon-light')) {
+        btn.innerHTML = '🌙';
+      }
+      btn.setAttribute('aria-label', 'Switch to Dark Mode');
+      btn.setAttribute('title', 'Switch to Dark Mode');
+    });
+  } else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.querySelectorAll('.theme-icon-dark').forEach(el => el.style.display = 'inline');
+    document.querySelectorAll('.theme-icon-light').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+      if (!btn.querySelector('.theme-icon-dark')) {
+        btn.innerHTML = '☀️';
+      }
+      btn.setAttribute('aria-label', 'Switch to Light Mode');
+      btn.setAttribute('title', 'Switch to Light Mode');
+    });
+  }
 }
 
 /* --- Mobile Sticky Quick Action Dock --- */
@@ -63,20 +80,43 @@ function initMobileQuickDock() {
   dock.innerHTML = `
     <div class="mobile-quick-dock-container">
       <a href="tel:+917219290885" class="mobile-dock-btn call-btn" aria-label="Call Yugvex Support">
-        <span class="mobile-dock-icon">📞</span>
+        <span class="mobile-dock-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </span>
         <span>Call</span>
       </a>
       <a href="https://wa.me/917219290885" target="_blank" rel="noopener" class="mobile-dock-btn whatsapp-btn" aria-label="Chat on WhatsApp">
-        <span class="mobile-dock-icon">💬</span>
+        <span class="mobile-dock-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 0C5.384 0 0 5.383 0 12.031c0 2.124.553 4.197 1.604 6.02L.062 24l6.096-1.599a11.956 11.956 0 005.873 1.536h.005c6.645 0 12.028-5.384 12.028-12.031C24.064 5.383 18.678 0 12.031 0zm.005 22.012h-.004a9.98 9.98 0 01-5.087-1.396l-.365-.217-3.781.991 1.009-3.687-.238-.379a9.957 9.957 0 01-1.53-5.301c0-5.513 4.486-9.999 10.001-9.999 5.514 0 10.001 4.486 10.001 9.999 0 5.514-4.487 10.001-10.002 10.001zm5.485-7.495c-.301-.15-1.782-.879-2.057-.979-.275-.101-.476-.15-.677.15-.201.301-.777.979-.953 1.18-.175.201-.351.226-.652.076-.301-.15-1.272-.469-2.424-1.498-.897-.801-1.502-1.79-1.677-2.091-.175-.301-.019-.464.131-.614.135-.134.301-.351.451-.526.15-.175.201-.301.301-.501.101-.201.05-.376-.025-.526-.075-.15-.677-1.632-.927-2.233-.243-.585-.49-.506-.677-.516l-.577-.01c-.201 0-.526.075-.802.376s-1.053 1.03-1.053 2.513c0 1.483 1.078 2.91 1.228 3.111.15.201 2.122 3.24 5.141 4.545.718.31 1.279.495 1.716.634.721.229 1.377.197 1.896.12.578-.086 1.782-.728 2.033-1.431.25-.702.25-1.304.175-1.43-.075-.126-.275-.201-.576-.351z"/></svg>
+        </span>
         <span>WhatsApp</span>
       </a>
       <button type="button" class="mobile-dock-btn quote-btn" data-modal-target="projectModal" aria-label="Get Project Quote">
-        <span class="mobile-dock-icon">⚡</span>
+        <span class="mobile-dock-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.05 11a22.35 22.35 0 0 1-3.95 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+        </span>
         <span>Get Quote</span>
       </button>
     </div>
   `;
   document.body.appendChild(dock);
+}
+
+/* --- Modernized Floating WhatsApp Action Widget --- */
+function initFloatingWhatsapp() {
+  if (document.querySelector('.floating-whatsapp')) return;
+
+  const btn = document.createElement('a');
+  btn.href = 'https://wa.me/917219290885?text=Hello%20Yugvex%20Tech%20Solutions!';
+  btn.target = '_blank';
+  btn.rel = 'noopener noreferrer';
+  btn.className = 'floating-whatsapp';
+  btn.setAttribute('aria-label', 'Chat on WhatsApp');
+  btn.setAttribute('title', 'Chat directly with Yugvex Tech Solutions on WhatsApp');
+  btn.innerHTML = `
+    <svg viewBox="0 0 24 24"><path d="M12.031 0C5.384 0 0 5.383 0 12.031c0 2.124.553 4.197 1.604 6.02L.062 24l6.096-1.599a11.956 11.956 0 005.873 1.536h.005c6.645 0 12.028-5.384 12.028-12.031C24.064 5.383 18.678 0 12.031 0zm.005 22.012h-.004a9.98 9.98 0 01-5.087-1.396l-.365-.217-3.781.991 1.009-3.687-.238-.379a9.957 9.957 0 01-1.53-5.301c0-5.513 4.486-9.999 10.001-9.999 5.514 0 10.001 4.486 10.001 9.999 0 5.514-4.487 10.001-10.002 10.001zm5.485-7.495c-.301-.15-1.782-.879-2.057-.979-.275-.101-.476-.15-.677.15-.201.301-.777.979-.953 1.18-.175.201-.351.226-.652.076-.301-.15-1.272-.469-2.424-1.498-.897-.801-1.502-1.79-1.677-2.091-.175-.301-.019-.464.131-.614.135-.134.301-.351.451-.526.15-.175.201-.301.301-.501.101-.201.05-.376-.025-.526-.075-.15-.677-1.632-.927-2.233-.243-.585-.49-.506-.677-.516l-.577-.01c-.201 0-.526.075-.802.376s-1.053 1.03-1.053 2.513c0 1.483 1.078 2.91 1.228 3.111.15.201 2.122 3.24 5.141 4.545.718.31 1.279.495 1.716.634.721.229 1.377.197 1.896.12.578-.086 1.782-.728 2.033-1.431.25-.702.25-1.304.175-1.43-.075-.126-.275-.201-.576-.351z"/></svg>
+  `;
+  document.body.appendChild(btn);
 }
 
 /* --- Navbar Scroll Effect --- */
@@ -93,7 +133,7 @@ function initNavbar() {
   });
 }
 
-/* --- Mobile Drawer Menu --- */
+/* --- Mobile Drawer Menu (Strict Scroll Lock) --- */
 function initMobileDrawer() {
   const hamburgerBtn = document.querySelector('.hamburger-btn');
   const drawer = document.querySelector('.mobile-nav-drawer');
@@ -103,18 +143,31 @@ function initMobileDrawer() {
 
   if (!hamburgerBtn || !drawer || !overlay) return;
 
+  function preventTouch(e) {
+    if (drawer.contains(e.target)) return;
+    e.preventDefault();
+  }
+
   function openDrawer() {
     drawer.classList.add('active');
     overlay.classList.add('active');
     hamburgerBtn.setAttribute('aria-expanded', 'true');
+    
+    document.documentElement.classList.add('mobile-nav-open');
+    document.body.classList.add('mobile-nav-open');
     document.body.style.overflow = 'hidden';
+    window.addEventListener('touchmove', preventTouch, { passive: false });
   }
 
   function closeDrawer() {
     drawer.classList.remove('active');
     overlay.classList.remove('active');
     hamburgerBtn.setAttribute('aria-expanded', 'false');
+    
+    document.documentElement.classList.remove('mobile-nav-open');
+    document.body.classList.remove('mobile-nav-open');
     document.body.style.overflow = '';
+    window.removeEventListener('touchmove', preventTouch);
   }
 
   hamburgerBtn.addEventListener('click', openDrawer);
@@ -628,34 +681,7 @@ function showProjectSubmissionSuccess(reqData) {
   document.body.appendChild(modalOverlay);
 }
 
-/* --- Theme Switcher (Dark Mode / Bright White Light Mode) --- */
-function initThemeToggle() {
-  const toggleBtns = document.querySelectorAll('#themeToggleBtn, .theme-toggle-btn');
-  const savedTheme = localStorage.getItem('yugvex_theme') || 'dark';
 
-  function applyTheme(theme) {
-    if (theme === 'light') {
-      document.documentElement.setAttribute('data-theme', 'light');
-      document.querySelectorAll('.theme-icon-dark').forEach(el => el.style.display = 'none');
-      document.querySelectorAll('.theme-icon-light').forEach(el => el.style.display = 'inline');
-    } else {
-      document.documentElement.removeAttribute('data-theme');
-      document.querySelectorAll('.theme-icon-dark').forEach(el => el.style.display = 'inline');
-      document.querySelectorAll('.theme-icon-light').forEach(el => el.style.display = 'none');
-    }
-  }
-
-  applyTheme(savedTheme);
-
-  toggleBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-      const next = current === 'dark' ? 'light' : 'dark';
-      localStorage.setItem('yugvex_theme', next);
-      applyTheme(next);
-    });
-  });
-}
 
 // Global PDF Receipt Download function - Enhanced Corporate Format
 window.downloadClientRequestPDF = function(reqId) {
@@ -1152,26 +1178,26 @@ function initQuotationModal() {
   modalOverlay.style.zIndex = '100002';
 
   modalOverlay.innerHTML = `
-    <div class="modal-content glass-card" style="max-width:920px;width:95%;max-height:92vh;overflow-y:auto;padding:2rem;position:relative;border:1px solid rgba(6,182,212,0.4);box-shadow:0 10px 40px rgba(0,0,0,0.6);">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;border-bottom:1px solid var(--border-light);padding-bottom:1rem;">
-        <div>
-          <span class="badge" style="background:rgba(6,182,212,0.15);color:var(--primary);border:1px solid rgba(6,182,212,0.3);margin-bottom:0.35rem;display:inline-block;font-weight:700;padding:0.25rem 0.6rem;">Yugvex Tech Solutions • Pune & Nanded</span>
-          <h3 id="quotationModalTitle" style="margin:0;font-family:var(--font-heading);font-size:1.5rem;color:var(--text-main);">🧮 Instant Project Quotation & Cost Calculator</h3>
-          <p style="font-size:0.82rem;color:var(--text-muted);margin:0.2rem 0 0 0;">Select your custom tech requirements to generate an official 2-Page corporate proposal PDF.</p>
+    <div class="modal-content glass-card quote-modal-card" style="max-width:920px;width:95%;max-height:92vh;overflow-y:auto;padding:2rem;position:relative;border:1px solid rgba(6,182,212,0.4);box-shadow:0 10px 40px rgba(0,0,0,0.6);">
+      <div class="quote-modal-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;border-bottom:1px solid var(--border-light);padding-bottom:1rem;position:relative;">
+        <div class="quote-header-info">
+          <span class="badge quote-badge" style="background:rgba(6,182,212,0.15);color:var(--primary);border:1px solid rgba(6,182,212,0.3);margin-bottom:0.35rem;display:inline-block;font-weight:700;padding:0.25rem 0.6rem;">Yugvex Tech Solutions • Pune & Nanded</span>
+          <h3 id="quotationModalTitle" class="quote-modal-title" style="margin:0;font-family:var(--font-heading);font-size:1.5rem;color:var(--text-main);">🧮 Instant Project Quotation & Cost Calculator</h3>
+          <p class="quote-modal-sub" style="font-size:0.82rem;color:var(--text-muted);margin:0.2rem 0 0 0;">Select your custom tech requirements to generate an official 2-Page corporate proposal PDF.</p>
         </div>
         <button class="modal-close-btn" id="closeQuotationModalBtn" aria-label="Close Quotation Modal" style="font-size:1.8rem;background:transparent;border:none;color:#fff;cursor:pointer;padding:0.2rem 0.6rem;">&times;</button>
       </div>
 
-      <div style="display:grid;grid-template-columns:1.2fr 0.8fr;gap:1.5rem;align-items:start;">
+      <div class="quote-modal-body-grid" style="display:grid;grid-template-columns:1.2fr 0.8fr;gap:1.5rem;align-items:start;">
         
         <!-- Left Side: Selection Controls -->
-        <div>
+        <div class="quote-controls-column">
           <!-- Step 1: Base Service Selection -->
-          <div style="background:rgba(15,23,42,0.7);padding:1.1rem;border-radius:var(--radius-md);border:1px solid var(--border-light);margin-bottom:1rem;">
+          <div class="quote-step-card" style="background:rgba(15,23,42,0.7);padding:1.1rem;border-radius:var(--radius-md);border:1px solid var(--border-light);margin-bottom:1rem;">
             <h4 style="color:var(--primary);margin-bottom:0.75rem;font-size:0.95rem;font-weight:700;display:flex;align-items:center;gap:0.4rem;">
               <span>🌐 1. Select Primary Service Package *</span>
             </h4>
-            <select id="quoteBasePackage" style="width:100%;padding:0.75rem;background:rgba(30,41,59,0.95);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);font-size:0.9rem;font-weight:600;">
+            <select id="quoteBasePackage" class="quote-select" style="width:100%;padding:0.75rem;background:rgba(30,41,59,0.95);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);font-size:0.9rem;font-weight:600;">
               <optgroup label="Website & Digital Solutions (From Official Brochure)">
                 <option value="Single-Page Starter Website" data-price="1500">Starter Landing Page — ₹1,500</option>
                 <option value="Starter Business Website" data-price="2999">Business Starter Web — ₹2,999</option>
@@ -1197,36 +1223,36 @@ function initQuotationModal() {
           </div>
 
           <!-- Step 2: Custom Add-on Modules -->
-          <div style="background:rgba(15,23,42,0.7);padding:1.1rem;border-radius:var(--radius-md);border:1px solid var(--border-light);margin-bottom:1rem;">
+          <div class="quote-step-card" style="background:rgba(15,23,42,0.7);padding:1.1rem;border-radius:var(--radius-md);border:1px solid var(--border-light);margin-bottom:1rem;">
             <h4 style="color:var(--secondary);margin-bottom:0.75rem;font-size:0.95rem;font-weight:700;display:flex;align-items:center;gap:0.4rem;">
               <span>🧩 2. Choose Custom Add-on Modules</span>
             </h4>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;font-size:0.82rem;">
-              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
+            <div class="quote-addons-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;font-size:0.82rem;">
+              <label class="quote-addon-label" style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
                 <input type="checkbox" class="quote-addon-cb" data-addon="Custom UI/UX Design System & Wireframes" data-price="4999" style="accent-color:var(--primary);">
                 <span>UI/UX Design (+₹4,999)</span>
               </label>
-              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
+              <label class="quote-addon-label" style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
                 <input type="checkbox" class="quote-addon-cb" data-addon="Razorpay Online Payment Gateway" data-price="2999" checked style="accent-color:var(--primary);">
                 <span>Razorpay Gateway (+₹2,999)</span>
               </label>
-              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
+              <label class="quote-addon-label" style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
                 <input type="checkbox" class="quote-addon-cb" data-addon="WhatsApp Direct Order Automation Bot" data-price="3499" checked style="accent-color:var(--primary);">
                 <span>WhatsApp Bot (+₹3,499)</span>
               </label>
-              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
+              <label class="quote-addon-label" style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
                 <input type="checkbox" class="quote-addon-cb" data-addon="Multi-Branch & Multi-Warehouse Sync" data-price="7999" style="accent-color:var(--primary);">
                 <span>Multi-Warehouse (+₹7,999)</span>
               </label>
-              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
+              <label class="quote-addon-label" style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
                 <input type="checkbox" class="quote-addon-cb" data-addon="SEO Optimization & Google Indexing" data-price="3999" checked style="accent-color:var(--primary);">
                 <span>SEO & Indexing (+₹3,999)</span>
               </label>
-              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
+              <label class="quote-addon-label" style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;background:rgba(30,41,59,0.6);padding:0.45rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
                 <input type="checkbox" class="quote-addon-cb" data-addon="Domain, SSL & Cloud Infrastructure Setup" data-price="2499" checked style="accent-color:var(--primary);">
                 <span>Domain & Cloud (+₹2,499)</span>
               </label>
-              <label style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;grid-column:span 2;background:rgba(30,41,59,0.6);padding:0.5rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
+              <label class="quote-addon-label quote-addon-full" style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);cursor:pointer;grid-column:span 2;background:rgba(30,41,59,0.6);padding:0.5rem;border-radius:4px;border:1px solid rgba(255,255,255,0.05);">
                 <input type="checkbox" class="quote-addon-cb" data-addon="1-Year Priority Maintenance & SLA Support" data-price="6999" style="accent-color:var(--primary);">
                 <span>1-Year Priority Maintenance & Dedicated SLA Support (+₹6,999)</span>
               </label>
@@ -1234,33 +1260,33 @@ function initQuotationModal() {
           </div>
 
           <!-- Step 3: Timeline & Delivery Urgency -->
-          <div style="background:rgba(15,23,42,0.7);padding:1.1rem;border-radius:var(--radius-md);border:1px solid var(--border-light);margin-bottom:1rem;">
+          <div class="quote-step-card" style="background:rgba(15,23,42,0.7);padding:1.1rem;border-radius:var(--radius-md);border:1px solid var(--border-light);margin-bottom:1rem;">
             <h4 style="color:#34D399;margin-bottom:0.75rem;font-size:0.95rem;font-weight:700;display:flex;align-items:center;gap:0.4rem;">
               <span>⚡ 3. Delivery Timeline & Sprint Speed</span>
             </h4>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;font-size:0.8rem;">
-              <label style="background:rgba(30,41,59,0.8);padding:0.6rem;border-radius:4px;border:1px solid var(--border-light);cursor:pointer;text-align:center;">
+            <div class="quote-urgency-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;font-size:0.8rem;">
+              <label class="quote-urgency-label" style="background:rgba(30,41,59,0.8);padding:0.6rem;border-radius:4px;border:1px solid var(--border-light);cursor:pointer;text-align:center;">
                 <input type="radio" name="quoteUrgency" value="1.0" checked style="accent-color:#34D399;"> Standard (14-21 Days)
               </label>
-              <label style="background:rgba(30,41,59,0.8);padding:0.6rem;border-radius:4px;border:1px solid var(--border-light);cursor:pointer;text-align:center;">
+              <label class="quote-urgency-label" style="background:rgba(30,41,59,0.8);padding:0.6rem;border-radius:4px;border:1px solid var(--border-light);cursor:pointer;text-align:center;">
                 <input type="radio" name="quoteUrgency" value="1.15" style="accent-color:#34D399;"> Express 7-Day (+15%)
               </label>
-              <label style="background:rgba(30,41,59,0.8);padding:0.6rem;border-radius:4px;border:1px solid var(--border-light);cursor:pointer;text-align:center;">
+              <label class="quote-urgency-label" style="background:rgba(30,41,59,0.8);padding:0.6rem;border-radius:4px;border:1px solid var(--border-light);cursor:pointer;text-align:center;">
                 <input type="radio" name="quoteUrgency" value="1.30" style="accent-color:#34D399;"> Rush 72-Hour (+30%)
               </label>
             </div>
           </div>
 
           <!-- Step 4: Client Contact Details -->
-          <div style="background:rgba(15,23,42,0.7);padding:1.1rem;border-radius:var(--radius-md);border:1px solid var(--border-light);">
+          <div class="quote-step-card" style="background:rgba(15,23,42,0.7);padding:1.1rem;border-radius:var(--radius-md);border:1px solid var(--border-light);">
             <h4 style="color:#FBBF24;margin-bottom:0.75rem;font-size:0.95rem;font-weight:700;display:flex;align-items:center;gap:0.4rem;">
               <span>👤 4. Client Information (For Corporate PDF Proposal)</span>
             </h4>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.5rem;">
+            <div class="quote-client-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.5rem;">
               <input type="text" id="quoteClientName" placeholder="Client Full Name *" required style="width:100%;padding:0.65rem;background:rgba(30,41,59,0.95);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);font-size:0.85rem;">
               <input type="tel" id="quoteClientPhone" placeholder="WhatsApp Mobile Number *" required style="width:100%;padding:0.65rem;background:rgba(30,41,59,0.95);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);font-size:0.85rem;">
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <div class="quote-client-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
               <input type="email" id="quoteClientEmail" placeholder="Email Address *" required style="width:100%;padding:0.65rem;background:rgba(30,41,59,0.95);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);font-size:0.85rem;">
               <input type="text" id="quoteBusinessName" placeholder="Company / Store Name" style="width:100%;padding:0.65rem;background:rgba(30,41,59,0.95);border:1px solid var(--border-light);color:#fff;border-radius:var(--radius-sm);font-size:0.85rem;">
             </div>
@@ -1268,7 +1294,7 @@ function initQuotationModal() {
         </div>
 
         <!-- Right Side: Live Calculation Box & Actions -->
-        <div style="background:linear-gradient(145deg, rgba(15,23,42,0.98) 0%, rgba(30,41,59,0.98) 100%);padding:1.35rem;border-radius:var(--radius-md);border:1px solid var(--primary);position:sticky;top:0;box-shadow:0 8px 30px rgba(0,0,0,0.5);">
+        <div class="quote-summary-box" style="background:linear-gradient(145deg, rgba(15,23,42,0.98) 0%, rgba(30,41,59,0.98) 100%);padding:1.35rem;border-radius:var(--radius-md);border:1px solid var(--primary);position:sticky;top:0;box-shadow:0 8px 30px rgba(0,0,0,0.5);">
           <h4 style="color:#fff;margin-bottom:0.75rem;font-size:1.15rem;border-bottom:1px solid var(--border-light);padding-bottom:0.5rem;display:flex;align-items:center;justify-content:space-between;">
             <span>Live Quotation Summary</span>
             <span style="font-size:0.75rem;color:var(--primary);font-weight:600;">GST Compliant</span>
@@ -1278,21 +1304,21 @@ function initQuotationModal() {
             <!-- Rendered by JS -->
           </div>
 
-          <div style="background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.3);padding:1rem;border-radius:var(--radius-sm);margin-bottom:1.25rem;text-align:center;">
+          <div class="quote-total-card" style="background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.3);padding:1rem;border-radius:var(--radius-sm);margin-bottom:1.25rem;text-align:center;">
             <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.25rem;">Total Estimated Quotation Valuation</div>
             <div id="quoteGrandTotal" style="font-size:1.85rem;font-weight:800;color:#34D399;">₹0</div>
             <div id="quoteTokenRequiredText" style="font-size:0.75rem;color:#FBBF24;font-weight:700;margin-top:0.35rem;">Token Deposit Required: ₹2,000</div>
             <div style="font-size:0.7rem;color:var(--text-subtle);margin-top:0.2rem;">Valid 30 Days • Payee: Yugvex Tech Solutions, Pune</div>
           </div>
 
-          <div style="display:flex;flex-direction:column;gap:0.75rem;">
-            <button type="button" id="downloadQuotePdfBtn" class="btn btn-primary btn-md" style="width:100%;justify-content:center;font-weight:700;">
+          <div class="quote-actions-wrap" style="display:flex;flex-direction:column;gap:0.75rem;">
+            <button type="button" id="downloadQuotePdfBtn" class="btn btn-primary btn-md quote-action-btn" style="width:100%;justify-content:center;font-weight:700;">
               📄 Download Official Corporate PDF Proposal
             </button>
-            <button type="button" id="shareQuoteWhatsappBtn" class="btn btn-secondary btn-md" style="width:100%;justify-content:center;border-color:#25D366;color:#25D366;font-weight:700;">
+            <button type="button" id="shareQuoteWhatsappBtn" class="btn btn-secondary btn-md quote-action-btn" style="width:100%;justify-content:center;border-color:#25D366;color:#25D366;font-weight:700;">
               💬 Share Quotation on WhatsApp ↗
             </button>
-            <button type="button" id="proceedToBookFromQuoteBtn" class="btn btn-accent btn-md" style="width:100%;justify-content:center;background:linear-gradient(135deg,#0284c7,#06b6d4);color:#fff;font-weight:800;box-shadow:0 4px 15px rgba(6,182,212,0.35);padding:0.85rem;">
+            <button type="button" id="proceedToBookFromQuoteBtn" class="btn btn-accent btn-md quote-action-btn" style="width:100%;justify-content:center;background:linear-gradient(135deg,#0284c7,#06b6d4);color:#fff;font-weight:800;box-shadow:0 4px 15px rgba(6,182,212,0.35);padding:0.85rem;">
               🚀 Book Project with this Quotation →
             </button>
           </div>

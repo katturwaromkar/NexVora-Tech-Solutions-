@@ -5,25 +5,57 @@
 
 window.YUGVEX_RAZORPAY_KEY = 'rzp_test_TT8v9aCoJzadD9';
 
+let rzpSdkPromise = null;
+
 /**
- * Ensures Razorpay SDK is loaded asynchronously.
+ * Preloads and ensures Razorpay SDK is available.
  * @returns {Promise<boolean>}
  */
 function loadRazorpaySdk() {
-  return new Promise((resolve) => {
-    if (window.Razorpay) {
-      resolve(true);
-      return;
+  if (window.Razorpay) {
+    return Promise.resolve(true);
+  }
+  if (rzpSdkPromise) {
+    return rzpSdkPromise;
+  }
+
+  rzpSdkPromise = new Promise((resolve) => {
+    // Check if script element already exists
+    let script = document.querySelector('script[src="https://checkout.razorpay.com/v1/checkout.js"]');
+    if (!script) {
+      script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.async = true;
+      document.head.appendChild(script);
     }
-    const script = document.createElement('script');
-    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-    script.onload = () => resolve(true);
+
+    script.onload = () => {
+      console.log('Razorpay SDK loaded successfully.');
+      resolve(true);
+    };
+
     script.onerror = () => {
-      console.error('Failed to load Razorpay SDK');
+      console.error('Failed to load Razorpay SDK from checkout.razorpay.com');
+      rzpSdkPromise = null; // reset for retry
       resolve(false);
     };
-    document.body.appendChild(script);
+
+    // Timeout fallback after 10 seconds
+    setTimeout(() => {
+      if (window.Razorpay) {
+        resolve(true);
+      }
+    }, 10000);
   });
+
+  return rzpSdkPromise;
+}
+
+// Automatically preload SDK on script load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadRazorpaySdk);
+} else {
+  loadRazorpaySdk();
 }
 
 /**
@@ -39,8 +71,15 @@ function loadRazorpaySdk() {
  */
 async function initiateRazorpayPayment(options = {}) {
   const loaded = await loadRazorpaySdk();
-  if (!loaded) {
-    alert('Failed to initialize Razorpay Gateway. Please check your internet connection and try again.');
+  if (!loaded && !window.Razorpay) {
+    const useQr = confirm(
+      '⚠️ Razorpay Gateway SDK could not be loaded directly.\n\n' +
+      'Would you like to pay using our official PhonePe UPI QR code / Bank Transfer details instead?'
+    );
+    if (useQr) {
+      const qrEl = document.querySelector('.token-preset-btn') || document.getElementById('projPayMethod');
+      if (qrEl) qrEl.scrollIntoView({ behavior: 'smooth' });
+    }
     if (options.onFailure) options.onFailure({ message: 'SDK load failed' });
     return;
   }
@@ -53,7 +92,7 @@ async function initiateRazorpayPayment(options = {}) {
     currency: 'INR',
     name: 'Yugvex Tech Solutions',
     description: options.description || 'Project Booking & Software Development',
-    image: 'assets/images/yugvex-logo.png', // Fallback to brand image if available
+    image: 'assets/images/yugvex-logo.png',
     prefill: {
       name: options.name || '',
       email: options.email || '',

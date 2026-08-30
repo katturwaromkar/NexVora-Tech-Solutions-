@@ -1740,6 +1740,206 @@ textarea.form-control {
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15) !important;
 }
 
+[data-theme="light"] label,
+[data-theme="light"] .form-label {
+  color: #334155 !important;
+  font-weight: 600 !important;
+}
+
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Light Mode Quotation Calculator & Modals */
+[data-theme="light"] .modal-close-btn,
+[data-theme="light"] .close-drawer-btn {
+  color: #0F172A !important;
+}
+
+[data-theme="light"] .quote-modal-card,
+[data-theme="light"] .quote-step-card,
+[data-theme="light"] .quote-summary-box {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 4px 25px rgba(15, 23, 42, 0.08) !important;
+  color: #0F172A !important;
+}
+
+[data-theme="light"] .quote-step-card h4 {
+  color: #4F46E5 !important;
+}
+
+[data-theme="light"] .quote-select,
+[data-theme="light"] .quote-addon-label,
+[data-theme="light"] .quote-urgency-label {
+  background: #F8FAFC !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #1E293B !important;
+}
+
+[data-theme="light"] .quote-addon-label:hover,
+[data-theme="light"] .quote-urgency-label:hover {
+  background: rgba(79, 70, 229, 0.06) !important;
+  border-color: #4F46E5 !important;
+  color: #4F46E5 !important;
+}
+
+[data-theme="light"] .quote-addon-label span,
+[data-theme="light"] .quote-urgency-label span {
+  color: #1E293B !important;
+}
+
+[data-theme="light"] .quote-modal-title,
+[data-theme="light"] .modal-dynamic-title {
+  color: #0F172A !important;
+}
+
+[data-theme="light"] .quote-modal-sub {
+  color: #475569 !important;
+}
+
+[data-theme="light"] #quoteBreakdownList {
+  color: #334155 !important;
+}
+
+[data-theme="light"] #quoteBreakdownList div {
+  color: #334155 !important;
+}
+
+[data-theme="light"] #quoteBreakdownList span {
+  color: #0F172A !important;
+}
+
+[data-theme="light"] .quote-total-card {
+  background: rgba(79, 70, 229, 0.06) !important;
+  border: 1px solid rgba(79, 70, 229, 0.25) !important;
+}
+
+[data-theme="light"] #quoteGrandTotal {
+  color: #059669 !important;
+}
+
+[data-theme="light"] #quoteTokenRequiredText {
+  color: #D97706 !important;
+}
+
+/* Light Mode Overrides for Hardcoded Inlines */
+[data-theme="light"] div[style*="background:rgba(15,23,42"],
+[data-theme="light"] div[style*="background: rgba(15,23,42"],
+[data-theme="light"] div[style*="background:rgba(15, 23, 42"],
+[data-theme="light"] div[style*="background: rgba(15, 23, 42"],
+[data-theme="light"] div[style*="background:rgba(30,41,59"],
+[data-theme="light"] div[style*="background: rgba(30,41,59"],
+[data-theme="light"] div[style*="background:rgba(30, 41, 59"],
+[data-theme="light"] div[style*="background: rgba(30, 41, 59"] {
+  background: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+[data-theme="light"] div[style*="color:#fff"],
+[data-theme="light"] div[style*="color: #fff"],
+[data-theme="light"] span[style*="color:#fff"],
+[data-theme="light"] span[style*="color: #fff"],
+[data-theme="light"] strong[style*="color:#fff"],
+[data-theme="light"] strong[style*="color: #fff"],
+[data-theme="light"] h3[style*="color:#fff"],
+[data-theme="light"] h4[style*="color:#fff"] {
+  color: #0F172A !important;
+}
+
+/* Light Mode Command Center Widget */
+[data-theme="light"] .command-center-widget {
+  background: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
+}
+
+[data-theme="light"] .command-kpi-card {
+  background: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+}
+
+[data-theme="light"] .kpi-val {
+  color: #0F172A !important;
+}
+
+[data-theme="light"] .kpi-title {
+  color: #64748B !important;
+}
+
+/* Light Mode Quick Dock */
+[data-theme="light"] .mobile-quick-dock {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-top: 1px solid #E2E8F0 !important;
+  box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.08) !important;
+}
+
+[data-theme="light"] .mobile-dock-btn {
+  background: #F8FAFC !important;
+  color: #1E293B !important;
+  border-color: #E2E8F0 !important;
+}
+
+[data-theme="light"] .mobile-dock-btn.call-btn {
+  background: rgba(79, 70, 229, 0.08) !important;
+  color: #4F46E5 !important;
+  border-color: rgba(79, 70, 229, 0.2) !important;
+}
+
+[data-theme="light"] .mobile-dock-btn.whatsapp-btn {
+  background: rgba(37, 211, 102, 0.1) !important;
+  color: #16A34A !important;
+  border-color: rgba(37, 211, 102, 0.3) !important;
+}
+
+/* Light Mode Mobile Drawer */
+[data-theme="light"] .mobile-nav-drawer {
+  background: #FFFFFF !important;
+  border-right: 1px solid #E2E8F0 !important;
+  box-shadow: 20px 0 40px rgba(15, 23, 42, 0.1) !important;
+}
+
+[data-theme="light"] .mobile-nav-link {
+  color: #334155 !important;
+  border-bottom-color: #F1F5F9 !important;
+}
+
+[data-theme="light"] .mobile-nav-link:hover,
+[data-theme="light"] .mobile-nav-link.active {
+  color: #4F46E5 !important;
+  background: rgba(79, 70, 229, 0.05) !important;
+}
+
+/* Light Mode FAQ */
+[data-theme="light"] .faq-item {
+  background: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+[data-theme="light"] .faq-question {
+  color: #0F172A !important;
+}
+
+[data-theme="light"] .faq-answer {
+  color: #475569 !important;
+}
+
+/* Light Mode Security Components */
+[data-theme="light"] .security-modal-card,
+[data-theme="light"] .security-card-item {
+  background: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+[data-theme="light"] .security-detail-box {
+  background: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+  color: #334155 !important;
+}
+
 .btn-request-sm {
   padding: 0.35rem 0.85rem !important;
   font-size: 0.8rem !important;
@@ -2174,4 +2374,15 @@ html, body {
   border-color: var(--primary);
   color: var(--primary);
 }
+
+/* Map Iframe Theme Adaptability */
+.map-iframe {
+  filter: invert(90%) hue-rotate(180deg);
+  transition: filter 0.3s ease;
+}
+
+[data-theme="light"] .map-iframe {
+  filter: none !important;
+}
+
 

@@ -92,7 +92,7 @@ async function initiateRazorpayPayment(options = {}) {
     currency: 'INR',
     name: 'Yugvex Tech Solutions',
     description: options.description || 'Project Booking & Software Development',
-    image: 'assets/images/yugvex-logo.png',
+    image: 'assets/images/logo.png',
     prefill: {
       name: options.name || '',
       email: options.email || '',

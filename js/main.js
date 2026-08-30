@@ -428,8 +428,15 @@ function initProjectModal() {
 
   function updateFinancials() {
     const selectedOpt = planSelect.options[planSelect.selectedIndex];
-    const totalCost = parseFloat(selectedOpt.getAttribute('data-price')) || 24999;
-    totalCostInput.value = totalCost;
+    const defaultPrice = parseFloat(selectedOpt.getAttribute('data-price')) || 24999;
+    
+    let totalCost;
+    if (totalCostInput.dataset.customQuote === 'true') {
+      totalCost = parseFloat(totalCostInput.value) || defaultPrice;
+    } else {
+      totalCost = defaultPrice;
+      totalCostInput.value = totalCost;
+    }
 
     let tokenPaid = parseFloat(amountPaidInput.value);
     if (isNaN(tokenPaid)) {
@@ -441,7 +448,10 @@ function initProjectModal() {
   }
 
   if (planSelect && totalCostInput && amountPaidInput && pendingBalInput) {
-    planSelect.addEventListener('change', updateFinancials);
+    planSelect.addEventListener('change', () => {
+      totalCostInput.dataset.customQuote = 'false';
+      updateFinancials();
+    });
     amountPaidInput.addEventListener('input', updateFinancials);
     updateFinancials();
 
@@ -1033,17 +1043,17 @@ function escapeHTML(str) {
 
 let lastFormSubmitTime = 0;
 
-/* --- Form Validation, Anti-Spam & WhatsApp Dispatch --- */
+/* --- Form Validation, Anti-Spam, Storage & WhatsApp Dispatch --- */
 function initFormsAndToasts() {
-  const forms = document.querySelectorAll('form:not(#projectRequestForm)');
+  const forms = document.querySelectorAll('form:not(#projectRequestForm):not(#authForm)');
 
   forms.forEach(form => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       
       const now = Date.now();
-      if (now - lastFormSubmitTime < 10000) {
-        showToast('Security Alert: Please wait 10 seconds before submitting another request.', 'error');
+      if (now - lastFormSubmitTime < 5000) {
+        showToast('Please wait a few seconds before submitting another request.', 'error');
         return;
       }
 
@@ -1060,15 +1070,74 @@ function initFormsAndToasts() {
         }
       });
 
-      if (isValid) {
-        lastFormSubmitTime = Date.now();
-        showToast('Request submitted successfully!', 'success');
-        const parentModal = form.closest('.modal-overlay');
-        if (parentModal) closeModal(parentModal);
-        form.reset();
-      } else {
+      if (!isValid) {
         showToast('Please complete all required fields.', 'error');
+        return;
       }
+
+      lastFormSubmitTime = Date.now();
+
+      // Extract form fields
+      const nameInput = form.querySelector('input[type="text"]:not([style*="display:none"])');
+      const emailInput = form.querySelector('input[type="email"]');
+      const phoneInput = form.querySelector('input[type="tel"]');
+      const msgInput = form.querySelector('textarea');
+      const modalTitleEl = form.closest('.modal-content') ? form.closest('.modal-content').querySelector('.modal-dynamic-title') : null;
+
+      const clientName = nameInput ? nameInput.value.trim() : 'Valued Client';
+      const clientEmail = emailInput ? emailInput.value.trim() : 'N/A';
+      const clientPhone = phoneInput ? phoneInput.value.trim() : 'N/A';
+      const requirements = msgInput ? msgInput.value.trim() : 'General Inquiry';
+      const inquiryCategory = modalTitleEl ? modalTitleEl.textContent.trim() : (form.id || 'Website Inquiry');
+
+      const inqId = 'YUG-INQ-' + Math.floor(100000 + Math.random() * 900000);
+
+      // Save inquiry in localStorage for staff/admin portal
+      try {
+        const existingReqs = JSON.parse(localStorage.getItem('yugvex_project_requests') || '[]');
+        existingReqs.unshift({
+          id: inqId,
+          name: clientName,
+          email: clientEmail,
+          phone: clientPhone,
+          category: inquiryCategory,
+          plan: 'Inquiry / Proposal Request',
+          details: requirements,
+          totalAmount: 0,
+          amount: 0,
+          pendingAmount: 0,
+          txnRef: 'INQUIRY-ONLY',
+          payMethod: 'Pending Consultation',
+          payDate: new Date().toISOString().split('T')[0],
+          status: 'New Lead',
+          isTemporary: true,
+          submittedAt: new Date().toISOString()
+        });
+        localStorage.setItem('yugvex_project_requests', JSON.stringify(existingReqs));
+      } catch (err) {
+        console.warn('Storage sync error:', err);
+      }
+
+      showToast(`Thank you, ${clientName}! Your inquiry has been received.`, 'success');
+
+      const parentModal = form.closest('.modal-overlay');
+      if (parentModal) closeModal(parentModal);
+
+      // Offer direct WhatsApp forward
+      const msg = `*YUGVEX TECH SOLUTIONS - NEW INQUIRY*%0A%0A` +
+        `👤 *Name:* ${encodeURIComponent(clientName)}%0A` +
+        `📞 *Phone:* ${encodeURIComponent(clientPhone)}%0A` +
+        `✉️ *Email:* ${encodeURIComponent(clientEmail)}%0A` +
+        `📌 *Inquiry Category:* ${encodeURIComponent(inquiryCategory)}%0A` +
+        `📝 *Requirement:* ${encodeURIComponent(requirements)}%0A%0A` +
+        `_Please provide project details and estimation._`;
+
+      const forwardWhatsapp = confirm(`✅ Inquiry recorded successfully!\n\nWould you like to send your inquiry directly to Director Omkar Katturwar on WhatsApp for priority response?`);
+      if (forwardWhatsapp) {
+        window.open(`https://wa.me/917219290885?text=${msg}`, '_blank');
+      }
+
+      form.reset();
     });
   });
 }
@@ -1519,10 +1588,13 @@ function initQuotationModal() {
       }
 
       // 3. Fill Step 3 Totals & Token Deposit Amount
-      const projTotalAmountInput = document.getElementById('projTotalAmount');
+      const projTotalCostInput = document.getElementById('projTotalCost');
       const projAmountPaidInput = document.getElementById('projAmountPaid');
 
-      if (projTotalAmountInput) projTotalAmountInput.value = calcData.grandTotal;
+      if (projTotalCostInput) {
+        projTotalCostInput.value = calcData.grandTotal;
+        projTotalCostInput.dataset.customQuote = 'true';
+      }
       if (projAmountPaidInput) {
         projAmountPaidInput.value = calcData.requiredToken;
         projAmountPaidInput.dispatchEvent(new Event('input'));

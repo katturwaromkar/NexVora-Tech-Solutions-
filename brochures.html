@@ -451,75 +451,214 @@
         return;
       }
       
-      if (window.jspdf) {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        
-        doc.setFillColor(15, 23, 42);
-        doc.rect(0, 0, 210, 297, 'F');
-        
-        doc.setTextColor(6, 182, 212);
-        doc.setFontSize(22);
-        doc.text("YUGVEX TECH SOLUTIONS", 20, 25);
-        
-        doc.setTextColor(255, 255, 255);
-        doc.setFontSize(14);
-        
-        let title = "OFFICIAL SOLUTION BROCHURE";
-        let items = [];
-
-        if (type === 'pharmacy') {
-          title = "PHARMACY STORE ERP SPECIFICATION";
-          items = [
-            "• Medicine Stock Inventory with Batch & Expiry Date Alerts",
-            "• Barcode Scanner Billing & Instant Thermal Receipt Print",
-            "• Wholesale Supplier Purchases & GST Tax Filing Reports"
-          ];
-        } else if (type === 'restaurant') {
-          title = "RESTAURANT MANAGEMENT & QR POS";
-          items = [
-            "• Contactless Table QR Code Digital Ordering System",
-            "• Kitchen Display System (KOT) & Table Reservation",
-            "• Swiggy / Zomato Inventory & Revenue Analytics"
-          ];
-        } else if (type === 'ai') {
-          title = "AI VOICE BOT & AUTOMATION SUITE";
-          items = [
-            "• Autonomous AI Voice Tele-Calling & Customer Support Agent",
-            "• Intelligent Document OCR & Invoice Extraction Engine",
-            "• AI Resume Screening & Automated Lead Qualifying Bot"
-          ];
-        } else {
-          title = "YUGVEX TECH SOLUTIONS CORPORATE PROFILE";
-          items = [
-            "• Co-Founder & Director: Omkar Katturwar",
-            "• Services: Web Apps, SaaS Products, AI Systems, Enterprise ERPs",
-            "• Contact: +91 7219290885 | katturwaroma313@gmail.com"
-          ];
-        }
-
-        doc.text(title, 20, 40);
-        doc.setFontSize(11);
-        doc.setTextColor(200, 200, 200);
-
-        let y = 60;
-        items.forEach(item => {
-          doc.text(item, 20, y);
-          y += 12;
-        });
-
-        doc.setLineWidth(0.5);
-        doc.setDrawColor(6, 182, 212);
-        doc.line(20, y + 10, 190, y + 10);
-
-        doc.setFontSize(10);
-        doc.setTextColor(150, 150, 150);
-        doc.text("Yugvex Tech Solutions - Remote, Pune | www.yugvextechsolutions.site", 20, y + 25);
-
-        doc.save(`Yugvex_${type}_brochure.pdf`);
-      } else {
-        alert("Preparing brochure download...");
+      const jsPDF = window.jspdf ? window.jspdf.jsPDF : (window.jsPDF ? window.jsPDF : null);
+      if (!jsPDF) {
+        alert("Initializing PDF engine... Please try again in a moment.");
+        return;
       }
+
+      const doc = new jsPDF('p', 'mm', 'a4');
+      const today = new Date().toISOString().split('T')[0];
+
+      // Configuration per brochure type
+      let meta = {
+        title: "ENTERPRISE SOFTWARE SPECIFICATION",
+        subtitle: "Comprehensive Technical Scope, Architecture & Commercial Pricing",
+        price: "Rs. 24,999",
+        badge: "OFFICIAL BROCHURE",
+        modules: [],
+        techStack: "Node.js, Python, PostgreSQL, REST API, HTML5/CSS3",
+        turnaround: "14 - 21 Business Days"
+      };
+
+      if (type === 'pharmacy') {
+        meta.title = "PHARMACY STORE ERP SOFTWARE SPECIFICATIONS";
+        meta.subtitle = "Turnkey Retail & Wholesale Pharmacy ERP with GST Billing & Expiry Tracker";
+        meta.price = "Rs. 19,999 (One-Time Deployment / Annual License)";
+        meta.badge = "PHARMACY ERP DECK";
+        meta.turnaround = "7 - 10 Business Days";
+        meta.modules = [
+          { name: "Batch & Expiry Date Tracker", desc: "Automated FIFO stock alerts, near-expiry discount triggers, and batch ledger." },
+          { name: "GST Prescription Billing & POS", desc: "Lightning-fast barcode scanner billing, HSN code auto-lookup, thermal printer support." },
+          { name: "Salt / Generic Medicine Search Engine", desc: "Instantly discover alternative generic substitutes and salt formulations during sale." },
+          { name: "Wholesale Supplier Purchase Ledger", desc: "Automate purchase order entry, supplier payment credit tracking, and invoice audit." },
+          { name: "Stock Reorder & WhatsApp Alerts", desc: "Automated WhatsApp alerts when critical medicines hit minimum stock safety levels." }
+        ];
+      } else if (type === 'restaurant') {
+        meta.title = "RESTAURANT MANAGEMENT POS & QR ORDERING SYSTEM";
+        meta.subtitle = "All-In-One Restaurant Operating System with Table QR, KOT & Billing POS";
+        meta.price = "Rs. 14,999 (Complete Setup)";
+        meta.badge = "RESTAURANT POS DECK";
+        meta.turnaround = "5 - 7 Business Days";
+        meta.modules = [
+          { name: "Contactless Table QR Code Menu", desc: "Dine-in guests scan QR to browse visual digital menu and place live orders directly." },
+          { name: "Kitchen Display System (KOT Engine)", desc: "Real-time kitchen order ticket routing to chef screens by category and prep station." },
+          { name: "POS Billing & Split-Bill Engine", desc: "Instant table checkout, GST split invoicing, discount codes, and multi-payment modes." },
+          { name: "Recipe & Raw Material Inventory", desc: "Automated ingredient deduction per dish prepared with low-inventory alerts." },
+          { name: "Swiggy & Zomato Delivery Sync", desc: "Unified dashboard to manage multi-channel online orders and dine-in revenue analytics." }
+        ];
+      } else if (type === 'ai') {
+        meta.title = "AI VOICE BOT & AUTOMATION SUITE SPECIFICATIONS";
+        meta.subtitle = "Autonomous Conversational Voice Agents, Document OCR & Workflow AI";
+        meta.price = "Rs. 29,999 (Base Telecalling & AI Agent Architecture)";
+        meta.badge = "AI INNOVATIONS DECK";
+        meta.turnaround = "10 - 14 Business Days";
+        meta.modules = [
+          { name: "Autonomous AI Voice Calling Agent", desc: "Sub-500ms low-latency inbound & outbound natural speech AI for lead qualification." },
+          { name: "Intelligent Document OCR & Invoice Parser", desc: "Extract structured data from scanned invoices, receipts, and identity documents." },
+          { name: "AI Resume Screening & Ranking Bot", desc: "Automatically match candidate resumes against job descriptions with competency scores." },
+          { name: "WhatsApp Conversational AI Sales Bot", desc: "24/7 intelligent sales assistant connected to your product database with checkout links." }
+        ];
+      } else {
+        meta.title = "YUGVEX TECH SOLUTIONS CORPORATE CAPABILITIES DECK";
+        meta.subtitle = "Enterprise Custom Software, High-Speed Web Portals, ERPs & AI Solutions";
+        meta.price = "Custom Packages from Rs. 4,999 to Rs. 59,999";
+        meta.badge = "CORPORATE PROFILE";
+        meta.turnaround = "Flexible Agile Sprints";
+        meta.modules = [
+          { name: "High-Speed Custom Web Engineering", desc: "Semantic HTML5, CSS3, and Vanilla JavaScript architectures scoring 98+ on Web Vitals." },
+          { name: "Turnkey Enterprise ERP Suites", desc: "Education ERP, Hospital MIS, Retail POS, and Manufacturing IoT systems." },
+          { name: "Mobile App Development", desc: "Cross-platform iOS and Android apps with biometric security and offline caching." },
+          { name: "Cloud DevOps & 99.9% SLA Infrastructure", desc: "AWS, Vercel, Docker, Nginx, CI/CD pipeline automation and continuous monitoring." }
+        ];
+      }
+
+      // ==========================================
+      // PAGE 1: EXECUTIVE SPECIFICATION & MODULES
+      // ==========================================
+      doc.setFillColor(255, 255, 255);
+      doc.rect(0, 0, 210, 297, 'F');
+
+      // Top Navy Header
+      doc.setFillColor(15, 23, 42);
+      doc.rect(0, 0, 210, 36, 'F');
+      doc.setFillColor(6, 182, 212);
+      doc.rect(0, 36, 210, 2, 'F');
+
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(6, 182, 212);
+      doc.setFontSize(20);
+      doc.text("YUGVEX TECH SOLUTIONS", 14, 16);
+
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(203, 213, 225);
+      doc.setFontSize(9);
+      doc.text("Enterprise Software Engineering, SaaS ERP Suites & AI Innovations", 14, 23);
+      doc.text("Official Technical Specification & Architecture Catalog", 14, 28);
+
+      // Badge
+      doc.setFillColor(30, 41, 59);
+      doc.roundedRect(128, 10, 68, 18, 3, 3, 'F');
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(9);
+      doc.text(meta.badge, 132, 17);
+      doc.setFontSize(7.5);
+      doc.setTextColor(52, 211, 153);
+      doc.text("RELEASE DATE: " + today, 132, 23);
+
+      // Title Box
+      doc.setFillColor(248, 250, 252);
+      doc.roundedRect(14, 44, 182, 22, 2, 2, 'F');
+      doc.setDrawColor(226, 232, 240);
+      doc.roundedRect(14, 44, 182, 22, 2, 2, 'D');
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      doc.setTextColor(15, 23, 42);
+      doc.text(meta.title, 18, 53);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8.5);
+      doc.setTextColor(71, 85, 105);
+      doc.text(meta.subtitle, 18, 60);
+
+      // Section: Core Modules
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      doc.setTextColor(15, 23, 42);
+      doc.text("1. CORE ARCHITECTURAL MODULES & CAPABILITIES", 14, 74);
+
+      let y = 78;
+      meta.modules.forEach((mod, idx) => {
+        doc.setFillColor(255, 255, 255);
+        doc.roundedRect(14, y, 182, 18, 2, 2, 'F');
+        doc.setDrawColor(226, 232, 240);
+        doc.roundedRect(14, y, 182, 18, 2, 2, 'D');
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(9);
+        doc.setTextColor(6, 182, 212);
+        doc.text(`[0${idx+1}] ${mod.name}`, 18, y + 6.5);
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(8);
+        doc.setTextColor(71, 85, 105);
+        doc.text(mod.desc, 18, y + 13);
+
+        y += 21;
+      });
+
+      // Commercial Pricing & Commercial Model Box
+      y += 4;
+      doc.setFillColor(248, 250, 252);
+      doc.roundedRect(14, y, 182, 34, 2, 2, 'F');
+      doc.setDrawColor(6, 182, 212);
+      doc.roundedRect(14, y, 182, 34, 2, 2, 'D');
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(9.5);
+      doc.setTextColor(15, 23, 42);
+      doc.text("2. COMMERCIAL PRICING & DELIVERY SCHEDULE", 18, y + 8);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8.5);
+      doc.setTextColor(71, 85, 105);
+      doc.text("Official Standard Investment:", 18, y + 16);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(5, 150, 105);
+      doc.text(meta.price, 72, y + 16);
+
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(71, 85, 105);
+      doc.text("Standard Sprint Delivery:", 18, y + 23);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(15, 23, 42);
+      doc.text(meta.turnaround, 72, y + 23);
+
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(71, 85, 105);
+      doc.text("Supported Payment Methods:", 18, y + 30);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(15, 23, 42);
+      doc.text("Razorpay Online Gateway, PhonePe UPI QR (8484080732@ybl) & NetBanking", 72, y + 30);
+
+      // Signatory Seal Box
+      y += 38;
+      doc.setFillColor(15, 23, 42);
+      doc.roundedRect(14, y, 182, 32, 2, 2, 'F');
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(9);
+      doc.setTextColor(6, 182, 212);
+      doc.text("YUGVEX TECH SOLUTIONS • EXECUTIVE LEADERSHIP", 18, y + 8);
+
+      doc.setFontSize(8);
+      doc.setTextColor(255, 255, 255);
+      doc.text("Director: Omkar Katturwar | Co-Founder & CEO: Govindraj Ambatwar", 18, y + 15);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(203, 213, 225);
+      doc.text("Co-Founder: Nikhil Raghuwanshi | Corporate Offices: Pune & Nanded, Maharashtra", 18, y + 21);
+      doc.text("Direct Contact: +91 7219290885 / +91 8484080732 | Email: katturwaroma313@gmail.com", 18, y + 27);
+
+      // Page Footer
+      doc.setDrawColor(226, 232, 240);
+      doc.line(14, 280, 196, 280);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(7.5);
+      doc.setTextColor(148, 163, 184);
+      doc.text("Yugvex Tech Solutions • Official Corporate Brochure • GST Compliant • www.yugvex.com", 14, 286);
+
+      doc.save(`Yugvex_${type}_brochure.pdf`);
     }
   </script>
   <script src="js/security.js"></script>

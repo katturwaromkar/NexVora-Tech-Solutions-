@@ -1,5 +1,7 @@
 /* ==========================================================================
-   Yugvex Tech Solutions - Enterprise Security & Compliance Middleware
+   Yugvex Tech Solutions - Enterprise Security & SSL Compliance Middleware
+   Features: Anti-Clickjacking, XSS & SQLi Sanitization, Anti-Bot Honeypots,
+   Rate-Limiting Protection, Form Payload Caps, SSL Security Modal.
    ========================================================================== */
 
 (function () {
@@ -12,73 +14,6 @@
     } catch (e) {
       console.warn('[Security Guard] Clickjacking framing attempt thwarted.');
     }
-  }
-
-  // --- Anti-Inspect & DevTools Locking Engine ---
-  function initAntiInspect() {
-    // Disable Context Menu (Right Click)
-    document.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      showSecurityToast('Security Guard: Right-click inspection disabled.', 'warning');
-      return false;
-    });
-
-    // Disable Keyboard DevTools Shortcuts
-    document.addEventListener('keydown', (e) => {
-      // F12 key
-      if (e.key === 'F12' || e.keyCode === 123) {
-        e.preventDefault();
-        showSecurityToast('Security Guard: DevTools (F12) blocked.', 'danger');
-        return false;
-      }
-
-      // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U, Ctrl+S
-      if (e.ctrlKey || e.metaKey) {
-        const key = (e.key || '').toLowerCase();
-        if (e.shiftKey && (key === 'i' || key === 'j' || key === 'c' || key === 'k')) {
-          e.preventDefault();
-          showSecurityToast('Security Guard: Developer Tools shortcut blocked.', 'danger');
-          return false;
-        }
-        if (key === 'u' || key === 's') {
-          e.preventDefault();
-          showSecurityToast('Security Guard: Source viewing disabled.', 'warning');
-          return false;
-        }
-      }
-    });
-  }
-
-  // --- Total Zoom Lock Engine (Prevents Pinch & Keyboard Zooming) ---
-  function initZoomLock() {
-    // Disable Ctrl + Wheel Zoom
-    window.addEventListener('wheel', (e) => {
-      if (e.ctrlKey) {
-        e.preventDefault();
-      }
-    }, { passive: false });
-
-    // Disable Key Combinations for Zooming (Ctrl +, Ctrl -, Ctrl 0)
-    window.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '=' || e.key === '0')) {
-        e.preventDefault();
-      }
-    });
-
-    // Disable Mobile Multi-Touch Pinch Zoom
-    document.addEventListener('touchstart', (e) => {
-      if (e.touches && e.touches.length > 1) {
-        e.preventDefault();
-      }
-    }, { passive: false });
-
-    document.addEventListener('gesturestart', (e) => {
-      e.preventDefault();
-    });
-
-    document.addEventListener('gesturechange', (e) => {
-      e.preventDefault();
-    });
   }
 
   // --- Advanced XSS & SQLi Sanitization ---
@@ -100,7 +35,7 @@
     const formData = new FormData(form);
     let totalSize = 0;
     for (let pair of formData.entries()) {
-      totalSize += pair[1].length || 0;
+      totalSize += (pair[1] && pair[1].length) ? pair[1].length : 0;
     }
     return totalSize < 50000; // 50KB payload cap for security
   }
@@ -138,6 +73,7 @@
     let icon = '🛡️';
     if (type === 'warning') icon = '⚠️';
     if (type === 'danger') icon = '🚨';
+    if (type === 'success') icon = '✅';
 
     toast.innerHTML = `<span>${icon}</span><span>${sanitizeInput(message)}</span>`;
     container.appendChild(toast);
@@ -168,7 +104,7 @@
         if (hpField.value.trim() !== '') {
           e.preventDefault();
           console.warn('[Security Guard] Automated bot submission blocked.');
-          showSecurityToast('Security Check Failed: Automated bot detected.', 'danger');
+          showSecurityToast('Security Check: Automated bot submission blocked.', 'danger');
           return false;
         }
 
@@ -180,9 +116,9 @@
 
         // Rate limit check
         const formId = form.id || 'generic_form';
-        if (!RateLimiter.isAllowed(formId, 4, 30000)) {
+        if (!RateLimiter.isAllowed(formId, 5, 30000)) {
           e.preventDefault();
-          showSecurityToast('Too many submissions. Please wait 30 seconds before retrying.', 'warning');
+          showSecurityToast('Too many submissions. Please wait a moment before retrying.', 'warning');
           return false;
         }
       });
@@ -191,7 +127,7 @@
 
   // --- Security Audit Modal Logic ---
   function initSecurityModal() {
-    const triggers = document.querySelectorAll('[data-security-modal]');
+    const triggers = document.querySelectorAll('[data-security-modal], .security-badge-trigger');
     const overlay = document.getElementById('securityModalOverlay');
     const closeBtn = document.getElementById('securityModalClose');
 
@@ -236,11 +172,9 @@
   };
 
   document.addEventListener('DOMContentLoaded', () => {
-    initAntiInspect();
-    initZoomLock();
     initHoneypots();
     initSecurityModal();
-    console.log('[Security Engine] Enterprise Security Active (Anti-Inspect, DevTools Lock, Zoom-Lock, Anti-XSS, Anti-SQLi, Rate-Limiting).');
+    console.log('[Security Engine] Enterprise SSL & Security Active (Anti-Clickjacking, Anti-XSS, Anti-SQLi, Honeypot, Rate-Limiting).');
   });
 
 })();

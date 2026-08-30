@@ -103,6 +103,38 @@ function initYugvexAIChatbot() {
     const chip = e.target.closest('.chat-chip');
     if (chip) {
       const chipText = chip.getAttribute('data-value') || chip.textContent.trim();
+
+      // Direct Action Interceptors for seamless UX
+      if (chipText === 'Get Custom Quote' || chipText === '🧮 Instant Quote') {
+        const quoteModal = document.getElementById('quotationModal');
+        if (quoteModal) {
+          quoteModal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+          windowEl.classList.remove('active');
+          return;
+        }
+      }
+
+      if (chipText.includes('Book Live Demo') || chipText.includes('Open Booking Form') || chipText.includes('Book Demo')) {
+        const projModal = document.getElementById('projectModal') || document.getElementById('demoModal');
+        if (projModal) {
+          projModal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+          windowEl.classList.remove('active');
+          return;
+        }
+      }
+
+      if (chipText.includes('WhatsApp')) {
+        window.open('https://wa.me/917219290885?text=' + encodeURIComponent('Hello Omkar! I would like to discuss a project with Yugvex Tech Solutions.'), '_blank');
+        return;
+      }
+
+      if (chipText === 'Restaurant Live Demo ↗') {
+        window.open('https://demo-restro-mangement-system.vercel.app/', '_blank');
+        return;
+      }
+
       inputEl.value = chipText;
       sendMessage();
     }

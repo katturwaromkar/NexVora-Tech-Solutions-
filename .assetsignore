@@ -1,0 +1,16 @@
+# Cloudflare Wrangler & Pages Assets Ignore
+node_modules/
+node_modules/**
+scratch/
+scratch/**
+.git/
+.git/**
+.gitignore
+package.json
+package-lock.json
+README.md
+*.log
+wrangler.jsonc
+wrangler.toml
+vercel.json
+.htaccess

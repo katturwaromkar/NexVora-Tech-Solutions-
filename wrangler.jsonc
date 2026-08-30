@@ -7,25 +7,7 @@
   },
   "assets": {
     "directory": ".",
-    "binding": "ASSETS",
     "html_handling": "auto-trailing-slash",
-    "not_found_handling": "404-page",
-    "exclude": [
-      "node_modules/**",
-      "node_modules",
-      "scratch/**",
-      "scratch",
-      ".git/**",
-      ".git",
-      ".gitignore",
-      "package.json",
-      "package-lock.json",
-      "README.md",
-      "*.log",
-      "wrangler.jsonc",
-      "wrangler.toml",
-      "vercel.json",
-      ".htaccess"
-    ]
+    "not_found_handling": "404-page"
   }
 }

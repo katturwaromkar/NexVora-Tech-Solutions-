@@ -1940,6 +1940,86 @@ textarea.form-control {
   color: #334155 !important;
 }
 
+/* Light Mode Floating Badges (Hero Graphics & Stats) */
+[data-theme="light"] .floating-badge {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04) !important;
+  color: #0F172A !important;
+}
+
+[data-theme="light"] .floating-badge div {
+  color: #0F172A !important;
+}
+
+[data-theme="light"] .floating-badge div[style*="color:var(--text-muted)"],
+[data-theme="light"] .floating-badge div[style*="color: var(--text-muted)"] {
+  color: #64748B !important;
+}
+
+/* Light Mode Command Center Chart & Sub-Containers */
+[data-theme="light"] .command-chart-box,
+[data-theme="light"] div[style*="background:rgba(0,0,0"],
+[data-theme="light"] div[style*="background: rgba(0,0,0"],
+[data-theme="light"] div[style*="background:rgba(0, 0, 0"],
+[data-theme="light"] div[style*="background: rgba(0, 0, 0"] {
+  background: #F8FAFC !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #334155 !important;
+}
+
+[data-theme="light"] .command-chart-box span,
+[data-theme="light"] div[style*="background:rgba(0,0,0"] span,
+[data-theme="light"] div[style*="background: rgba(0,0,0"] span {
+  color: #64748B !important;
+}
+
+/* Light Mode Stats Counter Bar */
+[data-theme="light"] .stats-bar-section {
+  background: #F8FAFC !important;
+  border-top: 1px solid #E2E8F0 !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+}
+
+/* Light Mode Expertise & Capability Pills */
+[data-theme="light"] .expertise-pill {
+  background: #F1F5F9 !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #475569 !important;
+}
+
+[data-theme="light"] .expertise-pill:hover {
+  background: rgba(79, 70, 229, 0.08) !important;
+  border-color: #4F46E5 !important;
+  color: #4F46E5 !important;
+}
+
+/* Light Mode Team Badges & Edu */
+[data-theme="light"] .team-edu {
+  background: #F1F5F9 !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #475569 !important;
+}
+
+/* Light Mode Service & Industry Icon Wrappers */
+[data-theme="light"] .service-icon-wrap {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Light Mode Gradient Banner Placeholders */
+[data-theme="light"] div[style*="linear-gradient(135deg, rgba(6,182,212,0.15), rgba(15,23,42,0.9))"],
+[data-theme="light"] div[style*="linear-gradient(135deg, rgba(99,102,241,0.15), rgba(15,23,42,0.9))"],
+[data-theme="light"] div[style*="linear-gradient(135deg, rgba(245,158,11,0.15), rgba(15,23,42,0.9))"],
+[data-theme="light"] div[style*="linear-gradient(135deg, rgba(6,182,212,0.3), rgba(15,23,42,0.9))"],
+[data-theme="light"] div[style*="linear-gradient(135deg, rgba(99,102,241,0.3), rgba(15,23,42,0.9))"],
+[data-theme="light"] div[style*="linear-gradient(135deg, rgba(16,185,129,0.3), rgba(15,23,42,0.9))"],
+[data-theme="light"] div[style*="linear-gradient(135deg, rgba(236,72,153,0.3), rgba(15,23,42,0.9))"] {
+  background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%) !important;
+  border: 1px solid #CBD5E1 !important;
+}
+
 .btn-request-sm {
   padding: 0.35rem 0.85rem !important;
   font-size: 0.8rem !important;

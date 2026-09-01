@@ -72,12 +72,45 @@
         <a href="contact.html" class="btn btn-primary btn-sm">
           Contact Us
         </a>
+        <div class="hamburger-btn" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
     </div>
   </header>
 
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-nav-overlay"></div>
+  <aside class="mobile-nav-drawer">
+    <div class="mobile-nav-header">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon-box"><img src="assets/images/logo-icon.svg" alt="Yugvex Tech Solutions Emblem" width="40" height="40" class="img-responsive-logo"></div>
+        <div class="brand-text-wrap">
+          <span class="brand-name">Yug<span class="text-gradient">vex</span></span>
+          <span class="brand-sub">Tech Solutions</span>
+        </div>
+      </a>
+      <div class="close-drawer-btn">&times;</div>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">Home</a>
+      <a href="services.html" class="mobile-nav-link">Services</a>
+      <a href="industries.html" class="mobile-nav-link">Industries</a>
+      <a href="templates.html" class="mobile-nav-link">Templates</a>
+      <a href="products.html" class="mobile-nav-link">SaaS Products</a>
+      <a href="ai-products.html" class="mobile-nav-link">AI Products</a>
+      <a href="portfolio.html" class="mobile-nav-link">Portfolio</a>
+      <a href="brochures.html" class="mobile-nav-link">Brochures</a>
+      <a href="quotation.html" class="mobile-nav-link active">Quotation</a>
+      <a href="sales-portal.html" class="mobile-nav-link">Staff Portal</a>
+      <a href="contact.html" class="mobile-nav-link">Contact</a>
+    </nav>
+  </aside>
+
   <!-- Main Quotation Page Hero -->
-  <main style="padding: 3rem 0 5rem 0;">
+  <main style="padding: 2.5rem 0 4rem 0;">
     <div class="container">
 
       <!-- Breadcrumb & Header Banner -->
@@ -238,7 +271,7 @@
               </h2>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;" class="quote-form-grid-2">
               <div>
                 <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">Client / Contact Person Name *</label>
                 <input type="text" id="quotePageClientName" value="Akash Xerox (Idiyaas)" required placeholder="e.g. Ramesh Sharma" style="width:100%;padding:0.75rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);font-weight:600;">
@@ -250,7 +283,7 @@
               </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 1rem;">
+            <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 1rem;" class="quote-form-grid-2">
               <div>
                 <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">Company / Brand / Store Name *</label>
                 <input type="text" id="quotePageBusinessName" value="Akash Xerox" required placeholder="e.g. Idiyaas Enterprises" style="width:100%;padding:0.75rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);">

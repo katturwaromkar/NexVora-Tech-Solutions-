@@ -749,6 +749,11 @@ img, video, iframe, svg, canvas {
   .addon-check-grid {
     grid-template-columns: 1fr !important;
   }
+  .quote-form-grid-2 {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
 }
+
 
 

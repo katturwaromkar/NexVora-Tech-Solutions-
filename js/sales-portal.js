@@ -332,11 +332,27 @@
   let activeEditingQuoteId = null;
 
   // --- Initialize Portal ---
-  function initPortal() {
+  async function initPortal() {
     checkAuth();
     setupEventListeners();
     setupTabNavigation();
     setupQuotationStudio();
+
+    // Fetch latest cloud state from Cloudflare Edge API
+    if (window.CloudflareStorage) {
+      try {
+        const [cloudTxns, cloudQuotes, cloudReqs] = await Promise.all([
+          window.CloudflareStorage.getTransactions(),
+          window.CloudflareStorage.getQuotations(),
+          window.CloudflareStorage.getProjectRequests()
+        ]);
+        if (cloudTxns && cloudTxns.length) transactions = cloudTxns;
+        if (cloudQuotes && cloudQuotes.length) savedQuotations = cloudQuotes;
+      } catch (err) {
+        console.warn('Cloudflare cloud sync notice:', err);
+      }
+    }
+
     updateDashboard();
     renderClientRequestsTable();
     renderQuotationsTable();
@@ -453,6 +469,9 @@
 
   function saveTransactions() {
     localStorage.setItem('yugvex_transactions', JSON.stringify(transactions));
+    if (window.CloudflareStorage) {
+      transactions.forEach(t => window.CloudflareStorage.saveTransaction(t));
+    }
   }
 
   function calculateKpis() {
@@ -984,6 +1003,9 @@
       savedQuotations[idx] = quoteData;
     }
     localStorage.setItem('yugvex_saved_quotations', JSON.stringify(savedQuotations));
+    if (window.CloudflareStorage) {
+      window.CloudflareStorage.saveQuotation(quoteData);
+    }
     renderQuotationsTable();
   }
 
@@ -1056,6 +1078,9 @@
     if (confirm(`Are you sure you want to delete quotation ${quoteId}?`)) {
       savedQuotations = savedQuotations.filter(q => q.id !== quoteId);
       localStorage.setItem('yugvex_saved_quotations', JSON.stringify(savedQuotations));
+      if (window.CloudflareStorage) {
+        window.CloudflareStorage.deleteQuotation(quoteId);
+      }
       renderQuotationsTable();
     }
   };
@@ -1519,6 +1544,9 @@
   window.deleteTransaction = function (txnId) {
     if (confirm(`Are you sure you want to delete transaction ${txnId}? This action cannot be undone.`)) {
       transactions = transactions.filter(t => t.id !== txnId);
+      if (window.CloudflareStorage) {
+        window.CloudflareStorage.deleteTransaction(txnId);
+      }
       updateDashboard();
     }
   };

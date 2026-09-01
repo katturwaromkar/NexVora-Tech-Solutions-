@@ -613,9 +613,13 @@ function initProjectModal() {
     };
 
     try {
-      const existingReqs = JSON.parse(localStorage.getItem('yugvex_project_requests') || '[]');
-      existingReqs.unshift(newRequest);
-      localStorage.setItem('yugvex_project_requests', JSON.stringify(existingReqs));
+      if (window.CloudflareStorage && typeof window.CloudflareStorage.saveProjectRequest === 'function') {
+        window.CloudflareStorage.saveProjectRequest(newRequest);
+      } else {
+        const existingReqs = JSON.parse(localStorage.getItem('yugvex_project_requests') || '[]');
+        existingReqs.unshift(newRequest);
+        localStorage.setItem('yugvex_project_requests', JSON.stringify(existingReqs));
+      }
     } catch (err) {
       console.warn('Storage error:', err);
     }
@@ -1092,28 +1096,33 @@ function initFormsAndToasts() {
 
       const inqId = 'YUG-INQ-' + Math.floor(100000 + Math.random() * 900000);
 
-      // Save inquiry in localStorage for staff/admin portal
+      const inqData = {
+        id: inqId,
+        name: clientName,
+        email: clientEmail,
+        phone: clientPhone,
+        category: inquiryCategory,
+        plan: 'Inquiry / Proposal Request',
+        details: requirements,
+        totalAmount: 0,
+        amount: 0,
+        pendingAmount: 0,
+        txnRef: 'INQUIRY-ONLY',
+        payMethod: 'Pending Consultation',
+        payDate: new Date().toISOString().split('T')[0],
+        status: 'New Lead',
+        isTemporary: true,
+        submittedAt: new Date().toISOString()
+      };
+
       try {
-        const existingReqs = JSON.parse(localStorage.getItem('yugvex_project_requests') || '[]');
-        existingReqs.unshift({
-          id: inqId,
-          name: clientName,
-          email: clientEmail,
-          phone: clientPhone,
-          category: inquiryCategory,
-          plan: 'Inquiry / Proposal Request',
-          details: requirements,
-          totalAmount: 0,
-          amount: 0,
-          pendingAmount: 0,
-          txnRef: 'INQUIRY-ONLY',
-          payMethod: 'Pending Consultation',
-          payDate: new Date().toISOString().split('T')[0],
-          status: 'New Lead',
-          isTemporary: true,
-          submittedAt: new Date().toISOString()
-        });
-        localStorage.setItem('yugvex_project_requests', JSON.stringify(existingReqs));
+        if (window.CloudflareStorage && typeof window.CloudflareStorage.saveProjectRequest === 'function') {
+          window.CloudflareStorage.saveProjectRequest(inqData);
+        } else {
+          const existingReqs = JSON.parse(localStorage.getItem('yugvex_project_requests') || '[]');
+          existingReqs.unshift(inqData);
+          localStorage.setItem('yugvex_project_requests', JSON.stringify(existingReqs));
+        }
       } catch (err) {
         console.warn('Storage sync error:', err);
       }

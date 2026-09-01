@@ -101,7 +101,10 @@
         <a href="sales-portal.html" class="nav-link active">Staff Portal</a>
       </nav>
 
-      <div class="portal-header-actions" style="display:flex;align-items:center;gap:0.75rem;">
+      <div class="portal-header-actions" style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+        <div id="cloudflareSyncBadge" style="font-size:0.75rem;font-weight:600;padding:0.3rem 0.65rem;border-radius:20px;border:1px solid rgba(6,182,212,0.4);background:rgba(6,182,212,0.1);color:#38BDF8;display:inline-flex;align-items:center;gap:0.35rem;">
+          ☁️ Cloudflare Cloud: <strong>Ready</strong>
+        </div>
         <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Theme" title="Switch Theme (Dark / Light)">
           <span class="theme-icon-dark">🌙</span>
           <span class="theme-icon-light" style="display:none;">☀️</span>
@@ -760,6 +763,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="js/security.js"></script>
   <script src="js/razorpay.js"></script>
+  <script src="js/cloudflare-storage.js"></script>
   <script src="js/main.js"></script>
   <script src="js/sales-portal.js"></script>
 </body>

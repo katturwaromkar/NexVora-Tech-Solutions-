@@ -20,5 +20,4 @@
 /privacy         /privacy.html      200
 /terms           /terms.html        200
 
-# 404 Not Found Page Rule
-/*               /404.html          404
+# 404 Not Found Page Rule is handled via wrangler.jsonc (not_found_handling: 404-page)

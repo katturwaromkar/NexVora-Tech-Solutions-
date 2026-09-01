@@ -669,7 +669,7 @@ function showProjectSubmissionSuccess(reqData) {
 
       <p style="color:var(--text-muted);font-size:0.88rem;line-height:1.6;margin-bottom:1.5rem;">
         ${isTemp 
-          ? `Thank you <strong>${escapeHTML(reqData.name)}</strong>. Your payment UTR (<code>${escapeHTML(reqData.txnRef)}</code>) has been logged. A <strong>Temporary Provisional Receipt</strong> has been generated. Once Director Omkar Katturwar or CEO Govindraj Ambatwar verifies your payment, your Official Verified Receipt will be issued.`
+          ? `Thank you <strong>${escapeHTML(reqData.name)}</strong>. Your payment UTR (<code>${escapeHTML(reqData.txnRef)}</code>) has been logged. A <strong>Temporary Provisional Receipt</strong> has been generated. Once our operations team verifies your payment, your Official Verified Receipt will be issued.`
           : `Thank you <strong>${escapeHTML(reqData.name)}</strong>. Your online payment has been instantly verified via Razorpay. Your Official Final Receipt is ready below.`
         }
       </p>
@@ -816,11 +816,11 @@ window.downloadClientRequestPDF = function(reqId) {
     doc.text("Yugvex Tech Solutions", 18, 80);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(71, 85, 105);
-    doc.text("Director: Omkar Katturwar", 18, 86);
-    doc.text("Co-Founder & CEO: Govindraj Ambatwar", 18, 92);
-    doc.text("Co-Founder: Nikhil Raghuwanshi", 18, 98);
-    doc.text("Location: Nanded, Maharashtra - 431602", 18, 104);
-    doc.text("Phone: +91 8484080732 | www.yugvex.com", 18, 110);
+    doc.text("Corporate Offices: Pune & Nanded, Maharashtra", 18, 86);
+    doc.text("Payee Account: Yugvex Tech Solutions, Pune", 18, 92);
+    doc.text("Support Desk: support@yugvex.site", 18, 98);
+    doc.text("Official Website: www.yugvex.site", 18, 104);
+    doc.text("Contact Support: +91 8484080732", 18, 110);
 
     // Box 2: Client Details (Right)
     doc.setFillColor(241, 245, 249);
@@ -943,10 +943,10 @@ window.downloadClientRequestPDF = function(reqId) {
 
     doc.setFontSize(8);
     doc.setTextColor(15, 23, 42);
-    doc.text("Yugvex Tech Solutions - Financial Operations Dept.", 18, 216);
+    doc.text("Yugvex Tech Solutions - Operations & Finance", 18, 216);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(71, 85, 105);
-    doc.text("Verified Signatories: Omkar Katturwar (Director) & Govindraj Ambatwar (CEO)", 18, 222);
+    doc.text("Authorized Verification Desk • Corporate Office, Pune & Nanded", 18, 222);
     doc.text("System Verification Timestamp: " + new Date().toLocaleString(), 18, 228);
 
     // Decorative Digital Stamp Box
@@ -1132,9 +1132,9 @@ function initFormsAndToasts() {
         `📝 *Requirement:* ${encodeURIComponent(requirements)}%0A%0A` +
         `_Please provide project details and estimation._`;
 
-      const forwardWhatsapp = confirm(`✅ Inquiry recorded successfully!\n\nWould you like to send your inquiry directly to Director Omkar Katturwar on WhatsApp for priority response?`);
+      const forwardWhatsapp = confirm(`✅ Inquiry recorded successfully!\n\nWould you like to send your inquiry directly to Yugvex Tech Solutions on WhatsApp for priority response?`);
       if (forwardWhatsapp) {
-        window.open(`https://wa.me/917219290885?text=${msg}`, '_blank');
+        window.open(`https://wa.me/918484080732?text=${msg}`, '_blank');
       }
 
       form.reset();
@@ -1517,9 +1517,9 @@ function initQuotationModal() {
       `⚡ *Grand Total Valuation:* Rs. ${calcData.grandTotal.toLocaleString('en-IN')}%0A` +
       `💳 *Booking Deposit:* Rs. ${calcData.requiredToken.toLocaleString('en-IN')}%0A` +
       `🏢 *Official Payee:* Yugvex Tech Solutions, Pune%0A%0A` +
-      `_Proposal valid 30 days. Contact Director Omkar Katturwar at 7219290885 for onboarding schedule._`;
+      `_Proposal valid 30 days. Contact Yugvex Tech Solutions Support Desk at +91 8484080732 for onboarding schedule._`;
 
-    window.open(`https://wa.me/917219290885?text=${msg}`, '_blank');
+    window.open(`https://wa.me/918484080732?text=${msg}`, '_blank');
   });
 
   // Seamless Connection: Proceed to Book Project with this Quotation

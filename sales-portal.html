@@ -159,16 +159,32 @@
       <!-- Header & Title -->
       <div class="portal-header-bar">
         <div>
-          <div class="section-tag" style="margin-bottom:0.35rem;">Yugvex Financial Operations</div>
-          <h1 class="section-title" style="font-size:2.2rem;margin-bottom:0.25rem;">Client Requests & <span class="text-gradient">Payment Verification</span></h1>
-          <p style="color:var(--text-muted);font-size:0.95rem;">Verify PhonePe transaction UTRs, generate PDF payment receipts, and dispatch WhatsApp copies to clients.</p>
+          <div class="section-tag" style="margin-bottom:0.35rem;">Yugvex Financial & Sales Operations</div>
+          <h1 class="section-title" style="font-size:2.2rem;margin-bottom:0.25rem;">Staff & Admin <span class="text-gradient">Management Portal</span></h1>
+          <p style="color:var(--text-muted);font-size:0.95rem;">Verify transactions, create & edit official 2-Page quotations, manage client scopes, and issue PDF receipts.</p>
         </div>
 
-        <div>
-          <button class="btn btn-primary btn-lg" data-modal-open="newLeadModal">
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <button class="btn btn-accent btn-md" id="openQuotationStudioBtn" style="background:linear-gradient(135deg, #0284C7 0%, #06B6D4 100%);color:#fff;font-weight:700;box-shadow:0 4px 15px rgba(6,182,212,0.35);display:inline-flex;align-items:center;gap:0.4rem;">
+            📄 Official Quotation Studio
+          </button>
+          <button class="btn btn-primary btn-md" data-modal-open="newLeadModal">
             + New Lead & Payment Request
           </button>
         </div>
+      </div>
+
+      <!-- Portal Navigation Tabs -->
+      <div class="portal-tabs-nav" style="display:flex;gap:0.65rem;margin-bottom:1.75rem;border-bottom:1px solid var(--border-light);padding-bottom:0.75rem;overflow-x:auto;">
+        <button class="portal-tab-btn active" data-tab="tab-ledger">
+          📊 Transaction & Payment Ledger
+        </button>
+        <button class="portal-tab-btn" data-tab="tab-requests">
+          📋 Client QR Submissions (<span id="tabPendingBadge">0</span>)
+        </button>
+        <button class="portal-tab-btn" data-tab="tab-quotations">
+          📄 Official Quotations Studio (<span id="tabQuoteCountBadge">0</span>)
+        </button>
       </div>
 
       <!-- KPI Summary Cards -->
@@ -210,85 +226,127 @@
         </div>
       </div>
 
-      <!-- NEW SECTION: Client Web Submitted Project Requests & Approvals -->
-      <div style="background:rgba(15,23,42,0.8);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:2.5rem;box-shadow:var(--shadow-md);">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem;">
-          <div>
-            <h3 style="margin:0;font-family:var(--font-heading);font-size:1.3rem;color:#fff;">
-              📋 Online Client Project Requests (Payment QR Submissions)
-            </h3>
-            <p style="margin:0.2rem 0 0 0;font-size:0.85rem;color:var(--text-muted);">
-              Review incoming client project submissions, verify PhonePe UTR payment IDs, and issue PDF receipts.
-            </p>
+      <!-- TAB 1: Transaction Ledger Panel -->
+      <div class="portal-tab-pane active" id="tab-ledger">
+        <!-- Action & Search Toolbar -->
+        <div class="portal-toolbar">
+          <div class="portal-toolbar-left">
+            <div class="portal-search-box">
+              <span class="portal-search-icon">🔍</span>
+              <input type="text" id="portalSearchInput" class="portal-search-input" placeholder="Search by Client Name, Phone, Requirement, or Receipt ID...">
+            </div>
+
+            <select id="portalFilterSelect" class="portal-filter-select">
+              <option value="all">Filter: All Statuses</option>
+              <option value="token-received">⚡ Token Received</option>
+              <option value="fully-paid">✅ Fully Paid</option>
+              <option value="pending">⏳ Pending</option>
+              <option value="partial">💜 Partial Payment</option>
+            </select>
           </div>
-          <button class="btn btn-secondary btn-sm" onclick="renderClientRequestsTable()">🔄 Refresh Requests</button>
+
+          <div>
+            <button class="btn btn-secondary btn-sm" id="exportCsvBtn">
+              📥 Export CSV Ledger
+            </button>
+          </div>
         </div>
 
+        <!-- Transaction Ledger Table -->
         <div class="ledger-table-wrap">
           <table class="ledger-table">
             <thead>
               <tr>
-                <th>Request ID</th>
-                <th>Client Name & WhatsApp</th>
-                <th>Plan & Category</th>
-                <th>Amount Paid</th>
-                <th>Transaction UTR</th>
-                <th>Payment Date</th>
+                <th>Receipt ID</th>
+                <th>Client Info</th>
+                <th>Requirement & Scope</th>
+                <th>Total Project Cost</th>
+                <th>Token Paid</th>
+                <th>Pending Balance</th>
                 <th>Status</th>
-                <th>Admin Actions</th>
+                <th>PhonePe QR</th>
+                <th>Quick Actions</th>
               </tr>
             </thead>
-            <tbody id="clientRequestsTableBody">
-              <!-- Dynamically Rendered by js/sales-portal.js -->
+            <tbody id="ledgerTableBody">
+              <!-- Dynamically Rendered by sales-portal.js -->
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- Action & Search Toolbar -->
-      <div class="portal-toolbar">
-        <div class="portal-toolbar-left">
-          <div class="portal-search-box">
-            <span class="portal-search-icon">🔍</span>
-            <input type="text" id="portalSearchInput" class="portal-search-input" placeholder="Search by Client Name, Phone, Requirement, or Receipt ID...">
+      <!-- TAB 2: Online Client Requests Panel -->
+      <div class="portal-tab-pane" id="tab-requests" style="display:none;">
+        <div style="background:rgba(15,23,42,0.8);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:1.5rem;box-shadow:var(--shadow-md);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem;">
+            <div>
+              <h3 style="margin:0;font-family:var(--font-heading);font-size:1.3rem;color:var(--text-main);">
+                📋 Online Client Project Requests (Payment QR Submissions)
+              </h3>
+              <p style="margin:0.2rem 0 0 0;font-size:0.85rem;color:var(--text-muted);">
+                Review incoming client project submissions, verify PhonePe UTR payment IDs, edit client scopes, and issue PDF receipts.
+              </p>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="renderClientRequestsTable()">🔄 Refresh Requests</button>
           </div>
 
-          <select id="portalFilterSelect" class="portal-filter-select">
-            <option value="all">Filter: All Statuses</option>
-            <option value="token-received">⚡ Token Received</option>
-            <option value="fully-paid">✅ Fully Paid</option>
-            <option value="pending">⏳ Pending</option>
-            <option value="partial">💜 Partial Payment</option>
-          </select>
-        </div>
-
-        <div>
-          <button class="btn btn-secondary btn-sm" id="exportCsvBtn">
-            📥 Export CSV Ledger
-          </button>
+          <div class="ledger-table-wrap">
+            <table class="ledger-table">
+              <thead>
+                <tr>
+                  <th>Request ID</th>
+                  <th>Client Name & WhatsApp</th>
+                  <th>Plan & Category</th>
+                  <th>Amount Paid</th>
+                  <th>Transaction UTR</th>
+                  <th>Payment Date</th>
+                  <th>Status</th>
+                  <th>Admin / Sales Actions</th>
+                </tr>
+              </thead>
+              <tbody id="clientRequestsTableBody">
+                <!-- Dynamically Rendered by js/sales-portal.js -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
-      <!-- Transaction Ledger Table -->
-      <div class="ledger-table-wrap">
-        <table class="ledger-table">
-          <thead>
-            <tr>
-              <th>Receipt ID</th>
-              <th>Client Info</th>
-              <th>Requirement & Scope</th>
-              <th>Total Project Cost</th>
-              <th>Token Paid</th>
-              <th>Pending Balance</th>
-              <th>Status</th>
-              <th>PhonePe QR</th>
-              <th>Quick Actions</th>
-            </tr>
-          </thead>
-          <tbody id="ledgerTableBody">
-            <!-- Dynamically Rendered by sales-portal.js -->
-          </tbody>
-        </table>
+      <!-- TAB 3: Official Quotations Studio Panel -->
+      <div class="portal-tab-pane" id="tab-quotations" style="display:none;">
+        <div style="background:rgba(15,23,42,0.8);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:1.5rem;box-shadow:var(--shadow-md);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem;">
+            <div>
+              <h3 style="margin:0;font-family:var(--font-heading);font-size:1.3rem;color:var(--text-main);">
+                📄 Official 2-Page Quotations Studio
+              </h3>
+              <p style="margin:0.2rem 0 0 0;font-size:0.85rem;color:var(--text-muted);">
+                Create customized, editable quotations for clients. Features itemized scopes, hosting specs, standard legal clauses, and authorized company seal.
+              </p>
+            </div>
+            <button class="btn btn-primary btn-md" onclick="window.openNewQuotationModal()">
+              + Create New Quotation
+            </button>
+          </div>
+
+          <div class="ledger-table-wrap">
+            <table class="ledger-table">
+              <thead>
+                <tr>
+                  <th>Quote ID & Date</th>
+                  <th>Client / Business Name</th>
+                  <th>Subject / Service</th>
+                  <th>Total Valuation</th>
+                  <th>Validity</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="quotationsTableBody">
+                <!-- Dynamically Rendered by js/sales-portal.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -429,6 +487,264 @@
       <div id="paymentQrContainer">
         <!-- Rendered by sales-portal.js -->
       </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: Official 2-Page Quotation Studio & Generator (Admin & Sales) -->
+  <div class="portal-auth-overlay" id="quotationStudioModal" style="display:none;">
+    <div class="auth-card" style="max-width:940px;width:95%;max-height:92vh;overflow-y:auto;text-align:left;padding:2rem;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;border-bottom:1px solid var(--border-light);padding-bottom:1rem;">
+        <div>
+          <span class="badge" style="background:rgba(6,182,212,0.15);color:var(--primary);border:1px solid rgba(6,182,212,0.3);font-size:0.75rem;padding:0.2rem 0.6rem;border-radius:4px;font-weight:700;margin-bottom:0.25rem;display:inline-block;">Yugvex Executive Quotations Studio</span>
+          <h3 style="font-family:var(--font-heading);font-size:1.45rem;font-weight:700;color:var(--text-main);margin:0;">
+            📄 Create & Edit Official 2-Page Quotation
+          </h3>
+        </div>
+        <button data-modal-close style="background:transparent;border:none;color:var(--text-muted);font-size:1.8rem;cursor:pointer;">&times;</button>
+      </div>
+
+      <!-- Quick Preset Template Loader -->
+      <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-light);padding:0.85rem 1.1rem;border-radius:var(--radius-sm);margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;">
+        <div style="font-size:0.85rem;font-weight:600;color:var(--primary);">
+          ⚡ Quick Load Service Template Preset:
+        </div>
+        <select id="quotePresetSelect" style="padding:0.45rem 0.85rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);font-size:0.85rem;font-weight:600;">
+          <option value="ecommerce">E-Commerce Website (₹17,000 Total)</option>
+          <option value="pharmacy">Pharmacy Store ERP (₹19,999 Total)</option>
+          <option value="restaurant">Restaurant Management POS (₹14,999 Total)</option>
+          <option value="ai-bot">AI Voice & Chatbot Agent (₹29,999 Total)</option>
+          <option value="custom">Custom Web & Mobile App (₹24,999 Total)</option>
+        </select>
+      </div>
+
+      <form id="quotationStudioForm">
+        <!-- Section 1: Client & Quotation Metadata -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+          <div class="form-group">
+            <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">Client / Company Name *</label>
+            <input type="text" id="quoteStudioClientName" required placeholder="e.g. Akash Xerox (Idiyaas)" style="width:100%;padding:0.65rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);">
+          </div>
+          <div class="form-group">
+            <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">Client WhatsApp Phone *</label>
+            <input type="tel" id="quoteStudioClientPhone" required placeholder="e.g. 93076 15406" style="width:100%;padding:0.65rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);">
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:1rem;margin-bottom:1rem;">
+          <div class="form-group">
+            <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">Quotation Title / Subject *</label>
+            <input type="text" id="quoteStudioTitle" required placeholder="e.g. IDIYAAS: E-Commerce Website Development Quotation" style="width:100%;padding:0.65rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);font-weight:600;">
+          </div>
+          <div class="form-group">
+            <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">Client Location / City</label>
+            <input type="text" id="quoteStudioLocation" placeholder="e.g. Pune, Maharashtra" value="Pune, Maharashtra" style="width:100%;padding:0.65rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);">
+          </div>
+          <div class="form-group">
+            <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">Issue Date (DD/MM/YYYY)</label>
+            <input type="text" id="quoteStudioDate" style="width:100%;padding:0.65rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);">
+          </div>
+        </div>
+
+        <!-- Section 2: Table Row 1 (Module / Features Scope) -->
+        <div style="background:rgba(255,255,255,0.02);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:1.1rem;margin-bottom:1rem;">
+          <div style="font-weight:700;color:var(--primary);font-size:0.9rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;align-items:center;">
+            <span>📦 Item 1: Module & Features Scope</span>
+            <span style="font-size:0.75rem;color:var(--text-muted);">Printed on Page 1</span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:3fr 1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;">
+            <div>
+              <label style="display:block;font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Item Description Heading</label>
+              <input type="text" id="quoteItem1Heading" value="Module / Features" style="width:100%;padding:0.5rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);font-weight:600;">
+            </div>
+            <div>
+              <label style="display:block;font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Qty</label>
+              <input type="text" id="quoteItem1Qty" value="1" style="width:100%;padding:0.5rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);">
+            </div>
+            <div>
+              <label style="display:block;font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Amount (₹) *</label>
+              <input type="number" id="quoteItem1Rate" min="0" value="12000" style="width:100%;padding:0.5rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);font-weight:700;">
+            </div>
+          </div>
+
+          <div>
+            <label style="display:block;font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Detailed Features (One bullet per line):</label>
+            <textarea id="quoteItem1Bullets" rows="6" style="width:100%;padding:0.65rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);font-size:0.82rem;line-height:1.5;"></textarea>
+          </div>
+        </div>
+
+        <!-- Section 3: Table Row 2 (Hosting & Infrastructure) -->
+        <div style="background:rgba(255,255,255,0.02);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:1.1rem;margin-bottom:1rem;">
+          <div style="font-weight:700;color:var(--secondary);font-size:0.9rem;margin-bottom:0.75rem;display:flex;justify-content:space-between;align-items:center;">
+            <span>☁️ Item 2: Hosting & Cloud Server Specifications</span>
+            <span style="font-size:0.75rem;color:var(--text-muted);">Printed on Page 1</span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:3fr 1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;">
+            <div>
+              <label style="display:block;font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Hosting Title</label>
+              <input type="text" id="quoteHostingTitle" value="Hosting: Shared Server (Duration: 1 Year)" style="width:100%;padding:0.5rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);font-weight:600;">
+            </div>
+            <div>
+              <label style="display:block;font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Duration</label>
+              <input type="text" id="quoteHostingDuration" value="1 Year" style="width:100%;padding:0.5rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);">
+            </div>
+            <div>
+              <label style="display:block;font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Hosting Amount (₹)</label>
+              <input type="number" id="quoteHostingRate" min="0" value="5000" style="width:100%;padding:0.5rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);font-weight:700;">
+            </div>
+          </div>
+
+          <div>
+            <label style="display:block;font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Server Specs & Customer Capacity Text:</label>
+            <textarea id="quoteHostingSpecs" rows="3" style="width:100%;padding:0.65rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);font-size:0.82rem;"></textarea>
+          </div>
+        </div>
+
+        <!-- Section 4: Table Row 3 (Annual Services) -->
+        <div style="background:rgba(255,255,255,0.02);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:1.1rem;margin-bottom:1rem;">
+          <div style="font-weight:700;color:#FBBF24;font-size:0.9rem;margin-bottom:0.75rem;">
+            🔄 Item 3: Annual Services, Domains & Renewals Note
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <div>
+              <label style="display:block;font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Services Description</label>
+              <textarea id="quoteAnnualServicesText" rows="3" style="width:100%;padding:0.5rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);font-size:0.8rem;"></textarea>
+            </div>
+            <div>
+              <label style="display:block;font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Renewal Notes & Upgrades</label>
+              <textarea id="quoteAnnualUpgradeText" rows="3" style="width:100%;padding:0.5rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);font-size:0.8rem;"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 5: Live Summary Totals & Words Preview -->
+        <div style="background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.3);padding:1.25rem;border-radius:var(--radius-md);margin-bottom:1.5rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+            <div>
+              <div style="font-size:0.8rem;color:var(--text-muted);">Quotation Valuation Breakdown</div>
+              <div style="font-size:1.1rem;font-weight:700;color:var(--text-main);margin-top:0.2rem;">
+                Sub Total: <span id="quoteStudioSubTotal" style="color:var(--primary);">₹17,000</span> | Total: <span id="quoteStudioGrandTotal" style="color:#34D399;">Rs. 17,000</span>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:0.78rem;color:var(--text-muted);">Amount in Words:</div>
+              <div id="quoteStudioWordsPreview" style="font-size:0.9rem;font-weight:700;color:#FBBF24;font-style:italic;">
+                Seventeen Thousand Rupees Only.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Studio Action Buttons -->
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;border-top:1px solid var(--border-light);padding-top:1.25rem;">
+          <button type="button" class="btn btn-secondary btn-sm" data-modal-close>Close Studio</button>
+          
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <button type="button" class="btn btn-secondary btn-md" id="shareStudioWhatsappBtn" style="border-color:#25D366;color:#25D366;">
+              💬 Share on WhatsApp
+            </button>
+            <button type="button" class="btn btn-secondary btn-md" id="saveStudioQuoteBtn">
+              💾 Save Quotation
+            </button>
+            <button type="submit" class="btn btn-primary btn-md" style="background:linear-gradient(135deg, #0284C7 0%, #06B6D4 100%);box-shadow:0 4px 20px rgba(6,182,212,0.4);">
+              📥 Generate & Download 2-Page PDF Quotation →
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 5: Edit Transaction / Client Record Modal -->
+  <div class="portal-auth-overlay" id="editRecordModal" style="display:none;">
+    <div class="auth-card" style="max-width:680px;text-align:left;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;">
+        <h3 style="font-family:var(--font-heading);font-size:1.35rem;font-weight:700;color:var(--text-main);margin:0;">
+          ✏️ Edit Transaction & Scope Details
+        </h3>
+        <button data-modal-close style="background:transparent;border:none;color:var(--text-muted);font-size:1.5rem;cursor:pointer;">&times;</button>
+      </div>
+
+      <form id="editRecordForm">
+        <input type="hidden" id="editRecordId">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="form-group">
+            <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">Client Full Name *</label>
+            <input type="text" id="editClientName" required style="width:100%;padding:0.65rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);">
+          </div>
+          <div class="form-group">
+            <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">WhatsApp Phone *</label>
+            <input type="tel" id="editClientPhone" required style="width:100%;padding:0.65rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);">
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:0.85rem;">
+          <div class="form-group">
+            <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">Company / Store Name</label>
+            <input type="text" id="editCompanyName" style="width:100%;padding:0.65rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);">
+          </div>
+          <div class="form-group">
+            <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">Requirement Category *</label>
+            <select id="editRequirementCategory" style="width:100%;padding:0.65rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);">
+              <option value="Pharmacy Store ERP">Pharmacy Store ERP</option>
+              <option value="Restaurant ERP & KOT">Restaurant ERP & KOT</option>
+              <option value="E-Commerce Website">E-Commerce Website</option>
+              <option value="AI Voice & Chat Bot">AI Voice & Chat Bot</option>
+              <option value="Custom Web / App">Custom Web / Mobile App</option>
+              <option value="Retail & E-Commerce Store">Retail & E-Commerce Store</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:0.85rem;">
+          <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--text-muted);margin-bottom:0.35rem;">Requirements & Scope Details</label>
+          <textarea id="editRequirementDetails" rows="2" style="width:100%;padding:0.65rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);"></textarea>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.03);padding:1rem;border-radius:var(--radius-sm);border:1px solid var(--border-light);margin-top:1rem;">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;">
+            <div>
+              <label style="display:block;font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Total Project Amount (₹) *</label>
+              <input type="number" id="editTotalAmount" min="0" required style="width:100%;padding:0.55rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);font-weight:700;">
+            </div>
+            <div>
+              <label style="display:block;font-size:0.75rem;color:#34D399;margin-bottom:0.25rem;">Token Paid (₹) *</label>
+              <input type="number" id="editTokenPaid" min="0" required style="width:100%;padding:0.55rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:#34D399;font-weight:700;">
+            </div>
+            <div>
+              <label style="display:block;font-size:0.75rem;color:#FBBF24;margin-bottom:0.25rem;">Pending Balance (₹)</label>
+              <input type="number" id="editPendingAmount" readonly style="width:100%;padding:0.55rem;background:rgba(30,41,59,0.8);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:#FBBF24;font-weight:700;">
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;margin-top:0.85rem;">
+          <div>
+            <label style="display:block;font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Status</label>
+            <select id="editStatus" style="width:100%;padding:0.55rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);">
+              <option value="token-received">⚡ Token Received</option>
+              <option value="fully-paid">✅ Fully Paid</option>
+              <option value="partial">💜 Partial Payment</option>
+              <option value="pending">⏳ Pending</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block;font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Txn Reference UTR</label>
+            <input type="text" id="editTxnRef" style="width:100%;padding:0.55rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);">
+          </div>
+          <div>
+            <label style="display:block;font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Due Date</label>
+            <input type="date" id="editDueDate" style="width:100%;padding:0.55rem;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text-main);">
+          </div>
+        </div>
+
+        <div style="margin-top:1.5rem;display:flex;justify-content:flex-end;gap:0.75rem;">
+          <button type="button" class="btn btn-secondary btn-sm" data-modal-close>Cancel</button>
+          <button type="submit" class="btn btn-primary btn-md">Save Changes ✓</button>
+        </div>
+      </form>
     </div>
   </div>
 

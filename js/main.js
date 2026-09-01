@@ -1603,12 +1603,57 @@ function initQuotationModal() {
   });
 }
 
-// Global 2-Page Executive Corporate Tech Proposal & Quotation PDF Exporter
+// Indian Currency Number to Words Converter Helper
+function numberToWordsINR(num) {
+  num = Math.round(Number(num) || 0);
+  if (num === 0) return 'Zero';
+
+  const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+  const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+  function convertTwoDigits(n) {
+    if (n < 20) return a[n];
+    const tens = Math.floor(n / 10);
+    const ones = n % 10;
+    return b[tens] + (ones ? ' ' + a[ones] : '');
+  }
+
+  function convertThreeDigits(n) {
+    const hundred = Math.floor(n / 100);
+    const rest = n % 100;
+    let str = '';
+    if (hundred) str += a[hundred] + ' Hundred';
+    if (rest) str += (str ? ' ' : '') + convertTwoDigits(rest);
+    return str;
+  }
+
+  let words = '';
+  const crore = Math.floor(num / 10000000);
+  num %= 10000000;
+  const lakh = Math.floor(num / 100000);
+  num %= 100000;
+  const thousand = Math.floor(num / 1000);
+  num %= 1000;
+  const remaining = num;
+
+  if (crore) words += convertTwoDigits(crore) + ' Crore ';
+  if (lakh) words += convertTwoDigits(lakh) + ' Lakh ';
+  if (thousand) words += convertTwoDigits(thousand) + ' Thousand ';
+  if (remaining) words += convertThreeDigits(remaining);
+
+  return words.trim();
+}
+
+// Global Official 2-Page Executive Technical Quotation PDF Generator
 window.downloadQuotationPDF = function(quoteInfo) {
   const { calcData, name, phone, email, business } = quoteInfo;
   const quoteId = 'YUG-QUOTE-2026-' + Math.floor(100000 + Math.random() * 900000);
-  const today = new Date().toISOString().split('T')[0];
-  const expiryDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+  
+  const now = new Date();
+  const d = String(now.getDate()).padStart(2, '0');
+  const m = String(now.getMonth() + 1).padStart(2, '0');
+  const y = now.getFullYear();
+  const todayFormatted = `${d}/${m}/${y}`;
 
   const jsPDF = window.jspdf ? window.jspdf.jsPDF : (window.jsPDF ? window.jsPDF : null);
   if (!jsPDF) {
@@ -1617,388 +1662,348 @@ window.downloadQuotationPDF = function(quoteInfo) {
   }
 
   const doc = new jsPDF('p', 'mm', 'a4');
+  const grandTotal = calcData.grandTotal || 17000;
+  const hostingRate = Math.min(5000, grandTotal >= 10000 ? 5000 : 0);
+  const moduleRate = grandTotal - hostingRate;
+  const clientBrandName = (business || name || 'Idiyaas').trim();
+  const serviceName = (calcData.basePkgName || 'E-Commerce Website Development').trim();
+  const totalWords = numberToWordsINR(grandTotal);
 
   // ==========================================
-  // PAGE 1: EXECUTIVE PROPOSAL & TECHNICAL SCOPE
+  // PAGE 1: ITEM & DESCRIPTION TABLE & SPECS
   // ==========================================
   doc.setFillColor(255, 255, 255);
   doc.rect(0, 0, 210, 297, 'F');
 
-  // Top Dark Banner
-  doc.setFillColor(15, 23, 42);
-  doc.rect(0, 0, 210, 36, 'F');
-  doc.setFillColor(6, 182, 212);
-  doc.rect(0, 36, 210, 2, 'F');
-
-  doc.setFont("helvetica", "bold");
-  doc.setTextColor(6, 182, 212);
-  doc.setFontSize(20);
-  doc.text("YUGVEX TECH SOLUTIONS", 14, 16);
-
+  // Top Header Line
   doc.setFont("helvetica", "normal");
-  doc.setTextColor(203, 213, 225);
-  doc.setFontSize(9);
-  doc.text("Enterprise Software, Custom ERPs & AI Solutions", 14, 23);
-  doc.text("Official Technical Scope & Commercial Cost Quotation Proposal", 14, 28);
+  doc.setFontSize(8);
+  doc.setTextColor(59, 130, 246);
+  doc.text("www.yugvex.site", 15, 12);
+  doc.setTextColor(100, 116, 139);
+  doc.text("P a g e  1 | 2", 195, 12, { align: 'right' });
 
-  // Quote Badge
-  doc.setFillColor(30, 41, 59);
-  doc.roundedRect(122, 10, 74, 18, 3, 3, 'F');
+  // Main Quotation Title
   doc.setFont("helvetica", "bold");
-  doc.setTextColor(255, 255, 255);
-  doc.setFontSize(9.5);
-  doc.text("TECHNICAL QUOTATION", 126, 17);
-  doc.setFontSize(7.5);
-  doc.setTextColor(52, 211, 153);
-  doc.text("VALID UNTIL: " + expiryDate, 126, 23);
+  doc.setFontSize(13.5);
+  doc.setTextColor(15, 23, 42);
+  const titleText = `${clientBrandName.toUpperCase()}: ${serviceName} Quotation`;
+  doc.text(titleText, 15, 23);
 
-  // Meta bar
-  doc.setFillColor(248, 250, 252);
-  doc.roundedRect(14, 44, 182, 16, 2, 2, 'F');
-  doc.setDrawColor(226, 232, 240);
-  doc.roundedRect(14, 44, 182, 16, 2, 2, 'D');
-
+  // Date
   doc.setFont("helvetica", "bold");
   doc.setFontSize(8.5);
-  doc.setTextColor(71, 85, 105);
-  doc.text("Proposal Ref ID:", 18, 54);
   doc.setTextColor(15, 23, 42);
-  doc.text(String(quoteId), 44, 54);
+  doc.text(`Date: ${todayFormatted}`, 195, 23, { align: 'right' });
 
-  doc.setTextColor(71, 85, 105);
-  doc.text("Date Issued:", 92, 54);
-  doc.setTextColor(15, 23, 42);
-  doc.text(String(today), 112, 54);
-
-  doc.setTextColor(71, 85, 105);
-  doc.text("Proposal Status:", 146, 54);
-  doc.setTextColor(5, 150, 105);
-  doc.text("OFFICIAL PROPOSAL", 170, 54);
-
-  // Issuer & Client Grid
-  // Box 1: Solution Provider (Left)
-  doc.setFillColor(241, 245, 249);
-  doc.roundedRect(14, 66, 88, 48, 2, 2, 'F');
-  doc.setDrawColor(203, 213, 225);
-  doc.roundedRect(14, 66, 88, 48, 2, 2, 'D');
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
-  doc.setTextColor(6, 182, 212);
-  doc.text("SOLUTION PROVIDER / COMPANY", 18, 73);
-
-  doc.setFontSize(8.5);
-  doc.setTextColor(15, 23, 42);
-  doc.text("Yugvex Tech Solutions", 18, 80);
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(71, 85, 105);
-  doc.text("Corporate Offices: Pune & Nanded, Maharashtra", 18, 86);
-  doc.text("Director: Omkar Katturwar | CEO: Govindraj Ambatwar", 18, 92);
-  doc.text("Co-Founder & Full Stack Dev: Nikhil Raghuwanshi", 18, 98);
-  doc.text("Payee Account: Yugvex Tech Solutions, Pune", 18, 104);
-  doc.text("Contact: +91 8484080732 | www.yugvex.com", 18, 110);
-
-  // Box 2: Client Details (Right)
-  doc.setFillColor(241, 245, 249);
-  doc.roundedRect(108, 66, 88, 48, 2, 2, 'F');
-  doc.setDrawColor(203, 213, 225);
-  doc.roundedRect(108, 66, 88, 48, 2, 2, 'D');
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
-  doc.setTextColor(6, 182, 212);
-  doc.text("CLIENT / PROPOSAL RECIPIENT", 112, 73);
-
-  doc.setFontSize(8.5);
-  doc.setTextColor(15, 23, 42);
-  doc.text(String(name || 'Valued Enterprise Client'), 112, 80);
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(71, 85, 105);
-  doc.text(`Phone / WhatsApp: +${phone || 'N/A'}`, 112, 86);
-  doc.text(`Email: ${email || 'N/A'}`, 112, 92);
-  doc.text(`Business / Store Name: ${business || 'Individual'}`, 112, 98);
-  doc.text("Engagement Model: Fixed Scope Commercial Contract", 112, 104);
-  doc.text("Quote Validity: 30 Calendar Days", 112, 110);
-
-  // Executive Scope Heading
+  // Bill To Block
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9.5);
   doc.setTextColor(15, 23, 42);
-  doc.text("1. ITEMIZED TECHNICAL SCOPE & COST BREAKDOWN", 14, 122);
-
-  // Financial Table Header Box
-  doc.setFillColor(15, 23, 42);
-  doc.rect(14, 126, 182, 10, 'F');
+  doc.text("Bill To", 15, 33);
 
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(8.5);
-  doc.setTextColor(255, 255, 255);
-  doc.text("SL", 18, 132.5);
-  doc.text("PROPOSED ARCHITECTURE / MODULE DESCRIPTION", 32, 132.5);
-  doc.text("ESTIMATED COST (₹)", 155, 132.5);
+  doc.setFontSize(9);
+  doc.text(`${name || clientBrandName}${business && business !== name ? ` (${business})` : ''},`, 15, 39);
 
-  let y = 136;
-  // Item 1: Base Package
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8.5);
+  doc.text(`+91 ${phone || '93076 15406'}`, 15, 45);
+  doc.text("Pune, Maharashtra", 15, 51);
+
+  // Table Configuration
+  const tableTop = 57;
+  const colX = [15, 26, 126, 146, 168, 195]; // [start, srNoEnd, descEnd, qtyEnd, rateEnd, amountEnd]
+  const tableWidth = 180;
+
+  // Table Header Fill & Text
+  doc.setFillColor(37, 72, 132); // Deep Professional Navy/Royal Blue
+  doc.rect(15, tableTop, tableWidth, 8, 'F');
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8);
+  doc.setTextColor(255, 255, 255);
+  doc.text("Sr.", 17, tableTop + 3.8);
+  doc.text("No", 17, tableTop + 6.8);
+  doc.text("Item & Description", 66, tableTop + 5.5, { align: 'center' });
+  doc.text("Qty", 136, tableTop + 5.5, { align: 'center' });
+  doc.text("Rate", 157, tableTop + 5.5, { align: 'center' });
+  doc.text("Amount (INR)", 181.5, tableTop + 5.5, { align: 'center' });
+
+  // Row 1: Module / Features
+  const row1Top = tableTop + 8;
+  const row1Height = 118;
+
   doc.setFillColor(255, 255, 255);
-  doc.rect(14, y, 182, 11, 'F');
-  doc.setDrawColor(226, 232, 240);
-  doc.rect(14, y, 182, 11, 'D');
+  doc.rect(15, row1Top, tableWidth, row1Height, 'F');
 
+  // Row 1 Item Text
   doc.setFont("helvetica", "bold");
   doc.setFontSize(8.5);
   doc.setTextColor(15, 23, 42);
-  doc.text("01", 18, y + 7);
-  doc.text(`Base Core Platform: ${calcData.basePkgName}`, 32, y + 7);
-  doc.text(`Rs. ${calcData.basePrice.toLocaleString('en-IN')}`, 158, y + 7);
+  doc.text("1", 20.5, row1Top + 8, { align: 'center' });
+  doc.text("Module / Features", 30, row1Top + 6);
 
-  let sl = 2;
-  calcData.selectedAddons.forEach(item => {
-    y += 11;
-    doc.setFillColor(255, 255, 255);
-    doc.rect(14, y, 182, 11, 'F');
-    doc.setDrawColor(226, 232, 240);
-    doc.rect(14, y, 182, 11, 'D');
+  // Row 1 Bullet list
+  const defaultFeatures = [
+    "Premium UI/UX Design & Responsive Website",
+    "Homepage & Hero Sections",
+    "Product Categories & Collection Pages",
+    "Product Listing, Search, Filter & Sorting",
+    "Product Details & Product Gallery",
+    "Shopping Cart & Wishlist",
+    "Checkout System",
+    "Customer Account & Profile",
+    "Admin Dashboard",
+    "Product & Category Management",
+    "Customer & Order Management",
+    "Inventory Management",
+    "Coupon & Discount Management",
+    "Review Management",
+    "Razorpay Payment Gateway Integration",
+    "Mobile OTP Authentication",
+    "Transactional Email & Order Notifications",
+    "Cloudinary Image & Video Management",
+    "Shipping & Order Tracking Integration",
+    "SEO & Performance Optimization",
+    "Production Deployment & SSL Configuration"
+  ];
 
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(8.5);
-    doc.setTextColor(15, 23, 42);
-    doc.text(String(sl < 10 ? '0' + sl : sl), 18, y + 7);
-    doc.text(`Add-on Module: ${item.name}`, 32, y + 7);
-    doc.text(`+Rs. ${item.price.toLocaleString('en-IN')}`, 158, y + 7);
-    sl++;
-  });
-
-  if (calcData.urgencyMultiplier > 1.0) {
-    y += 11;
-    const extraVal = calcData.grandTotal - calcData.subtotal;
-    doc.setFillColor(255, 255, 255);
-    doc.rect(14, y, 182, 11, 'F');
-    doc.setDrawColor(226, 232, 240);
-    doc.rect(14, y, 182, 11, 'D');
-
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(8.5);
-    doc.setTextColor(217, 119, 6);
-    doc.text(String(sl < 10 ? '0' + sl : sl), 18, y + 7);
-    doc.text(`Express Timeline Delivery Multiplier (${calcData.urgencyMultiplier}x Sprint)`, 32, y + 7);
-    doc.text(`+Rs. ${extraVal.toLocaleString('en-IN')}`, 158, y + 7);
+  // If user selected specific add-ons in calculator, include them in the feature list
+  if (calcData.selectedAddons && calcData.selectedAddons.length > 0) {
+    calcData.selectedAddons.forEach(ad => {
+      if (!defaultFeatures.some(f => f.toLowerCase().includes(ad.name.toLowerCase()))) {
+        defaultFeatures.push(ad.name);
+      }
+    });
   }
 
-  // Summary Totals Card
-  y += 18;
-  doc.setFillColor(248, 250, 252);
-  doc.roundedRect(108, y, 88, 38, 2, 2, 'F');
-  doc.setDrawColor(203, 213, 225);
-  doc.roundedRect(108, y, 88, 38, 2, 2, 'D');
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7.2);
+  doc.setTextColor(30, 41, 59);
+
+  let bulletY = row1Top + 11.5;
+  const maxBullets = Math.min(defaultFeatures.length, 21);
+  for (let i = 0; i < maxBullets; i++) {
+    doc.text(`•   ${defaultFeatures[i]}`, 32, bulletY);
+    bulletY += 4.8;
+  }
 
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(8.5);
-  doc.setTextColor(71, 85, 105);
-  doc.text("Modules Subtotal Price:", 112, y + 9);
+  doc.setFontSize(8);
+  doc.text("1", 136, row1Top + 14, { align: 'center' });
+  doc.text(`${moduleRate.toLocaleString('en-IN')}`, 164, row1Top + 14, { align: 'right' });
   doc.setFont("helvetica", "bold");
+  doc.text(`${moduleRate.toLocaleString('en-IN')}`, 191, row1Top + 14, { align: 'right' });
+
+  // Row 2: Hosting
+  const row2Top = row1Top + row1Height;
+  const row2Height = 35;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8.5);
   doc.setTextColor(15, 23, 42);
-  doc.text(`Rs. ${calcData.subtotal.toLocaleString('en-IN')}`, 165, y + 9);
+  doc.text("2", 20.5, row2Top + 7, { align: 'center' });
+  doc.text("Hosting: Shared Server (Duration: 1 Year)", 30, row2Top + 6);
 
   doc.setFont("helvetica", "normal");
+  doc.setFontSize(6.8);
   doc.setTextColor(71, 85, 105);
-  doc.text("Booking Deposit Token:", 112, y + 17);
-  doc.setFont("helvetica", "bold");
-  doc.setTextColor(5, 150, 105);
-  const requiredTokenVal = calcData.requiredToken || Math.min(5000, Math.max(2000, Math.round(calcData.grandTotal * 0.20)));
-  doc.text(`Rs. ${requiredTokenVal.toLocaleString('en-IN')}`, 165, y + 17);
+  doc.text("Ram: Cloud-based serverless hosting with scalable compute resources.", 30, row2Top + 11.5);
+  doc.text("Cloudflare R2: 10 GB Storage", 30, row2Top + 15.5);
+  doc.text("Resend: 100 Mails/ day", 30, row2Top + 19.5);
+  
+  const capLines = doc.splitTextToSize("Customer Capacity: Up to approximately 5,000 registered customers on the initial database setup, depending on order history, addresses, reviews and other stored data.", 92);
+  doc.text(capLines, 30, row2Top + 23.5);
 
-  doc.setFont("helvetica", "bold");
-  doc.setTextColor(15, 23, 42);
-  doc.text("GRAND TOTAL VALUATION:", 112, y + 25);
-  doc.setFontSize(9.5);
-  doc.setTextColor(5, 150, 105);
-  doc.text(`Rs. ${calcData.grandTotal.toLocaleString('en-IN')}`, 162, y + 25);
-
-  doc.setFillColor(15, 23, 42);
-  doc.rect(108, y + 29, 88, 9, 'F');
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(8.5);
-  doc.setTextColor(255, 255, 255);
-  doc.text("NET AGREED COMMERCIAL VALUATION", 112, y + 35);
-
-  // Digital Signature Seal
-  doc.setFillColor(241, 245, 249);
-  doc.roundedRect(14, y, 88, 38, 2, 2, 'F');
-  doc.setDrawColor(6, 182, 212);
-  doc.roundedRect(14, y, 88, 38, 2, 2, 'D');
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
-  doc.setTextColor(6, 182, 212);
-  doc.text("CORPORATE QUOTATION SEAL & SIGNATURE", 18, y + 9);
+  doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
   doc.setTextColor(15, 23, 42);
-  doc.text("Yugvex Tech Solutions, Pune & Nanded", 18, y + 17);
+  doc.text(hostingRate > 0 ? "1 Year" : "-", 136, row2Top + 14, { align: 'center' });
+  doc.text(hostingRate > 0 ? `${hostingRate.toLocaleString('en-IN')}` : "-", 164, row2Top + 14, { align: 'right' });
+  doc.setFont("helvetica", "bold");
+  doc.text(hostingRate > 0 ? `${hostingRate.toLocaleString('en-IN')}` : "-", 191, row2Top + 14, { align: 'right' });
+
+  // Row 3: Annual Service
+  const row3Top = row2Top + row2Height;
+  const row3Height = 44;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8.5);
+  doc.setTextColor(15, 23, 42);
+  doc.text("3", 20.5, row3Top + 7, { align: 'center' });
+
+  const annualServiceLines = doc.splitTextToSize("Annual Service: Domain Renewal, Cloudflare Hosting, MongoDB Atlas, Cloudinary, Cloudflare R2, Resend, OTP/SMS, Razorpay, Shipping API, SSL/HTTPS.", 92);
+  doc.text(annualServiceLines, 30, row3Top + 6);
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(7.2);
+  doc.setTextColor(15, 23, 42);
+  doc.text("Approx. ₹1,000–", 170, row3Top + 6);
+  doc.text("₹1,500/year.", 170, row3Top + 10);
+
   doc.setFont("helvetica", "normal");
+  doc.setFontSize(6.5);
   doc.setTextColor(71, 85, 105);
-  doc.text("Verified Signatories: Omkar Katturwar (Director)", 18, y + 24);
-  doc.text("Govindraj Ambatwar (CEO) & Nikhil Raghuwanshi (Dev)", 18, y + 30);
-  doc.text("Timestamp: " + new Date().toLocaleString(), 18, y + 36);
+  doc.text("Paid upgrade if required:", 170, row3Top + 15);
+  
+  const upgradeLines = doc.splitTextToSize("Paid upgrade based on database usage, media usage, Transaction-based, Provider-dependent, included through Cloudflare, Optional, based on support requirement.", 24);
+  doc.text(upgradeLines, 170, row3Top + 19);
+
+  // Table Grid Borders
+  const totalTableHeight = 8 + row1Height + row2Height + row3Height;
+  doc.setDrawColor(160, 175, 200);
+  doc.setLineWidth(0.3);
+  
+  // Outer Border
+  doc.rect(15, tableTop, tableWidth, totalTableHeight, 'S');
+
+  // Horizontal Grid Lines
+  doc.line(15, row1Top, 195, row1Top);
+  doc.line(15, row2Top, 195, row2Top);
+  doc.line(15, row3Top, 195, row3Top);
+
+  // Vertical Column Dividers
+  colX.forEach(x => {
+    doc.line(x, tableTop, x, tableTop + totalTableHeight);
+  });
 
   // Page 1 Footer
-  doc.setDrawColor(226, 232, 240);
-  doc.line(14, 278, 196, 278);
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(7.5);
-  doc.setTextColor(148, 163, 184);
-  doc.text("Page 1 of 2 • Yugvex Tech Solutions • Enterprise Software & AI • Nanded & Pune, Maharashtra • www.yugvex.com", 14, 284);
+  doc.setFontSize(8);
+  doc.setTextColor(59, 130, 246);
+  doc.text("www.yugvex.site", 15, 285);
+  doc.setTextColor(100, 116, 139);
+  doc.text("P a g e  1 | 2", 195, 285, { align: 'right' });
 
   // ==========================================
-  // PAGE 2: MILESTONES, ARCHITECTURE & TERMS
+  // PAGE 2: TOTALS, TERMS & CONDITIONS, SIGNATURE
   // ==========================================
   doc.addPage();
-
-  // Top Dark Banner
-  doc.setFillColor(15, 23, 42);
-  doc.rect(0, 0, 210, 24, 'F');
-  doc.setFillColor(6, 182, 212);
-  doc.rect(0, 24, 210, 1.5, 'F');
-
-  doc.setFont("helvetica", "bold");
-  doc.setTextColor(6, 182, 212);
-  doc.setFontSize(13);
-  doc.text("YUGVEX TECH SOLUTIONS", 14, 13);
-  doc.setFontSize(8.5);
-  doc.setTextColor(203, 213, 225);
-  doc.text("PROJECT MILESTONES, TECHNICAL STACK & COMMERCIAL TERMS", 14, 19);
-
-  doc.setFontSize(8);
-  doc.setTextColor(255, 255, 255);
-  doc.text("REF: " + quoteId, 165, 14);
-
-  // Section 2: Project Milestones
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(9.5);
-  doc.setTextColor(15, 23, 42);
-  doc.text("2. PROJECT IMPLEMENTATION MILESTONES & SCHEDULE", 14, 34);
-
-  doc.setFillColor(248, 250, 252);
-  doc.roundedRect(14, 38, 182, 42, 2, 2, 'F');
-  doc.setDrawColor(203, 213, 225);
-  doc.roundedRect(14, 38, 182, 42, 2, 2, 'D');
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(8.5);
-  doc.setTextColor(6, 182, 212);
-  doc.text("Milestone 1: Project Kickoff & Booking Token (50% / Initial Token Advance)", 18, 46);
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(71, 85, 105);
-  doc.text("• Scope alignment, database schema modeling, UI wireframing & repository initialization.", 18, 51);
-
-  doc.setFont("helvetica", "bold");
-  doc.setTextColor(6, 182, 212);
-  doc.text("Milestone 2: Alpha Build & Module Integration (30% Progress Payment)", 18, 59);
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(71, 85, 105);
-  doc.text("• Core application features development, payment gateway API setup & client demo review.", 18, 64);
-
-  doc.setFont("helvetica", "bold");
-  doc.setTextColor(6, 182, 212);
-  doc.text("Milestone 3: Production Launch & Source Handover (20% Final Clearance)", 18, 72);
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(71, 85, 105);
-  doc.text("• Cloud deployment (AWS/Vercel), SSL certificate binding, testing & complete source IP handover.", 18, 77);
-
-  // Section 3: Technical Specifications & Security
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(9.5);
-  doc.setTextColor(15, 23, 42);
-  doc.text("3. SYSTEM ARCHITECTURE & SECURITY SPECIFICATIONS", 14, 90);
-
-  doc.setFillColor(241, 245, 249);
-  doc.roundedRect(14, 94, 182, 44, 2, 2, 'F');
-  doc.setDrawColor(203, 213, 225);
-  doc.roundedRect(14, 94, 182, 44, 2, 2, 'D');
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(8.5);
-  doc.setTextColor(15, 23, 42);
-  doc.text("• Frontend & User Experience:", 18, 102);
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(71, 85, 105);
-  doc.text("Responsive HTML5/CSS3, Modern UI Glassmorphism, Vanilla JS / React, Fast Page Speed.", 62, 102);
-
-  doc.setFont("helvetica", "bold");
-  doc.setTextColor(15, 23, 42);
-  doc.text("• Backend & Data Engine:", 18, 110);
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(71, 85, 105);
-  doc.text("Node.js / Python FastAPI, PostgreSQL / MongoDB, RESTful APIs & WebSocket Realtime Data.", 62, 110);
-
-  doc.setFont("helvetica", "bold");
-  doc.setTextColor(15, 23, 42);
-  doc.text("• Security & Compliance:", 18, 118);
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(71, 85, 105);
-  doc.text("256-Bit SSL HTTPS Encryption, OWASP Compliant Security Headers & CSP Protections.", 62, 118);
-
-  doc.setFont("helvetica", "bold");
-  doc.setTextColor(15, 23, 42);
-  doc.text("• Hosting & Cloud Infrastructure:", 18, 126);
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(71, 85, 105);
-  doc.text("Vercel Cloud Edge Network / AWS EC2 Container Deployment with 99.99% Guaranteed Uptime.", 62, 126);
-
-  doc.setFont("helvetica", "bold");
-  doc.setTextColor(15, 23, 42);
-  doc.text("• Maintenance & Support:", 18, 134);
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(71, 85, 105);
-  doc.text("1-Year Priority Technical Bug-Fix Warranty & System SLA Maintenance Included.", 62, 134);
-
-  // Section 4: Terms & Conditions
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(9.5);
-  doc.setTextColor(15, 23, 42);
-  doc.text("4. COMMERCIAL TERMS & INTELLECTUAL PROPERTY GUARANTEE", 14, 148);
-
   doc.setFillColor(255, 255, 255);
-  doc.roundedRect(14, 152, 182, 60, 2, 2, 'F');
-  doc.setDrawColor(203, 213, 225);
-  doc.roundedRect(14, 152, 182, 60, 2, 2, 'D');
+  doc.rect(0, 0, 210, 297, 'F');
 
+  // Page 2 Top Header Line
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
-  doc.setTextColor(71, 85, 105);
-  doc.text("1. Intellectual Property Rights: 100% full source code ownership, database access, and design assets belong to", 18, 160);
-  doc.text("   the client upon complete clearance of the agreed project invoice balance.", 18, 165);
-  doc.text("2. Payment Terms: Payment token advance is non-refundable once project kickoff and design sprint commence.", 18, 172);
-  doc.text("3. Confidentiality & Non-Disclosure: Both parties agree to protect proprietary business logic, client data,", 18, 179);
-  doc.text("   and trade secrets under strict NDA standards.", 18, 184);
-  doc.text("4. Scope Revisions: Any additional feature requirements beyond the agreed itemized scope will be evaluated", 18, 191);
-  doc.text("   as a separate change order addendum.", 18, 196);
-  doc.text("5. Official Payee Account: All payments must be directed to Yugvex Tech Solutions, Pune (UPI: 8484080732@ybl).", 18, 203);
+  doc.setTextColor(59, 130, 246);
+  doc.text("www.yugvex.site", 15, 12);
+  doc.setTextColor(100, 116, 139);
+  doc.text("P a g e  2 | 2", 195, 12, { align: 'right' });
 
-  // Signatory Authorization Footer Box
-  doc.setFillColor(15, 23, 42);
-  doc.roundedRect(14, 222, 182, 42, 3, 3, 'F');
+  // Summary Totals Box on Right
+  const sumBoxX = 125;
+  const sumBoxY = 18;
+  const sumBoxW = 70;
+  
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8.5);
+  doc.setTextColor(15, 23, 42);
+  doc.text("Sub Total", sumBoxX, sumBoxY + 5);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${grandTotal.toLocaleString('en-IN')}`, 195, sumBoxY + 5, { align: 'right' });
 
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
-  doc.setTextColor(6, 182, 212);
-  doc.text("EXECUTIVE AUTHORIZATION & CORPORATE APPROVAL", 18, 230);
+  doc.setFontSize(10.5);
+  doc.text("Total", sumBoxX, sumBoxY + 14);
+  doc.text(`Rs. ${grandTotal.toLocaleString('en-IN')}`, 195, sumBoxY + 14, { align: 'right' });
 
-  doc.setFontSize(8);
-  doc.setTextColor(255, 255, 255);
-  doc.text("Yugvex Tech Solutions • Corporate Offices: Pune & Nanded, Maharashtra", 18, 238);
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(203, 213, 225);
-  doc.text("Director: Omkar Katturwar | Co-Founder & CEO: Govindraj Ambatwar", 18, 245);
-  doc.text("Co-Founder & Full Stack Developer: Nikhil Raghuwanshi (B.Tech CSE)", 18, 251);
-  doc.text("Official Support Line: +91 8484080732 | Email: katturwaroma313@gmail.com", 18, 257);
+  // Total In Words
+  doc.setFont("helvetica", "bolditalic");
+  doc.setFontSize(8.5);
+  doc.setTextColor(15, 23, 42);
+  doc.text(`Total in words: ${totalWords} Rupees Only.`, 15, sumBoxY + 10);
+
+  // Terms & Conditions Heading
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9.5);
+  doc.setTextColor(15, 23, 42);
+  doc.text("Terms & Conditions", 15, 46);
+
+  // 10 Official Legal Clauses from PDF
+  const termsList = [
+    { title: "Quotation Validity:", text: " This quotation is valid for 15 days from the date of issue." },
+    { title: "Project Scope:", text: " The pricing is based on the agreed scope mentioned in this quotation. Any additional features, modifications, or major changes will be charged separately." },
+    { title: "Payment Terms:", text: " Payment will be made as per the mutually agreed payment schedule. Project development and delivery timelines will commence after receipt of the agreed advance payment and all required project information/materials." },
+    { title: "Third-Party Services:", text: " Charges for domain registration/renewal, hosting, APIs, SMS/OTP, payment gateways, shipping services, and other third-party services will be charged separately unless specifically included in the quotation." },
+    { title: "Usage-Based Charges:", text: " Payment gateway transaction fees and OTP/SMS charges will be payable separately based on actual usage and the applicable rates of the respective service providers." },
+    { title: "Services:", text: " Suitable tier cloud services will be utilized wherever possible during the initial stage. If usage exceeds the applicable given limits, any required upgrades or additional charges will be borne by the client." },
+    { title: "Annual Renewal & Maintenance:", text: " Applicable domain, hosting, cloud infrastructure, third-party service renewals, and optional technical maintenance charges will be effective from the second year or based on actual usage, as applicable." },
+    { title: "Third-Party Dependencies:", text: " Third-party service pricing, availability, API limitations, and policies are controlled by the respective providers and may change. Real-time courier/GPS tracking is subject to availability and support from the selected logistics provider." },
+    { title: "Ownership & Original Development:", text: ` The website will be developed specifically for the ${clientBrandName} brand with an original UI/UX and implementation. Competitor websites may be used only for functional and market reference; proprietary code, assets, or implementation will not be copied.` },
+    { title: "Acceptance & Additional Work:", text: " The quotation will be considered accepted upon receipt of a Purchase Order, written confirmation, or advance payment. Any major feature or requirement outside the agreed scope will be estimated and quoted separately." }
+  ];
+
+  let termY = 53;
+  termsList.forEach((term, index) => {
+    const numPrefix = `${index + 1}. `;
+    
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(7.5);
+    doc.setTextColor(15, 23, 42);
+    
+    // Measure prefix & title width
+    const prefixWidth = doc.getTextWidth(numPrefix);
+    doc.text(numPrefix, 15, termY);
+    doc.text(term.title, 15 + prefixWidth, termY);
+    
+    const titleWidth = doc.getTextWidth(term.title);
+    
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(7.5);
+    doc.setTextColor(30, 41, 59);
+
+    // Split rest of the clause across remaining space
+    const combinedLine = term.title + term.text;
+    const fullWrapped = doc.splitTextToSize(numPrefix + combinedLine, 180);
+    
+    // Render first line and subsequent lines with clean alignment
+    doc.text(term.text, 15 + prefixWidth + titleWidth, termY);
+    
+    if (fullWrapped.length > 1) {
+      for (let j = 1; j < fullWrapped.length; j++) {
+        termY += 3.8;
+        doc.text(fullWrapped[j], 15, termY);
+      }
+    }
+    termY += 5.2;
+  });
+
+  // Authority Signature Block (Bottom Right)
+  const sigX = 145;
+  const sigY = termY + 12;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9.5);
+  doc.setTextColor(15, 23, 42);
+  doc.text("Yugvex Tech Solution", sigX, sigY);
+
+  // Stylized Vector Cursive Signature Drawing
+  doc.setDrawColor(24, 43, 90);
+  doc.setLineWidth(0.65);
+  doc.lines([
+    [3, -6], [4, 4], [6, -8], [4, 5], [10, -3], [5, 2], [7, -5], [8, 3], [12, -2]
+  ], sigX + 4, sigY + 13);
+  
+  doc.setLineWidth(0.45);
+  doc.lines([
+    [8, 2], [22, -1], [16, 2], [12, -1]
+  ], sigX + 2, sigY + 16);
+
+  doc.setFont("helvetica", "bolditalic");
+  doc.setFontSize(9);
+  doc.setTextColor(15, 23, 42);
+  doc.text("Authorized Signature.", sigX, sigY + 24);
 
   // Page 2 Footer
-  doc.setDrawColor(226, 232, 240);
-  doc.line(14, 278, 196, 278);
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(7.5);
-  doc.setTextColor(148, 163, 184);
-  doc.text("Page 2 of 2 • Yugvex Tech Solutions • Enterprise Software & AI • Nanded & Pune, Maharashtra • www.yugvex.com", 14, 284);
+  doc.setFontSize(8);
+  doc.setTextColor(59, 130, 246);
+  doc.text("www.yugvex.site", 15, 285);
+  doc.setTextColor(100, 116, 139);
+  doc.text("P a g e  2 | 2", 195, 285, { align: 'right' });
 
-  doc.save(`Yugvex_Project_Quotation_${quoteId}.pdf`);
+  // Save the generated official PDF
+  const filename = `${clientBrandName.replace(/\s+/g, '_')}_Quotation_${quoteId}.pdf`;
+  doc.save(filename);
 };

@@ -1,9 +1,9 @@
 /**
  * Yugvex Tech Solutions - Razorpay Payment Gateway Integration
- * Razorpay Test Key ID: rzp_test_TT8v9aCoJzadD9
+ * Razorpay Live Key ID: rzp_live_TWiamQ0vr9Bbk0
  */
 
-window.YUGVEX_RAZORPAY_KEY = 'rzp_test_TT8v9aCoJzadD9';
+window.YUGVEX_RAZORPAY_KEY = 'rzp_live_TWiamQ0vr9Bbk0';
 
 let rzpSdkPromise = null;
 

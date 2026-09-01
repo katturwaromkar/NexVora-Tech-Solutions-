@@ -17,6 +17,9 @@
 /blog            /blog.html         200
 /contact         /contact.html      200
 /sales-portal    /sales-portal.html 200
+/quotation       /quotation.html    200
+/generate-quotation /quotation.html 200
+/quote           /quotation.html    200
 /privacy         /privacy.html      200
 /terms           /terms.html        200
 
